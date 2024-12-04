@@ -1,7 +1,18 @@
 ---
-title: "Home"
+title: "Website Tutorial"
+author: [Shixiang Wang]
+date: 2024-12-04
+draft: false
+toc: true
+toc-depth: 3
+toc-expand: 2
+
+format:
+  html:
+    code-fold: true
+    code-overflow: wrap
+    code-tools: false
+    code-link: true
 ---
 
-This is a Quarto website.
 
-To learn more about Quarto websites visit <https://quarto.org/docs/websites>.

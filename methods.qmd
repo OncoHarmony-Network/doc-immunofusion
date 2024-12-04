@@ -1,0 +1,88 @@
+---
+title: "Methods"
+author: [Shixiang Wang, Yankun Zhao]
+date: 2024-12-04
+draft: false
+toc: true
+toc-depth: 3
+toc-expand: 2
+
+format:
+  html:
+    code-fold: true
+    code-overflow: wrap
+    code-tools: false
+    code-link: true
+---
+
+
+## Gene Fusions identification and differential expression analysis
+
+We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically "gencode.v34.annotation.gtf.". Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment.
+
+## Response and Response2
+
+We gathered and processed patient 'Response' data from various cohorts. However, due to inconsistencies among these cohorts, such as the usage of different terms like CR, PR, SD, PD, R, NR, DCB, and NDB, we harmonized the response variable based on the timing of treatment and treatment response. As a result, we introduced a new variable called 'Response2' with four distinct categories: Pre-R, Pre-NR, On-R, and On-NR. In cases where response data was not available, we assigned the category NE.
+
+## Cancer Type Abbreviation
+
+
+| Abbr. | Description                                                   |
+| :----------------- | :----------------------------------------------------------- |
+| BLCA               | Bladder urothelial carcinoma                               |
+| SKCM               | Skin cutaneous melanoma                                    |
+| KIRC & CCRCC       | Kidney renal clear cell carcinoma                            |
+| HNSC & HNSCC       | Head and neck squamous cell carcinoma                       |
+| NSCLC              | Non-small cell lung cancer, including lung adenocarcinoma and lung squamous cell carcinoma |
+| SCLC | Small cell lung cancer |
+| SARC | Sarcoma |
+| BRCA | Breast cancer |
+| GBM | Glioblastoma Multiforme |
+| STAD | Stomach Adenocarcinoma |
+| SGC | Salivary gland cancer |
+| LUSC | Lung Squamous Cell Carcinoma |
+| MESO | Mesothelioma |
+| PCPG | Pheochromocytoma and Paraganglioma |
+| LIHC | Liver Hepatocellular Carcinoma |
+| PRAD | Prostate Adenocarcinoma |
+| ACC | Adrenocortical Carcinoma |
+| TGCT | Testicular Germ Cell Tumors |
+| PAAD | Pancreatic Adenocarcinoma |
+| UCEC | Uterine Corpus Endometrial Carcinoma |
+| THCA | Thyroid carcinoma |
+| CESC | Cervical squamous cell carcinoma and endocervical adenocarcinoma |
+| ESCA | Esophageal carcinoma |
+| READ | Rectum adenocarcinoma |
+| OV | Ovarian Serous Cystadenocarcinoma |
+| CHOL | Cholangiocarcinoma |
+| UCS | Uterine Carcinosarcoma |
+| LUAD | Lung Adenocarcinoma |
+| LGG | Brain Lower Grade Glioma |
+| HGSC | High-Grade Serous Carcinoma |
+| LSCC | Lung Squamous Cell Carcinoma |
+| PDAC | Pancreatic Ductal Adenocarcinoma |
+| THYM | Thymoma |
+| KICH | Kidney Chromophobe |
+| KIRP | Kidney Renal Papillary Cell Carcinoma |
+| COAD | Colon Adenocarcinoma |
+| LAML & AML | Acute Myeloid Leukemia |
+| DLBC | Lymphoid Neoplasm Diffuse Large B-cell Lymphoma |
+| ALL | Acute lymphocytic leukemia |
+| AML-IF | Acute Myeloid Leukemia, Induction Failure Subproject |
+| NBL | Neuroblastoma |
+| OS | Osteosarcoma |
+| ES | Ewing sarcoma |
+| WT | Wilms tumor |
+| CCSK | Clear Cell Sarcoma of the Kidney |
+| RT | Kidney, Rhabdoid Tumor |
+| CCSK | CNS, ependymoma |
+| MRT | CNS, rhabdoid tumor |
+| CCSK | CNS, medulloblastoma |
+| CCSK | NHL, anaplastic large cell lymphoma |
+| CCSK | NHL, Burkitt lymphoma (BL) |
+| CCSK | Rhabdomyosarcoma |
+| CCSK | Soft tissue sarcoma, non-rhabdomyosarcoma |
+| CCSK | CNS, other |
+| B-ALL | Precursor B-cell lymphoblastic leukemia |
+| GNB | Ganglioneuroblastoma |
+

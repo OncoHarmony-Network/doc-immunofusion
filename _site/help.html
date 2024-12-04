@@ -6,8 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Shixiang Wang">
+<meta name="author" content="Yankun Zhao">
+<meta name="dcterms.date" content="2024-12-04">
 
-<title>About – ImmunoFusion</title>
+<title>Methods – ImmunoFusion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -93,11 +96,11 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Tutorial</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./methods.html"> 
-<span class="menu-text">Supplementary Methods</span></a>
+    <a class="nav-link active" href="./help.html" aria-current="page"> 
+<span class="menu-text">Other Info</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link active" href="./about.html" aria-current="page"> 
+    <a class="nav-link" href="./about.html"> 
 <span class="menu-text">About</span></a>
   </li>  
 </ul>
@@ -116,10 +119,9 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#data-availability" id="toc-data-availability" class="nav-link active" data-scroll-target="#data-availability">Data Availability</a></li>
-  <li><a href="#citation" id="toc-citation" class="nav-link" data-scroll-target="#citation">Citation</a></li>
-  <li><a href="#contact" id="toc-contact" class="nav-link" data-scroll-target="#contact">Contact</a></li>
-  <li><a href="#team" id="toc-team" class="nav-link" data-scroll-target="#team">Team</a></li>
+  <li><a href="#gene-fusions-identification-and-differential-expression-analysis" id="toc-gene-fusions-identification-and-differential-expression-analysis" class="nav-link active" data-scroll-target="#gene-fusions-identification-and-differential-expression-analysis">Gene Fusions identification and differential expression analysis</a></li>
+  <li><a href="#response-and-response2" id="toc-response-and-response2" class="nav-link" data-scroll-target="#response-and-response2">Response and Response2</a></li>
+  <li><a href="#cancer-type-abbreviation" id="toc-cancer-type-abbreviation" class="nav-link" data-scroll-target="#cancer-type-abbreviation">Cancer Type Abbreviation</a></li>
   </ul>
 </nav>
     </div>
@@ -128,14 +130,27 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">About</h1>
+<h1 class="title">Methods</h1>
 </div>
 
 
 
 <div class="quarto-title-meta">
 
+    <div>
+    <div class="quarto-title-meta-heading">Authors</div>
+    <div class="quarto-title-meta-contents">
+             <p>Shixiang Wang </p>
+             <p>Yankun Zhao </p>
+          </div>
+  </div>
     
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">December 4, 2024</p>
+    </div>
+  </div>
   
     
   </div>
@@ -145,23 +160,254 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="data-availability" class="level2">
-<h2 class="anchored" data-anchor-id="data-availability">Data Availability</h2>
-<p>All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Repository” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated circRNA identification results are available at Zenodo (<a href="https://zenodo.org/doi/10.5281/zenodo.7969298" class="uri">https://zenodo.org/doi/10.5281/zenodo.7969298</a>). For requesting circRNA expression matrix or other types of data, please contact the leader, Jian-Guo Zhou.</p>
+<section id="gene-fusions-identification-and-differential-expression-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="gene-fusions-identification-and-differential-expression-analysis">Gene Fusions identification and differential expression analysis</h2>
+<p>We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically “gencode.v34.annotation.gtf.”. Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment.</p>
 </section>
-<section id="citation" class="level2">
-<h2 class="anchored" data-anchor-id="citation">Citation</h2>
-<p>The database is currently under submission for publication.</p>
+<section id="response-and-response2" class="level2">
+<h2 class="anchored" data-anchor-id="response-and-response2">Response and Response2</h2>
+<p>We gathered and processed patient ‘Response’ data from various cohorts. However, due to inconsistencies among these cohorts, such as the usage of different terms like CR, PR, SD, PD, R, NR, DCB, and NDB, we harmonized the response variable based on the timing of treatment and treatment response. As a result, we introduced a new variable called ‘Response2’ with four distinct categories: Pre-R, Pre-NR, On-R, and On-NR. In cases where response data was not available, we assigned the category NE.</p>
 </section>
-<section id="contact" class="level2">
-<h2 class="anchored" data-anchor-id="contact">Contact</h2>
-<p>If you find any bug or have any feature to request, please report it by email (Yankun Zhao <a href="mailto:23happytea@gmail.com" class="uri">mailto:23happytea@gmail.com</a>, Shixiang Wang <a href="mailto:shixiang1994wang@gmail.com" class="uri">mailto:shixiang1994wang@gmail.com</a>, Jianguo Zhou <a href="mailto:jianguo.zhou@zmu.edu.cn" class="uri">mailto:jianguo.zhou@zmu.edu.cn</a>).</p>
-</section>
-<section id="team" class="level2">
-<h2 class="anchored" data-anchor-id="team">Team</h2>
-<p>OncoHarmony Network is a dynamic collaborative platform dedicated to advancing the frontier of cancer immunotherapy. Bringing together diverse teams from leading universities and research institutions, our network is committed to the exploration, mining, and integration of multi-omics data in the realm of cancer research. With a focus on fostering synergy among experts in the field, OncoHarmony Network aims to construct a comprehensive resource hub and cutting-edge tools for unraveling the complexities of tumor-immune interactions. Through collective knowledge and interdisciplinary collaboration, we strive to accelerate breakthroughs in the understanding and development of effective cancer therapies.</p>
-<p>Currently led by Dr.&nbsp;Shixiang Wang and Dr.&nbsp;Jian-Guo Zhou.</p>
-<p>More please visit <a href="https://zhoulab.ac.cn/">our website</a>.</p>
+<section id="cancer-type-abbreviation" class="level2">
+<h2 class="anchored" data-anchor-id="cancer-type-abbreviation">Cancer Type Abbreviation</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 76%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Abbr.</th>
+<th style="text-align: left;">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">BLCA</td>
+<td style="text-align: left;">Bladder urothelial carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SKCM</td>
+<td style="text-align: left;">Skin cutaneous melanoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KIRC &amp; CCRCC</td>
+<td style="text-align: left;">Kidney renal clear cell carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HNSC &amp; HNSCC</td>
+<td style="text-align: left;">Head and neck squamous cell carcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NSCLC</td>
+<td style="text-align: left;">Non-small cell lung cancer, including lung adenocarcinoma and lung squamous cell carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">SCLC</td>
+<td style="text-align: left;">Small cell lung cancer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SARC</td>
+<td style="text-align: left;">Sarcoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">BRCA</td>
+<td style="text-align: left;">Breast cancer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">GBM</td>
+<td style="text-align: left;">Glioblastoma Multiforme</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">STAD</td>
+<td style="text-align: left;">Stomach Adenocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">SGC</td>
+<td style="text-align: left;">Salivary gland cancer</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LUSC</td>
+<td style="text-align: left;">Lung Squamous Cell Carcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">MESO</td>
+<td style="text-align: left;">Mesothelioma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PCPG</td>
+<td style="text-align: left;">Pheochromocytoma and Paraganglioma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LIHC</td>
+<td style="text-align: left;">Liver Hepatocellular Carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PRAD</td>
+<td style="text-align: left;">Prostate Adenocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ACC</td>
+<td style="text-align: left;">Adrenocortical Carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TGCT</td>
+<td style="text-align: left;">Testicular Germ Cell Tumors</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PAAD</td>
+<td style="text-align: left;">Pancreatic Adenocarcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">UCEC</td>
+<td style="text-align: left;">Uterine Corpus Endometrial Carcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">THCA</td>
+<td style="text-align: left;">Thyroid carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CESC</td>
+<td style="text-align: left;">Cervical squamous cell carcinoma and endocervical adenocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ESCA</td>
+<td style="text-align: left;">Esophageal carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">READ</td>
+<td style="text-align: left;">Rectum adenocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">OV</td>
+<td style="text-align: left;">Ovarian Serous Cystadenocarcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CHOL</td>
+<td style="text-align: left;">Cholangiocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">UCS</td>
+<td style="text-align: left;">Uterine Carcinosarcoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">LUAD</td>
+<td style="text-align: left;">Lung Adenocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LGG</td>
+<td style="text-align: left;">Brain Lower Grade Glioma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">HGSC</td>
+<td style="text-align: left;">High-Grade Serous Carcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LSCC</td>
+<td style="text-align: left;">Lung Squamous Cell Carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PDAC</td>
+<td style="text-align: left;">Pancreatic Ductal Adenocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">THYM</td>
+<td style="text-align: left;">Thymoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">KICH</td>
+<td style="text-align: left;">Kidney Chromophobe</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">KIRP</td>
+<td style="text-align: left;">Kidney Renal Papillary Cell Carcinoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">COAD</td>
+<td style="text-align: left;">Colon Adenocarcinoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">LAML &amp; AML</td>
+<td style="text-align: left;">Acute Myeloid Leukemia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">DLBC</td>
+<td style="text-align: left;">Lymphoid Neoplasm Diffuse Large B-cell Lymphoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ALL</td>
+<td style="text-align: left;">Acute lymphocytic leukemia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AML-IF</td>
+<td style="text-align: left;">Acute Myeloid Leukemia, Induction Failure Subproject</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">NBL</td>
+<td style="text-align: left;">Neuroblastoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">OS</td>
+<td style="text-align: left;">Osteosarcoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">ES</td>
+<td style="text-align: left;">Ewing sarcoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">WT</td>
+<td style="text-align: left;">Wilms tumor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">Clear Cell Sarcoma of the Kidney</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">RT</td>
+<td style="text-align: left;">Kidney, Rhabdoid Tumor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">CNS, ependymoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">MRT</td>
+<td style="text-align: left;">CNS, rhabdoid tumor</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">CNS, medulloblastoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">NHL, anaplastic large cell lymphoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">NHL, Burkitt lymphoma (BL)</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">Rhabdomyosarcoma</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">Soft tissue sarcoma, non-rhabdomyosarcoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">CCSK</td>
+<td style="text-align: left;">CNS, other</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">B-ALL</td>
+<td style="text-align: left;">Precursor B-cell lymphoblastic leukemia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">GNB</td>
+<td style="text-align: left;">Ganglioneuroblastoma</td>
+</tr>
+</tbody>
+</table>
 
 
 </section>

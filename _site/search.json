@@ -2,15 +2,162 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Home",
+    "title": "Help",
     "section": "",
-    "text": "This is a Quarto website.\nTo learn more about Quarto websites visit https://quarto.org/docs/websites."
+    "text": "We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically “gencode.v34.annotation.gtf.”. Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment."
   },
   {
     "objectID": "about.html",
     "href": "about.html",
     "title": "About",
     "section": "",
-    "text": "About this site"
+    "text": "All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Repository” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated circRNA identification results are available at Zenodo (https://zenodo.org/doi/10.5281/zenodo.7969298). For requesting circRNA expression matrix or other types of data, please contact the leader, Jian-Guo Zhou."
+  },
+  {
+    "objectID": "index.html#gene-fusions-identification-and-differential-expression-analysis",
+    "href": "index.html#gene-fusions-identification-and-differential-expression-analysis",
+    "title": "Help",
+    "section": "",
+    "text": "We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically “gencode.v34.annotation.gtf.”. Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment."
+  },
+  {
+    "objectID": "index.html#response-and-response2",
+    "href": "index.html#response-and-response2",
+    "title": "Help",
+    "section": "Response and Response2",
+    "text": "Response and Response2\nWe gathered and processed patient ‘Response’ data from various cohorts. However, due to inconsistencies among these cohorts, such as the usage of different terms like CR, PR, SD, PD, R, NR, DCB, and NDB, we harmonized the response variable based on the timing of treatment and treatment response. As a result, we introduced a new variable called ‘Response2’ with four distinct categories: Pre-R, Pre-NR, On-R, and On-NR. In cases where response data was not available, we assigned the category NE."
+  },
+  {
+    "objectID": "index.html#cancer-type-abbreviation",
+    "href": "index.html#cancer-type-abbreviation",
+    "title": "Help",
+    "section": "Cancer Type Abbreviation",
+    "text": "Cancer Type Abbreviation\n\n\n\n\n\n\n\nAbbr.\nDescription\n\n\n\n\nBLCA\nBladder urothelial carcinoma\n\n\nSKCM\nSkin cutaneous melanoma\n\n\nKIRC & CCRCC\nKidney renal clear cell carcinoma\n\n\nHNSC & HNSCC\nHead and neck squamous cell carcinoma\n\n\nNSCLC\nNon-small cell lung cancer, including lung adenocarcinoma and lung squamous cell carcinoma\n\n\nSCLC\nSmall cell lung cancer\n\n\nSARC\nSarcoma\n\n\nBRCA\nBreast cancer\n\n\nGBM\nGlioblastoma Multiforme\n\n\nSTAD\nStomach Adenocarcinoma\n\n\nSGC\nSalivary gland cancer\n\n\nLUSC\nLung Squamous Cell Carcinoma\n\n\nMESO\nMesothelioma\n\n\nPCPG\nPheochromocytoma and Paraganglioma\n\n\nLIHC\nLiver Hepatocellular Carcinoma\n\n\nPRAD\nProstate Adenocarcinoma\n\n\nACC\nAdrenocortical Carcinoma\n\n\nTGCT\nTesticular Germ Cell Tumors\n\n\nPAAD\nPancreatic Adenocarcinoma\n\n\nUCEC\nUterine Corpus Endometrial Carcinoma\n\n\nTHCA\nThyroid carcinoma\n\n\nCESC\nCervical squamous cell carcinoma and endocervical adenocarcinoma\n\n\nESCA\nEsophageal carcinoma\n\n\nREAD\nRectum adenocarcinoma\n\n\nOV\nOvarian Serous Cystadenocarcinoma\n\n\nCHOL\nCholangiocarcinoma\n\n\nUCS\nUterine Carcinosarcoma\n\n\nLUAD\nLung Adenocarcinoma\n\n\nLGG\nBrain Lower Grade Glioma\n\n\nHGSC\nHigh-Grade Serous Carcinoma\n\n\nLSCC\nLung Squamous Cell Carcinoma\n\n\nPDAC\nPancreatic Ductal Adenocarcinoma\n\n\nTHYM\nThymoma\n\n\nKICH\nKidney Chromophobe\n\n\nKIRP\nKidney Renal Papillary Cell Carcinoma\n\n\nCOAD\nColon Adenocarcinoma\n\n\nLAML & AML\nAcute Myeloid Leukemia\n\n\nDLBC\nLymphoid Neoplasm Diffuse Large B-cell Lymphoma\n\n\nALL\nAcute lymphocytic leukemia\n\n\nAML-IF\nAcute Myeloid Leukemia, Induction Failure Subproject\n\n\nNBL\nNeuroblastoma\n\n\nOS\nOsteosarcoma\n\n\nES\nEwing sarcoma\n\n\nWT\nWilms tumor\n\n\nCCSK\nClear Cell Sarcoma of the Kidney\n\n\nRT\nKidney, Rhabdoid Tumor\n\n\nCCSK\nCNS, ependymoma\n\n\nMRT\nCNS, rhabdoid tumor\n\n\nCCSK\nCNS, medulloblastoma\n\n\nCCSK\nNHL, anaplastic large cell lymphoma\n\n\nCCSK\nNHL, Burkitt lymphoma (BL)\n\n\nCCSK\nRhabdomyosarcoma\n\n\nCCSK\nSoft tissue sarcoma, non-rhabdomyosarcoma\n\n\nCCSK\nCNS, other\n\n\nB-ALL\nPrecursor B-cell lymphoblastic leukemia\n\n\nGNB\nGanglioneuroblastoma"
+  },
+  {
+    "objectID": "index.html#data-availability",
+    "href": "index.html#data-availability",
+    "title": "Help",
+    "section": "Data Availability",
+    "text": "Data Availability\nAll the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Repository” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated circRNA identification results are available at Zenodo (https://zenodo.org/doi/10.5281/zenodo.7969298). For requesting circRNA expression matrix or other types of data, please contact the leader, Jian-Guo Zhou."
+  },
+  {
+    "objectID": "index.html#citation",
+    "href": "index.html#citation",
+    "title": "Help",
+    "section": "Citation",
+    "text": "Citation\nThe database is currently under submission for publication."
+  },
+  {
+    "objectID": "index.html#contact",
+    "href": "index.html#contact",
+    "title": "Help",
+    "section": "Contact",
+    "text": "Contact\nIf you find any bug or have any feature to request, please report it by email (Yankun Zhao mailto:23happytea@gmail.com, Shixiang Wang mailto:shixiang1994wang@gmail.com, Jianguo Zhou mailto:jianguo.zhou@zmu.edu.cn)."
+  },
+  {
+    "objectID": "help.html",
+    "href": "help.html",
+    "title": "Methods",
+    "section": "",
+    "text": "We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically “gencode.v34.annotation.gtf.”. Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment."
+  },
+  {
+    "objectID": "help.html#gene-fusions-identification-and-differential-expression-analysis",
+    "href": "help.html#gene-fusions-identification-and-differential-expression-analysis",
+    "title": "Methods",
+    "section": "",
+    "text": "We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically “gencode.v34.annotation.gtf.”. Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment."
+  },
+  {
+    "objectID": "help.html#response-and-response2",
+    "href": "help.html#response-and-response2",
+    "title": "Methods",
+    "section": "Response and Response2",
+    "text": "Response and Response2\nWe gathered and processed patient ‘Response’ data from various cohorts. However, due to inconsistencies among these cohorts, such as the usage of different terms like CR, PR, SD, PD, R, NR, DCB, and NDB, we harmonized the response variable based on the timing of treatment and treatment response. As a result, we introduced a new variable called ‘Response2’ with four distinct categories: Pre-R, Pre-NR, On-R, and On-NR. In cases where response data was not available, we assigned the category NE."
+  },
+  {
+    "objectID": "help.html#cancer-type-abbreviation",
+    "href": "help.html#cancer-type-abbreviation",
+    "title": "Methods",
+    "section": "Cancer Type Abbreviation",
+    "text": "Cancer Type Abbreviation\n\n\n\n\n\n\n\nAbbr.\nDescription\n\n\n\n\nBLCA\nBladder urothelial carcinoma\n\n\nSKCM\nSkin cutaneous melanoma\n\n\nKIRC & CCRCC\nKidney renal clear cell carcinoma\n\n\nHNSC & HNSCC\nHead and neck squamous cell carcinoma\n\n\nNSCLC\nNon-small cell lung cancer, including lung adenocarcinoma and lung squamous cell carcinoma\n\n\nSCLC\nSmall cell lung cancer\n\n\nSARC\nSarcoma\n\n\nBRCA\nBreast cancer\n\n\nGBM\nGlioblastoma Multiforme\n\n\nSTAD\nStomach Adenocarcinoma\n\n\nSGC\nSalivary gland cancer\n\n\nLUSC\nLung Squamous Cell Carcinoma\n\n\nMESO\nMesothelioma\n\n\nPCPG\nPheochromocytoma and Paraganglioma\n\n\nLIHC\nLiver Hepatocellular Carcinoma\n\n\nPRAD\nProstate Adenocarcinoma\n\n\nACC\nAdrenocortical Carcinoma\n\n\nTGCT\nTesticular Germ Cell Tumors\n\n\nPAAD\nPancreatic Adenocarcinoma\n\n\nUCEC\nUterine Corpus Endometrial Carcinoma\n\n\nTHCA\nThyroid carcinoma\n\n\nCESC\nCervical squamous cell carcinoma and endocervical adenocarcinoma\n\n\nESCA\nEsophageal carcinoma\n\n\nREAD\nRectum adenocarcinoma\n\n\nOV\nOvarian Serous Cystadenocarcinoma\n\n\nCHOL\nCholangiocarcinoma\n\n\nUCS\nUterine Carcinosarcoma\n\n\nLUAD\nLung Adenocarcinoma\n\n\nLGG\nBrain Lower Grade Glioma\n\n\nHGSC\nHigh-Grade Serous Carcinoma\n\n\nLSCC\nLung Squamous Cell Carcinoma\n\n\nPDAC\nPancreatic Ductal Adenocarcinoma\n\n\nTHYM\nThymoma\n\n\nKICH\nKidney Chromophobe\n\n\nKIRP\nKidney Renal Papillary Cell Carcinoma\n\n\nCOAD\nColon Adenocarcinoma\n\n\nLAML & AML\nAcute Myeloid Leukemia\n\n\nDLBC\nLymphoid Neoplasm Diffuse Large B-cell Lymphoma\n\n\nALL\nAcute lymphocytic leukemia\n\n\nAML-IF\nAcute Myeloid Leukemia, Induction Failure Subproject\n\n\nNBL\nNeuroblastoma\n\n\nOS\nOsteosarcoma\n\n\nES\nEwing sarcoma\n\n\nWT\nWilms tumor\n\n\nCCSK\nClear Cell Sarcoma of the Kidney\n\n\nRT\nKidney, Rhabdoid Tumor\n\n\nCCSK\nCNS, ependymoma\n\n\nMRT\nCNS, rhabdoid tumor\n\n\nCCSK\nCNS, medulloblastoma\n\n\nCCSK\nNHL, anaplastic large cell lymphoma\n\n\nCCSK\nNHL, Burkitt lymphoma (BL)\n\n\nCCSK\nRhabdomyosarcoma\n\n\nCCSK\nSoft tissue sarcoma, non-rhabdomyosarcoma\n\n\nCCSK\nCNS, other\n\n\nB-ALL\nPrecursor B-cell lymphoblastic leukemia\n\n\nGNB\nGanglioneuroblastoma"
+  },
+  {
+    "objectID": "help.html#data-availability",
+    "href": "help.html#data-availability",
+    "title": "Documentation",
+    "section": "Data Availability",
+    "text": "Data Availability\nAll the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Repository” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated circRNA identification results are available at Zenodo (https://zenodo.org/doi/10.5281/zenodo.7969298). For requesting circRNA expression matrix or other types of data, please contact the leader, Jian-Guo Zhou."
+  },
+  {
+    "objectID": "help.html#citation",
+    "href": "help.html#citation",
+    "title": "Documentation",
+    "section": "Citation",
+    "text": "Citation\nThe database is currently under submission for publication."
+  },
+  {
+    "objectID": "help.html#contact",
+    "href": "help.html#contact",
+    "title": "Documentation",
+    "section": "Contact",
+    "text": "Contact\nIf you find any bug or have any feature to request, please report it by email (Yankun Zhao mailto:23happytea@gmail.com, Shixiang Wang mailto:shixiang1994wang@gmail.com, Jianguo Zhou mailto:jianguo.zhou@zmu.edu.cn)."
+  },
+  {
+    "objectID": "about.html#data-availability",
+    "href": "about.html#data-availability",
+    "title": "About",
+    "section": "",
+    "text": "All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Repository” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated circRNA identification results are available at Zenodo (https://zenodo.org/doi/10.5281/zenodo.7969298). For requesting circRNA expression matrix or other types of data, please contact the leader, Jian-Guo Zhou."
+  },
+  {
+    "objectID": "about.html#citation",
+    "href": "about.html#citation",
+    "title": "About",
+    "section": "Citation",
+    "text": "Citation\nThe database is currently under submission for publication."
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About",
+    "section": "Contact",
+    "text": "Contact\nIf you find any bug or have any feature to request, please report it by email (Yankun Zhao mailto:23happytea@gmail.com, Shixiang Wang mailto:shixiang1994wang@gmail.com, Jianguo Zhou mailto:jianguo.zhou@zmu.edu.cn)."
+  },
+  {
+    "objectID": "about.html#team",
+    "href": "about.html#team",
+    "title": "About",
+    "section": "Team",
+    "text": "Team\nOncoHarmony Network is a dynamic collaborative platform dedicated to advancing the frontier of cancer immunotherapy. Bringing together diverse teams from leading universities and research institutions, our network is committed to the exploration, mining, and integration of multi-omics data in the realm of cancer research. With a focus on fostering synergy among experts in the field, OncoHarmony Network aims to construct a comprehensive resource hub and cutting-edge tools for unraveling the complexities of tumor-immune interactions. Through collective knowledge and interdisciplinary collaboration, we strive to accelerate breakthroughs in the understanding and development of effective cancer therapies.\nCurrently led by Dr. Shixiang Wang and Dr. Jian-Guo Zhou.\nMore please visit our website."
+  },
+  {
+    "objectID": "methods.html",
+    "href": "methods.html",
+    "title": "Methods",
+    "section": "",
+    "text": "We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically “gencode.v34.annotation.gtf.”. Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment."
+  },
+  {
+    "objectID": "methods.html#gene-fusions-identification-and-differential-expression-analysis",
+    "href": "methods.html#gene-fusions-identification-and-differential-expression-analysis",
+    "title": "Methods",
+    "section": "",
+    "text": "We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion, to identify, parse, and annotate GFs junctions within each sample, using the human genome version hg38 as the reference. In our pursuit of biologically robust GFs identification within each cohort, we undertook an approach metafusion that amalgamated results from two GFs detection tools. Firstly, we exclusively retained Fusions located on chromosomes 1 to 22, as well as the X and Y chromosomes. Secondly, GFs were mandated to exhibit genomic overlap with gene regions as defined in the reference genome annotation file, specifically “gencode.v34.annotation.gtf.”. Thirdly to ensure the precision and recall in GFs prediction with different tools, one can either rely on consensus predictions or all predctions and choosing junction-crossing reads and reads mates which flank (span) the breakpoint. Fourthly, we offer FusionAnnotator to identify and prioritize GFs that have been previously reported in cancer or normal samples. Lastly, the detected data can be divided into Cis-SAGes and other categories to further explore the debate on what should be considered true fusion RNAs. This meticulous methodological approach was instrumental in ensuring the acquisition of biologically sound and reliable GFs datasets, thereby fortifying the integrity of our analysis within each cohort. This analysis facilitated comparisons between patient groups, such as those who responded to checkpoint immunotherapy versus non-responders, as well as between samples collected before and during ICB treatment."
+  },
+  {
+    "objectID": "methods.html#response-and-response2",
+    "href": "methods.html#response-and-response2",
+    "title": "Methods",
+    "section": "Response and Response2",
+    "text": "Response and Response2\nWe gathered and processed patient ‘Response’ data from various cohorts. However, due to inconsistencies among these cohorts, such as the usage of different terms like CR, PR, SD, PD, R, NR, DCB, and NDB, we harmonized the response variable based on the timing of treatment and treatment response. As a result, we introduced a new variable called ‘Response2’ with four distinct categories: Pre-R, Pre-NR, On-R, and On-NR. In cases where response data was not available, we assigned the category NE."
+  },
+  {
+    "objectID": "methods.html#cancer-type-abbreviation",
+    "href": "methods.html#cancer-type-abbreviation",
+    "title": "Methods",
+    "section": "Cancer Type Abbreviation",
+    "text": "Cancer Type Abbreviation\n\n\n\n\n\n\n\nAbbr.\nDescription\n\n\n\n\nBLCA\nBladder urothelial carcinoma\n\n\nSKCM\nSkin cutaneous melanoma\n\n\nKIRC & CCRCC\nKidney renal clear cell carcinoma\n\n\nHNSC & HNSCC\nHead and neck squamous cell carcinoma\n\n\nNSCLC\nNon-small cell lung cancer, including lung adenocarcinoma and lung squamous cell carcinoma\n\n\nSCLC\nSmall cell lung cancer\n\n\nSARC\nSarcoma\n\n\nBRCA\nBreast cancer\n\n\nGBM\nGlioblastoma Multiforme\n\n\nSTAD\nStomach Adenocarcinoma\n\n\nSGC\nSalivary gland cancer\n\n\nLUSC\nLung Squamous Cell Carcinoma\n\n\nMESO\nMesothelioma\n\n\nPCPG\nPheochromocytoma and Paraganglioma\n\n\nLIHC\nLiver Hepatocellular Carcinoma\n\n\nPRAD\nProstate Adenocarcinoma\n\n\nACC\nAdrenocortical Carcinoma\n\n\nTGCT\nTesticular Germ Cell Tumors\n\n\nPAAD\nPancreatic Adenocarcinoma\n\n\nUCEC\nUterine Corpus Endometrial Carcinoma\n\n\nTHCA\nThyroid carcinoma\n\n\nCESC\nCervical squamous cell carcinoma and endocervical adenocarcinoma\n\n\nESCA\nEsophageal carcinoma\n\n\nREAD\nRectum adenocarcinoma\n\n\nOV\nOvarian Serous Cystadenocarcinoma\n\n\nCHOL\nCholangiocarcinoma\n\n\nUCS\nUterine Carcinosarcoma\n\n\nLUAD\nLung Adenocarcinoma\n\n\nLGG\nBrain Lower Grade Glioma\n\n\nHGSC\nHigh-Grade Serous Carcinoma\n\n\nLSCC\nLung Squamous Cell Carcinoma\n\n\nPDAC\nPancreatic Ductal Adenocarcinoma\n\n\nTHYM\nThymoma\n\n\nKICH\nKidney Chromophobe\n\n\nKIRP\nKidney Renal Papillary Cell Carcinoma\n\n\nCOAD\nColon Adenocarcinoma\n\n\nLAML & AML\nAcute Myeloid Leukemia\n\n\nDLBC\nLymphoid Neoplasm Diffuse Large B-cell Lymphoma\n\n\nALL\nAcute lymphocytic leukemia\n\n\nAML-IF\nAcute Myeloid Leukemia, Induction Failure Subproject\n\n\nNBL\nNeuroblastoma\n\n\nOS\nOsteosarcoma\n\n\nES\nEwing sarcoma\n\n\nWT\nWilms tumor\n\n\nCCSK\nClear Cell Sarcoma of the Kidney\n\n\nRT\nKidney, Rhabdoid Tumor\n\n\nCCSK\nCNS, ependymoma\n\n\nMRT\nCNS, rhabdoid tumor\n\n\nCCSK\nCNS, medulloblastoma\n\n\nCCSK\nNHL, anaplastic large cell lymphoma\n\n\nCCSK\nNHL, Burkitt lymphoma (BL)\n\n\nCCSK\nRhabdomyosarcoma\n\n\nCCSK\nSoft tissue sarcoma, non-rhabdomyosarcoma\n\n\nCCSK\nCNS, other\n\n\nB-ALL\nPrecursor B-cell lymphoblastic leukemia\n\n\nGNB\nGanglioneuroblastoma"
   }
 ]
