@@ -1,7 +1,7 @@
 ---
 title: "Methods"
 author: [Shixiang Wang, Yankun Zhao]
-date: 2024-12-04
+date: 2024-3-16
 draft: false
 toc: true
 toc-depth: 3
@@ -1013,10 +1013,14 @@ TARGET_correct      <- TARGET_pretreatment |>
 ### TARGET_correct$project_id |> unique()
 ### [1] "TARGET-AML" "TARGET-NBL"
 TARGET_correct_after_pro <- TARGET_correct  %>%
-  mutate(cohort = case_when(
-    cohort == "TARGET-Unkown" ~ Project_id,
-    TRUE ~ cohort
-  )) 
+  mutate(
+    cohort = case_when(
+             cohort == "TARGET-Unkown" ~ Project_id,
+             TRUE ~ cohort),
+    cohort = case_when(
+             cohort == "TARGET-AML" ~ "TARGET-LAML",
+             TRUE ~ cohort)
+  ) 
 
 ### Divide a part of data into a group based on whether the Sample_type is cell
 
