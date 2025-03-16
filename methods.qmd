@@ -1,7 +1,7 @@
 ---
 title: "Methods"
 author: [Shixiang Wang, Yankun Zhao]
-date: 2024-12-04
+date: 2024-3-16
 draft: false
 toc: true
 toc-depth: 3
@@ -59,32 +59,127 @@ We gathered and processed patient 'Response' data from various cohorts. However,
 | LUAD | Lung Adenocarcinoma |
 | LGG | Brain Lower Grade Glioma |
 | HGSC | High-Grade Serous Carcinoma |
-| LSCC | Lung Squamous Cell Carcinoma |
+| LSCC & LUSC        | Lung Squamous Cell Carcinoma |
 | PDAC | Pancreatic Ductal Adenocarcinoma |
 | THYM | Thymoma |
 | KICH | Kidney Chromophobe |
 | KIRP | Kidney Renal Papillary Cell Carcinoma |
 | COAD | Colon Adenocarcinoma |
 | LAML & AML | Acute Myeloid Leukemia |
-| DLBC | Lymphoid Neoplasm Diffuse Large B-cell Lymphoma |
-| ALL | Acute lymphocytic leukemia |
-| AML-IF | Acute Myeloid Leukemia, Induction Failure Subproject |
 | NBL | Neuroblastoma |
-| OS | Osteosarcoma |
-| ES | Ewing sarcoma |
-| WT | Wilms tumor |
-| CCSK | Clear Cell Sarcoma of the Kidney |
-| RT | Kidney, Rhabdoid Tumor |
-| CCSK | CNS, ependymoma |
-| MRT | CNS, rhabdoid tumor |
-| CCSK | CNS, medulloblastoma |
-| CCSK | NHL, anaplastic large cell lymphoma |
-| CCSK | NHL, Burkitt lymphoma (BL) |
-| CCSK | Rhabdomyosarcoma |
-| CCSK | Soft tissue sarcoma, non-rhabdomyosarcoma |
-| CCSK | CNS, other |
-| B-ALL | Precursor B-cell lymphoblastic leukemia |
 | GNB | Ganglioneuroblastoma |
+
+## ImmunoFusion cohort naming maping
+
+
+| Cancer | Sample_type | Project_id | Immunofusion-cohort |
+|--------|-------------|------------|---------------------|
+| BRCA   | Primary Tumor | CPTAC-2    | CPTAC-BRCA          |
+| COAD   | Primary Tumor | CPTAC-2    | CPTAC-COAD          |
+| HGSC   | Primary Tumor | CPTAC-2    | CPTAC-HGSC          |
+| LSCC   | Primary Tumor | CPTAC-3    | CPTAC-LUSC          |
+| UCEC   | Primary Tumor | CPTAC-3    | CPTAC-UCEC          |
+| LUAD   | Primary Tumor | CPTAC-3    | CPTAC-LUAD          |
+| GBM    | Primary Tumor | CPTAC-3    | CPTAC-GBM           |
+| HNSCC  | Primary Tumor | CPTAC-3    | CPTAC-HNSC          |
+| CCRCC  | Primary Tumor | CPTAC-3    | CPTAC-KIRC          |
+| PDAC   | Primary Tumor | CPTAC-3    | CPTAC-PDAC          |
+| PDAC   | Solid Tissue Normal | CPTAC-3 | CPTAC-NORMAL       |
+| LUAD   | Solid Tissue Normal | CPTAC-3 | CPTAC-NORMAL       |
+| UCEC   | Solid Tissue Normal | CPTAC-3 | CPTAC-NORMAL       |
+| CCRCC  | Solid Tissue Normal | CPTAC-3 | CPTAC-NORMAL       |
+| HNSCC  | Solid Tissue Normal | CPTAC-3 | CPTAC-NORMAL       |
+| LSCC   | Solid Tissue Normal | CPTAC-3 | CPTAC-NORMAL       |
+| GTEX-Brain | Solid Tissue Normal | CPTAC-3 | CPTAC-NORMAL     |
+| --     | Primary Blood Derived Cancer - Peripheral Blood/Recurrent Blood Derived Cancer - Peripheral Blood/Next Generation Cancer Model/Recurrent Blood Derived Cancer - Bone Marrow/Primary Blood Derived Cancer - Bone Marrow | TARGET-AML | TARGET-LAML |
+| Acute myeloid leukemia, NOS | Primary Blood Derived Cancer - Bone Marrow/Recurrent Blood Derived Cancer - Bone Marrow/Primary Blood Derived Cancer - Peripheral Blood/ Blood Derived Cancer - Bone Marrow/Post-treatment/Recurrent Blood Derived Cancer - Peripheral Blood/ Blood Derived Cancer - Peripheral Blood | TARGET-AML | TARGET-LAML |
+| Neuroblastoma, NOS | Primary Tumor/Recurrent Tumor/Recurrent Blood Derived Cancer - Bone Marrow | TARGET-NBL | TARGET-NBL |
+| Ganglioneuroblastoma | Primary Tumor/Recurrent Tumor | TARGET-NBL | TARGET-GNB |
+| --     | Cell Lines | TARGET-AML | TARGET-CELL         |
+| --     | Bone Marrow Normal | TARGET-AML | TARGET-NORMAL     |
+| Acute myeloid leukemia, NOS | Blood Derived Normal/Bone Marrow Normal | TARGET-AML | TARGET-NORMAL |
+| ACC    | Primary Tumor | TCGA-ACC   | TCGA-ACC            |
+| BLCA   | Primary Tumor | TCGA-BLCA  | TCGA-BLCA           |
+| BRCA   | Primary Tumor | TCGA-BRCA  | TCGA-BRCA           |
+| BRCA   | Metastatic    | TCGA-BRCA  | TCGA-BRCA           |
+| CESC   | Primary Tumor | TCGA-CESC  | TCGA-CESC           |
+| CESC   | Metastatic    | TCGA-CESC  | TCGA-CESC           |
+| CHOL   | Primary Tumor | TCGA-CHOL  | TCGA-CHOL           |
+| COAD   | Primary Tumor | TCGA-COAD  | TCGA-COAD           |
+| COAD   | Recurrent Tumor | TCGA-COAD | TCGA-COAD           |
+| COAD   | Metastatic    | TCGA-COAD  | TCGA-COAD           |
+| DLBC   | Primary Tumor | TCGA-DLBC  | TCGA-DLBC           |
+| ESCA   | Primary Tumor | TCGA-ESCA  | TCGA-ESCA           |
+| ESCA   | Metastatic    | TCGA-ESCA  | TCGA-ESCA           |
+| GBM    | Primary Tumor | TCGA-GBM   | TCGA-GBM            |
+| GBM    | Recurrent Tumor | TCGA-GBM  | TCGA-GBM            |
+| HNSC   | Primary Tumor | TCGA-HNSC  | TCGA-HNSC           |
+| HNSC   | Metastatic    | TCGA-HNSC  | TCGA-HNSC           |
+| KICH   | Primary Tumor | TCGA-KICH  | TCGA-KICH           |
+| KIRC   | Primary Tumor | TCGA-KIRC  | TCGA-KIRC           |
+| KIRC   | Additional - New Primary | TCGA-KIRC | TCGA-KIRC |
+| KIRP   | Primary Tumor | TCGA-KIRP  | TCGA-KIRP           |
+| KIRP   | Additional - New Primary | TCGA-KIRP | TCGA-KIRP |
+| LAML   | Primary Blood Derived Cancer - Peripheral Blood | TCGA-LAML | TCGA-LAML |
+| LGG    | Primary Tumor | TCGA-LGG   | TCGA-LGG            |
+| LGG    | Recurrent Tumor | TCGA-LGG  | TCGA-LGG            |
+| LIHC   | Primary Tumor | TCGA-LIHC  | TCGA-LIHC           |
+| LIHC   | Recurrent Tumor | TCGA-LIHC | TCGA-LIHC           |
+| LUAD   | Primary Tumor | TCGA-LUAD  | TCGA-LUAD           |
+| LUAD   | Recurrent Tumor | TCGA-LUAD | TCGA-LUAD           |
+| LUSC   | Primary Tumor | TCGA-LUSC  | TCGA-LUSC           |
+| MESO   | Primary Tumor | TCGA-MESO  | TCGA-MESO           |
+| OV     | Primary Tumor | TCGA-OV    | TCGA-OV             |
+| OV     | Recurrent Tumor | TCGA-OV   | TCGA-OV             |
+| PAAD   | Primary Tumor | TCGA-PAAD  | TCGA-PAAD           |
+| PAAD   | Metastatic    | TCGA-PAAD  | TCGA-PAAD           |
+| PCPG   | Primary Tumor | TCGA-PCPG  | TCGA-PCPG           |
+| PCPG   | Additional - New Primary | TCGA-PCPG | TCGA-PCPG |
+| PCPG   | Metastatic    | TCGA-PCPG  | TCGA-PCPG           |
+| PRAD   | Primary Tumor | TCGA-PRAD  | TCGA-PRAD           |
+| PRAD   | Metastatic    | TCGA-PRAD  | TCGA-PRAD           |
+| READ   | Primary Tumor | TCGA-READ  | TCGA-READ           |
+| READ   | Recurrent Tumor | TCGA-READ | TCGA-READ           |
+| SARC   | Primary Tumor | TCGA-SARC  | TCGA-SARC           |
+| SARC   | Recurrent Tumor | TCGA-SARC | TCGA-SARC           |
+| SARC   | Metastatic    | TCGA-SARC  | TCGA-SARC           |
+| SKCM   | Metastatic    | TCGA-SKCM  | TCGA-SKCM           |
+| SKCM   | Primary Tumor | TCGA-SKCM  | TCGA-SKCM           |
+| SKCM   | Additional Metastatic | TCGA-SKCM | TCGA-SKCM |
+| STAD   | Primary Tumor | TCGA-STAD  | TCGA-STAD           |
+| TGCT   | Primary Tumor | TCGA-TGCT  | TCGA-TGCT           |
+| TGCT   | Additional - New Primary | TCGA-TGCT | TCGA-TGCT |
+| THCA   | Primary Tumor | TCGA-THCA  | TCGA-THCA           |
+| THCA   | Metastatic    | TCGA-THCA  | TCGA-THCA           |
+| THYM   | Primary Tumor | TCGA-THYM  | TCGA-THYM           |
+| UCEC   | Primary Tumor | TCGA-UCEC  | TCGA-UCEC           |
+| UCEC   | Recurrent Tumor | TCGA-UCEC | TCGA-UCEC           |
+| UCS    | Primary Tumor | TCGA-UCS   | TCGA-UCS            |
+| UVM    | Primary Tumor | TCGA-UVM   | TCGA-UVM            |
+| BLCA   | Solid Tissue Normal | TCGA-BLCA | TCGA-NORMAL       |
+| BRCA   | Solid Tissue Normal | TCGA-BRCA | TCGA-NORMAL       |
+| CESC   | Solid Tissue Normal | TCGA-CESC | TCGA-NORMAL       |
+| CHOL   | Solid Tissue Normal | TCGA-CHOL | TCGA-NORMAL       |
+| COAD   | Solid Tissue Normal | TCGA-COAD | TCGA-NORMAL       |
+| ESCA   | Solid Tissue Normal | TCGA-ESCA | TCGA-NORMAL       |
+| HNSC   | Solid Tissue Normal | TCGA-HNSC | TCGA-NORMAL       |
+| KICH   | Solid Tissue Normal | TCGA-KICH | TCGA-NORMAL       |
+| KIRC   | Solid Tissue Normal | TCGA-KIRC | TCGA-NORMAL       |
+| KIRP   | Solid Tissue Normal | TCGA-KIRP | TCGA-NORMAL       |
+| LIHC   | Solid Tissue Normal | TCGA-LIHC | TCGA-NORMAL       |
+| LUAD   | Solid Tissue Normal | TCGA-LUAD | TCGA-NORMAL       |
+| LUSC   | Solid Tissue Normal | TCGA-LUSC | TCGA-NORMAL       |
+| PAAD   | Solid Tissue Normal | TCGA-PAAD | TCGA-NORMAL       |
+| PCPG   | Solid Tissue Normal | TCGA-PCPG | TCGA-NORMAL       |
+| PRAD   | Solid Tissue Normal | TCGA-PRAD | TCGA-NORMAL       |
+| READ   | Solid Tissue Normal | TCGA-READ | TCGA-NORMAL       |
+| SARC   | Solid Tissue Normal | TCGA-SARC | TCGA-NORMAL       |
+| SKCM   | Solid Tissue Normal | TCGA-SKCM | TCGA-NORMAL       |
+| STAD   | Solid Tissue Normal | TCGA-STAD | TCGA-NORMAL       |
+| THCA   | Solid Tissue Normal | TCGA-THCA | TCGA-NORMAL       |
+| THYM   | Solid Tissue Normal | TCGA-THYM | TCGA-NORMAL       |
+| UCEC   | Solid Tissue Normal | TCGA-UCEC | TCGA-NORMAL       |
+
 
 
 ## Clinical data preprocessing
@@ -107,7 +202,7 @@ library(dplyr)
 # [Discrepancy] [Not Applicable]  [Not Available]
 # [Discrepancy] [Not Available]       [Unknown]
 # # [Discrepancy]                                        [Not Applicable]
-# 29                                                     105
+# 29                                                          105
 # [Not Available]                                         [Not Evaluated]
 # 5140                                                       4
 # [Unknown]
@@ -178,14 +273,14 @@ cli_list = fs::dir_ls("CPTAC_Clinical_meta_data_v1/")
 
 cli = purrr::map(cli_list, fread) |> rbindlist(fill = TRUE, use.names = TRUE)
 colnames(cli)
-# 问题，这个第 2 行要跳过才行
-# 另外这个同时包含 CPTAC-2/3 的样本，但总数少一些
+# Problem: Need to skip the second row
+# This also includes samples from CPTAC-2/3, but the total number is fewer
 
 cli2 = purrr::map(cli_list, function(x) {
-  # 由于列名也不同，这里读两次，一次读 colname，一次读数据
+  # Since the column names are also different, read them twice—once for the column names and once for the data
   data1 = fread(x)
   data2 = fread(x, skip = 2, header = FALSE)
-  # 更新列名
+  # Update the column names
   colnames(data2) = colnames(data1)
   data2$Cancer = stringr::str_remove(basename(x), "_meta.txt")
   data2 |> as.data.table()
@@ -193,13 +288,13 @@ cli2 = purrr::map(cli_list, function(x) {
 #colnames(cli2) = colnames(cli)
 colnames(cli2)
 
-cli2[Tumor == "Yes" & Normal == "Yes"] # 这个是标记患者是否同时 tumor / normal sample
+cli2[Tumor == "Yes" & Normal == "Yes"] # This is to mark whether the patient has both tumor and normal samples
 
 
 cli_list2 = fs::dir_ls("meta_data_BCM/")
 
 cli3 = purrr::map(cli_list2, function(x) {
-  # 由于列名也不同，这里读两次，一次读 colname，一次读数据
+  # Since the column names are also different, read them twice—once for the column names and once for the data
   data1 = fread(x)
   data2 = fread(x, skip = 2, header = FALSE)
   # 更新列名
@@ -222,7 +317,7 @@ dplyr::setdiff(cli4, cli2) |> nrow()
 # rbind(cli2[idx == "01OV007"],
 #       cli4[idx == "01OV007"]) |> View()
 
-# 2 个数据源目录的文件基本没有区别
+# The files in the directories of the two data sources are basically identical
 
 cli.final = cli2 |>
   dplyr::rename(
@@ -296,16 +391,16 @@ data.table::fwrite(
 cptac3
 
 
-# 根据 GDC 已有信息补全 paper 缺少的样本信息 ---------------------------------------------
+# Supplement the missing sample information in the paper based on the existing information in the GDC. ---------------------------------------------
 
-# 可能标记了 cancer type 的列
+# might be columns that have labeled cancer types.
 # primary_diagnosis site_of_resection_or_biopsy tissue_or_organ_of_origin
 
 cptac = rbind(cptac2, cptac3)[, .(case_submitter_id, primary_diagnosis, site_of_resection_or_biopsy, tissue_or_organ_of_origin)] |> unique()
 cptac = dplyr::left_join(cptac, cli.final[, .(Sample_ID, Cancer)], by = c("case_submitter_id"="Sample_ID"))
 
 setdiff(cli.final$Sample_ID, cptac$case_submitter_id)
-# 有 29 例不在 GDC 数据中
+# 29 cases are not in the GDC data.
 
 table(cptac$Cancer, cptac$primary_diagnosis) |> pheatmap::pheatmap()
 table(cptac$Cancer, cptac$site_of_resection_or_biopsy) |> pheatmap::pheatmap()
@@ -318,7 +413,7 @@ table(cptac$Cancer,
         cptac$tissue_or_organ_of_origin, sep = "_"
       )) |> pheatmap::pheatmap(show_colnames = FALSE)
 
-# 一个个处理
+# Solve them one by one.
 cat(sub("_meta.txt", "", basename(names(cli_list))))
 
 typelist = sub("_meta.txt", "", basename(names(cli_list)))
@@ -340,7 +435,7 @@ for (i in typelist) {
 # GBM (99): primary_diagnosis "Glioblastoma"
 # HGSC (87): primary_diagnosis "Serous adenocarcinoma, NOS" AND
 #  tissue_or_organ_of_origin Fallopian tube Ovary Peritoneum, NOS
-# HNSCC (108): 其他情况 primary_diagnosis "Squamous cell carcinoma, NOS"
+# HNSCC (108): Other situation: primary_diagnosis "Squamous cell carcinoma, NOS"
 # Base of tongue, NOS Cheek mucosa Floor of mouth, NOS Gum, NOS
 # HNSCC                   1            2                  18        3
 #
@@ -357,9 +452,9 @@ for (i in typelist) {
 # UCEC (95): primary_diagnosis "Endometrioid adenocarcinoma, NOS"
 sum(!is.na(cptac$Cancer))
 
-# rbind(cptac2, cptac3)[,192] # 有重复列，需要回到前面处理 (fixed)
+# rbind(cptac2, cptac3)[,192] # There are duplicate columns, need to go back and handle this earlier (fixed).
 
-# 实际测试和更新
+# Actual testing and updating
 cptac_updated = rbind(cptac2, cptac3) |>
   unique() |>
   dplyr::mutate(
@@ -524,7 +619,7 @@ cli.final.2 = dplyr::bind_rows(
 table(cli.final.2$Cancer)
 sum(table(cli.final.2$Cancer))
 
-# Race 全部加进去？
+# Include all Race information?
 cli.final.2 = dplyr::left_join(
   cli.final.2, unique(rbind(cptac2, cptac3)[, .(case_submitter_id, race)]),
   by = c("Sample_ID"="case_submitter_id")
@@ -649,10 +744,10 @@ gdc_target2 = gdc_target |>
 
 #unique()
 
-# 存在大量 case level 重复
+# exist  a large number of case level  replicate
 gdc_target2[duplicated(gdc_target2), ]
 duplicated(gdc_target[case_submitter_id == "TARGET-20-PANTIV"])
-gdc_target[case_submitter_id == "TARGET-20-PANTIV"] |> View() # 存在少量记录的更新？
+gdc_target[case_submitter_id == "TARGET-20-PANTIV"] |> View() # A few records that have been updated？
 
 gdc_target2 = gdc_target2[!duplicated(gdc_target2)]
 
@@ -661,13 +756,13 @@ any(duplicated(gdc_target2))
 any(duplicated(gdc_target2$Sample_ID))
 
 gdc_target2[duplicated(gdc_target2$Sample_ID)]
-# 会存在不同 ALL 的 Project 中
+# They may exist in different ALL projects.
 gdc_dup = gdc_target2[Sample_ID %in% Sample_ID[duplicated(Sample_ID)]]
 table(gdc_dup$project_id)
 # TARGET-ALL-P1 TARGET-ALL-P2 TARGET-ALL-P3
 # 10            57            47
 #
-# 这种先不处理，如果 ALL 合并分析考虑去重
+# For now, we won't address this issue. If we conduct a combined analysis of ALL, we will consider removing duplicates.
 
 colnames(gdc_target2)
 gdc_target2 = gdc_target2[, c("Patient_ID", "Sample_ID", "Age", "Sex", "race", "primary_diagnosis", "OS_Time", "OS_Status", "project_id")]
@@ -679,4 +774,1104 @@ sum(!is.na(cli1$`_OS`))
 
 nrow(na.omit(unique(target_cli[, .(Patient_ID, OS_Time, OS_Status)])))
 nrow(na.omit(unique(gdc_target2[, .(Patient_ID, OS_Time, OS_Status)])))
+```
+
+## TCGA/TARGET/CPTAC Clinical/IOBR/TME/GENE data divide and anotate preprocessing 
+
+### TARGET
+
+```r
+library(data.table)
+library(dplyr)
+library(stringr)
+library(tidyr)
+
+file_meta <- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls_matched.cptac.tsv"
+metafusion <- fread(file_meta, sep = "\t")
+
+# TARGET
+## info
+### Because some projects are not included in the target_sheet, we should abandon them.
+TARGET_sheet <- fread("/home/data2/Projects/Fusion/unclean/TARGET_gdc_sample_sheet.2023-11-15.tsv", sep = "\t")
+project_choose <- substr(TARGET_sheet$`Sample ID`, 1, 9) |> unique()
+project_choose
+### "TARGET-20" "TARGET-00" "TARGET-21" "TARGET-30"
+
+### TARGET_sheet pretreatment
+
+### Composite Sample 
+###
+### Composite Sample use comma to separate like TARGET-30-PAPEAV, TARGET-30-PAPTFZ
+TARGET_Composite <- TARGET_sheet |> 
+  filter(grepl(", ", `Sample ID`)) |>  
+  select(`Sample ID`) |>
+  unique()
+TARGET_Composite
+### 1: TARGET-30-PAPEAV-01A, TARGET-30-PAPTFZ-01A
+### 2: TARGET-30-PANUKV-01A, TARGET-30-PASUML-01A
+### 3: TARGET-30-PANKFE-01A, TARGET-30-PAPUAR-01A
+### 4: TARGET-30-PASYPX-01A, TARGET-30-PAIXIF-01A
+
+### For the CPTAC databases, check whether there is any overlap between composite and normal Sample_ID in the info data. 
+check_TARGET_overlap <- TARGET_sheet |>  
+  select(c(`Case ID`, `Sample ID`, `Sample Type`, `Project ID`)) |>
+  unique() |> 
+  separate_rows(`Sample ID`, sep = ",\\s*") 
+
+check_TARGET_overlap <- check_TARGET_overlap |>
+  mutate(Sample_Type = ifelse(grepl(", ", `Sample ID`), "Composite", "Normal"))
+
+overlap_samples <- check_TARGET_overlap |>
+  group_by(`Sample ID`) |>
+  summarise(Count = n(), .groups = 'drop') |>
+  filter(Count > 1)
+
+overlap_samples
+###  A tibble: 4 × 2
+###  `Sample ID`          Count
+###  <chr>                <int>
+###  1 TARGET-30-PANKFE-01A     2
+###  2 TARGET-30-PAPTFZ-01A     2
+###  3 TARGET-30-PASUML-01A     2
+###  4 TARGET-30-PASYPX-01A     2
+
+### So we choose abandon them.
+
+TARGET_pretreatment <- TARGET_sheet |> 
+  select(c(`Case ID`, `Sample ID`, `Sample Type`)) |>
+  rename("Patient_ID" = `Case ID`,
+         "Sample_ID" = `Sample ID`,
+         "Sample_type"  =  `Sample Type`) |> 
+  filter(!grepl(",", Sample_ID)) |> 
+  filter(grepl("^TARGET-(20|00|21|30)", Sample_ID)) |> 
+  unique()
+
+### TARGET_xena_info pretreatment
+### This data use
+TARGET_xena_info <- fread("/home/data2/Projects/Fusion/fusiondb/Clininfo/TARGET_xena_info.tsv", sep = "\t") 
+TARGET_xena_pretreatment   <- TARGET_xena_info |>
+                              mutate(Patient_ID = str_extract(Sample_ID, "^[^-]+-[^-]+-[^-]+")) |>
+                              filter(grepl("^TARGET-(20|00|21|30)", Sample_ID)) |>
+                              mutate(Age = round(Age, digits = 0),
+                                     across(c(Age, OS_Time, OS_Status), ~ as.integer(.))) |>
+                              rename(Cancer = disease_code)
+
+### TARGET_info pretreatment
+### In the TARGET database, rows with the info column marked as '--' are annotated as NA.
+filter_lose <- function(x) {
+  is.na(x) | x == "" | x == "--" | x == "Unknown" | x == "'--"
+ }
+TARGET_info <- fread("/home/data2/Projects/Fusion/fusiondb/Clininfo/TARGET_info.tsv", sep = "\t") 
+replacement_table2 <- c(
+  "Acute lymphocytic leukemia" =  "TARGET-ALL",             
+  "'--"   = "TARGET-Unkown",                                  
+  "Precursor B-cell lymphoblastic leukemia" = "TARGET-B-ALL", 
+  "Not Reported"  = "TARGET-Unkown",                         
+  "Acute myeloid leukemia, NOS" = "TARGET-LAML",             
+  "Clear cell sarcoma of kidney" = "TARGET-CCSK",           
+  "Neuroblastoma, NOS"  = "TARGET-NBL",                     
+  "Ganglioneuroblastoma" = "TARGET-GNB",                   
+  "Osteosarcoma, NOS"   = "TARGET-OS",                    
+  "Malignant rhabdoid tumor" = "TARGET-MRT",               
+  "Wilms tumor" = "TARGET-WT"  
+)
+matched2 <- TARGET_info$primary_diagnosis %in% names(replacement_table2)
+TARGET_info_pretreatment <- TARGET_info |>
+                            mutate(cohort = case_when(
+                                   matched2 ~ replacement_table2[primary_diagnosis],
+                                   TRUE ~ as.character(NA)  
+                                   )) |>
+                            rename(Cancer = primary_diagnosis,
+                                   Project_id = project_id) |> 
+                            filter(grepl("^TARGET-(20|00|21|30)", Sample_ID)) |> 
+                            mutate(across(c("Age", "Sex", "OS_Time", "OS_Status", "race"), ~ ifelse(filter_lose(.x), NA, .x))) |> 
+                            mutate(Cancer = ifelse(Cancer == "'--", NA, Cancer))
+
+### Check if the valid rows in TARGET_info match the valid rows in TARGET_xena_info.
+
+### 1.Filter the valid rows.
+filter_valid <- function(x) {
+  !is.na(x) & x != "" & x != "--" & x != "Unknown" & x == "'--"
+}
+
+### Filter the valid rows in TARGET_info.
+TARGET_info_valid <- TARGET_info_pretreatment %>%
+                     filter(filter_valid(Age) & filter_valid(OS_Time) & filter_valid(OS_Status) & filter_valid(Sex)) |>
+                     select(c(Patient_ID, Age, OS_Time, OS_Status, Sex))
+
+### Filter the valid rows in TARGET_xena_info.
+TARGET_xena_info_valid <- TARGET_xena_pretreatment %>%
+                          filter(filter_valid(Age) & filter_valid(OS_Time) & filter_valid(OS_Status) & filter_valid(Sex)) |>
+                          select(c(Patient_ID, Age, OS_Time, OS_Status, Sex))
+
+### 2. Merge the two data frames based on Patient_ID.
+merged_data <- TARGET_info_valid %>%
+               inner_join(TARGET_xena_info_valid, by = "Patient_ID", suffix = c("_info", "_xena"))
+
+### 3. Check whether the valid values in the merged data frame are consistent.
+is_consistent <- merged_data %>%
+  rowwise() %>%
+  mutate(
+    Age_consistent = Age_info == Age_xena,
+    Sex_consistent = Sex_info == Sex_xena,
+    OS_Time_consistent = OS_Time_info == OS_Time_xena,
+    OS_Status_consistent = OS_Status_info == OS_Status_xena
+  ) %>%
+  ungroup()
+
+### 4. Age not onsistent
+Age_not_consistent <- is_consistent |> 
+                      filter(Age_consistent == "FALSE") 
+
+### 5. Sex not onsistent
+Sex_not_consistent <- is_consistent |> 
+                      filter(Sex_consistent == "FALSE") 
+### Sex_not_consistent
+
+###  A tibble: 0 × 13
+
+### 6. OS_Time not onsistent
+OS_Time_not_consistent <- is_consistent |> 
+                          filter(OS_Time_consistent == "FALSE") |>
+                          mutate(
+                          OS_Time_info_greater = OS_Time_info > OS_Time_xena,  
+                          OS_Time_xena_greater = OS_Time_xena > OS_Time_info,  
+                          OS_Time_equal = OS_Time_info == OS_Time_xena         
+                          )
+nrow(OS_Time_not_consistent |> filter(OS_Time_info_greater == "FALSE"))
+### [1]0
+nrow(OS_Time_not_consistent |> filter(OS_Time_xena_greater == "TRUE"))
+### [1]0
+nrow(OS_Time_not_consistent |> filter(OS_Time_equal == "TRUE"))
+### [1]0
+
+### 7. OS_Status not onsistent
+OS_Status_not_consistent <- is_consistent |> 
+                            filter(OS_Status_consistent == "FALSE") 
+
+unique(OS_Status_not_consistent$OS_Status_info)
+### [1] 1
+unique(OS_Status_not_consistent$OS_Status_xena)
+### [1] 0
+
+### All evidence shows that the GDC data has been updated more recently than the Xena data.
+### Therefore, if there is a conflict between GDC data and Xena data, we should use the GDC data.
+
+### Use the valid values from TARGET_xena_info to fill the missing values in TARGET_info.
+### 1: Determine the matching Patient_ID.
+matched_ids <- intersect(TARGET_xena_pretreatment$Patient_ID, TARGET_info_pretreatment$Patient_ID)
+setDT(TARGET_xena_pretreatment)
+setDT(TARGET_info_pretreatment)
+
+### 2: Find the columns that require updates.
+cols_to_update <- setdiff(names(TARGET_info_pretreatment), c("Sample_ID", "Patient_ID", "Cancer","project_id","cohort","race"))
+
+### 3.Iterate through each matching Patient_ID and update TARGET_info_pretreatment using TARGET_xena_pretreatment.
+### update Age
+TARGET_xena_can  <-  TARGET_xena_pretreatment |> 
+                     filter(if_any("Age", ~ !filter_lose(.x))) 
+
+TARGET_info_match <- TARGET_info_pretreatment |>
+                            mutate(Age = case_when(
+                                                   filter_lose(Age) & Patient_ID %in% TARGET_xena_can$Patient_ID ~  TARGET_xena_can$Age[match(Patient_ID, TARGET_xena_can$Patient_ID)],
+                                                   TRUE ~ Age))
+
+### update Sex
+TARGET_xena_can  <-  TARGET_xena_pretreatment |> 
+                     filter(if_any("Sex", ~ !filter_lose(.x))) 
+
+TARGET_info_match1 <- TARGET_info_match |>
+                            mutate(Sex = case_when(
+                                                   filter_lose(Sex) & Patient_ID %in% TARGET_xena_can$Patient_ID ~  TARGET_xena_can$Sex[match(Patient_ID, TARGET_xena_can$Patient_ID)],
+                                                   TRUE ~ Sex))
+
+### update OS_Time
+TARGET_xena_can  <-  TARGET_xena_pretreatment |> 
+                     filter(if_any("OS_Time", ~ !filter_lose(.x))) 
+
+TARGET_info_match2 <- TARGET_info_match1 |>
+                      mutate(OS_Time = case_when(
+                                                   filter_lose(OS_Time) & Patient_ID %in% TARGET_xena_can$Patient_ID  & OS_Status %in% TARGET_xena_can$OS_Status ~  TARGET_xena_can$OS_Time[match(Patient_ID, TARGET_xena_can$Patient_ID)],
+                                                   TRUE ~ OS_Time))
+
+### update OS_Status
+TARGET_xena_can  <-  TARGET_xena_pretreatment |> 
+                     filter(if_any("OS_Status", ~ !filter_lose(.x))) 
+
+TARGET_info_after_match <- TARGET_info_match2 |>
+                            mutate(OS_Status = case_when(
+                                                   filter_lose(OS_Status) & Patient_ID %in% TARGET_xena_can$Patient_ID  & OS_Time %in% TARGET_xena_can$OS_Time ~  TARGET_xena_can$OS_Status[match(Patient_ID, TARGET_xena_can$Patient_ID)],
+                                                   TRUE ~ OS_Status)) 
+  
+### Use TARGET_sheet to perform a left join, ensuring that the Sample_ID is correct.
+TARGET_info_after_match <- TARGET_info_after_match |> select(- Sample_ID)
+TARGET_correct      <- TARGET_pretreatment |>
+                       left_join(TARGET_info_after_match, by = c("Patient_ID" = "Patient_ID")) |>
+                       mutate(Run = Sample_ID)
+
+### Replace the cohort column values with Project_ID where the row is TARGET-Unkown.
+### TARGET_correct$project_id |> unique()
+### [1] "TARGET-AML" "TARGET-NBL"
+TARGET_correct_after_pro <- TARGET_correct  %>%
+  mutate(
+    cohort = case_when(
+             cohort == "TARGET-Unkown" ~ Project_id,
+             TRUE ~ cohort),
+    cohort = case_when(
+             cohort == "TARGET-AML" ~ "TARGET-LAML",
+             TRUE ~ cohort)
+  ) 
+
+### Divide a part of data into a group based on whether the Sample_type is cell
+
+target_cell <- TARGET_correct_after_pro |> filter(`Sample_type` == "Cell Lines")
+target_cell_sample <- target_cell$Sample_ID |> unique()
+target_cell_patient <- target_cell$Patient_ID |> unique()
+### target_cell_sample
+### [1] "TARGET-20-MUTZ3-50A"         "TARGET-20-ML1-50A"           "TARGET-20-MV411D1-50A"       "TARGET-20-KasumiD1-50A"    "TARGET-20-HEK293-50A"      "TARGET-20-MOLM14CBFGLIS-50A"     
+### [7] "TARGET-20-TF1-50A"           "TARGET-20-IGROV1-50A"        "TARGET-20-CMS-50A"           "TARGET-20-WSUAML-50A"      "TARGET-20-KasumiAZAD5-50A" "TARGET-20-KasumiAZAD11-50A"
+### [13]"TARGET-20-REH-50A"           "TARGET-20-MV411AZAD11-50A"   "TARGET-20-MV411AZAD5-50A"    "TARGET-20-THP1-50A"        "TARGET-20-OCIAML2-50A"     "TARGET-20-HL60-50A"  
+### target_cell_patient
+### [1] "TARGET-20-MUTZ3"         "TARGET-20-ML1"           "TARGET-20-MV411D1"       "TARGET-20-KasumiD1"      "TARGET-20-HEK293"        "TARGET-20-MOLM14CBFGLIS"
+### [7] "TARGET-20-TF1"           "TARGET-20-IGROV1"        "TARGET-20-CMS"           "TARGET-20-WSUAML"        "TARGET-20-KasumiAZAD5"   "TARGET-20-KasumiAZAD11" 
+### [13]"TARGET-20-REH"           "TARGET-20-MV411AZAD11"   "TARGET-20-MV411AZAD5"    "TARGET-20-THP1"          "TARGET-20-OCIAML2"       "TARGET-20-HL60"  
+### reference : https://www.cellosaurus.org/
+### MUTZ3：Acute myeloid leukemia
+### ML1：	Adult acute myeloid leukemia
+### MV411D1：biphenotypic B-myelomonocytic leukemia
+### KasumiD1：Acute myeloblastic leukemia
+### TF1：Acute erythroid leukemia 
+### IGROV1：	Ovarian endometrioid adenocarcinoma
+### WSUAML：Acute myeloid leukemia。
+### KasumiAZAD5：can't find, so KasumiD1：Acute myeloblastic leukemia
+### KasumiAZAD11：can't find, so KasumiD1：Acute myeloblastic leukemia
+### REH：Childhood B acute lymphoblastic leukemia
+### MV411AZAD11：can't find, so MV411D1：biphenotypic B-myelomonocytic leukemia
+### MV411AZAD5：can't find, so MV411D1：biphenotypic B-myelomonocytic leukemia
+### THP1：Childhood acute monocytic leukemia
+### OCIAML2：Adult acute myeloid leukemia
+### HL60：Adult acute myeloid leukemia
+### HEK293：Vaccine production cell line.
+### CML：Childhood acute megakaryoblastic leukemia
+### MOLM14CBFGLIS：can't find, so MOLM14：Adult acute myeloid leukemia
+cell_data <- metafusion[metafusion$Sample_ID %in% target_cell_sample]
+### > nrow(cell_data)
+###  [1] 1853
+cell_info <- TARGET_info_pretreatment[TARGET_info_pretreatment$Patient_ID %in% target_cell_patient]
+###  nrow(cell_info)
+###  [1] 18
+### no os.etc
+cell_info2 <- TARGET_xena_pretreatment[TARGET_xena_pretreatment$Patient_ID %in% target_cell_patient]
+### nrow(cell_info2)
+### [1] 0
+
+TARGET_info_after_cell <- TARGET_correct_after_pro |>
+  mutate(cohort = case_when(
+    `Sample_type` %in% "Cell Lines" ~ "TARGET-CELL",
+    TRUE ~ cohort  
+  ))
+
+### The criteria for distinguishing normal samples based on Sample_type column in the TARGET databases are as follows:
+TARGET_info_after_cell$Sample_type |> unique()
+### [1] "Primary Blood Derived Cancer - Bone Marrow"              "Recurrent Blood Derived Cancer - Bone Marrow"           
+### [3] "Blood Derived Normal"                                    "Primary Blood Derived Cancer - Peripheral Blood"        
+### [5] "Bone Marrow Normal"                                      "Cell Lines"                                             
+### [7] "Next Generation Cancer Model"                            "Blood Derived Cancer - Bone Marrow, Post-treatment"     
+### [9] "Primary Tumor"                                           "Recurrent Tumor"                                        
+### [11] "Recurrent Blood Derived Cancer - Peripheral Blood"       "Blood Derived Cancer - Peripheral Blood, Post-treatment"
+### 
+### If the sample type is "Blood Derived Normal" or "Bone Marrow Normal", then it is a normal sample. Otherwise, it is a tumor sample.
+TARGET_info_after_normal <- TARGET_info_after_cell |>
+  mutate(cohort = case_when(
+    `Sample_type` %in% c("Blood Derived Normal", "Bone Marrow Normal") ~ "TARGET-NORMAL",
+    TRUE ~ cohort  
+  ))
+
+### Adjust the column order.
+new_order <- c("Patient_ID", "Sample_ID", "Run", "Sample_type", "Age", "Sex", "race", "Cancer", 
+               "OS_Time", "OS_Status", "Project_id", "cohort")
+
+TARGET_info_after_processing <- TARGET_info_after_normal |>
+                                select(all_of(new_order)) 
+
+### make sure nrow is same between Before and After Processing. 
+TARGET_pretreatment |> nrow()
+### [1]  3222
+TARGET_info_after_processing |> nrow() 
+### [1] 3222
+
+### make sure IOBR/TME data just contain sample which target_sheet gave. 
+detected_id_TARGET <- TARGET_info_after_processing$Run
+
+### save info
+cohorts <- unique(TARGET_info_after_processing$cohort)
+
+for (cohort1 in cohorts) {
+  cohort_data <- subset(TARGET_info_after_processing, cohort == cohort1)
+  name <- gsub("-", "_", cohort1)
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/Clininfo/", name ,"_info.tsv")
+  fwrite(cohort_data , file = file_name, sep = "\t")  
+}
+
+##Gene
+metafusion1 <- metafusion |> 
+  mutate(
+    cohort = case_when(
+      Sample_ID %in% TARGET_info_after_processing$Run & grepl("TARGET", cohort) ~ TARGET_info_after_processing$cohort[match(Sample_ID, TARGET_info_after_processing$Run)],
+      TRUE ~ cohort
+    )
+  )  
+  cp_file_name1 <- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls_matched.cptac.target.tsv"
+  fwrite(metafusion1, file = cp_file_name1, sep = "\t") 
+
+##TME
+NBL_TME <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/TARGET-NBL_TME.tsv.gz", sep = "\t") |> mutate(Project_id = "TARGET-NBL")
+AML_TME <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/TARGET-AML_TME.tsv.gz", sep = "\t") |> mutate(Project_id = "TARGET-AML")
+TARGET_TME <- rbind(NBL_TME,AML_TME) |>
+              mutate(dash_count = str_count(ID, "-"))
+### Manually check and delete composite samples from the info dataset.(TARGET-30-PAPTFZ-01A-01R-TARGET-30-PAPEAV-01A-01R)
+TARGET_TME |> 
+filter(dash_count == 9) |> 
+select(ID) |>
+unique()
+### 1: TARGET-30-PASYPX-01A-01R-TARGET-30-PAIXIF-01A-01R
+### 2: TARGET-30-PANKFE-01A-01R-TARGET-30-PAPUAR-01A-01R
+### 3: TARGET-30-PANUKV-01A-01R-TARGET-30-PASUML-01A-01R
+### 4: TARGET-30-PAPTFZ-01A-01R-TARGET-30-PAPEAV-01A-01R
+
+TARGET_TME_pretreatment <- TARGET_TME |>
+                           filter(dash_count != 9) |>
+                           select(-dash_count)
+
+### Filter TARGET Replicate Samples
+### The filter rule following broad institute says:
+###
+### In many instances there is more than one aliquot for a given combination of individual, platform, and data type. However, only one aliquot may be ingested into Firehose. Therefore, a set of precedence rules are applied to select the most scientifically advantageous one among them. Two filters are applied to achieve this aim: an Analyte Replicate Filter and a Sort Replicate Filter.
+### 
+### Analyte Replicate Filter
+### The following precedence rules are applied when the aliquots have differing analytes. For RNA aliquots, T analytes are dropped in preference to H and R analytes, since T is the inferior extraction protocol. If H and R are encountered, H is the chosen analyte. This is somewhat arbitrary and subject to change, since it is not clear at present whether H or R is the better protocol. If there are multiple aliquots associated with the chosen RNA analyte, the aliquot with the later plate number is chosen. For DNA aliquots, D analytes (native DNA) are preferred over G, W, or X (whole-genome amplified) analytes, unless the G, W, or X analyte sample has a higher plate number.
+### 
+### Sort Replicate Filter
+### The following precedence rules are applied when the analyte filter still produces more than one sample. The sort filter chooses the aliquot with the highest lexicographical sort value, to ensure that the barcode with the highest portion and/or plate number is selected when all other barcode fields are identical.
+### 
+### Ref Link: <https://confluence.broadinstitute.org/display/GDAC/FAQ#FAQ-sampleTypesQWhatTCGAsampletypesareFirehosepipelinesexecutedupon>
+###           <https://gist.github.com/ShixiangWang/33b2f9b49b77eaa8f773b428480f9101>
+TARGET_TME_after_replicate <- TARGET_TME_pretreatment |>
+                              mutate(
+                              prefixes = str_remove(ID, "-[^-]+$"),  
+                              suffixes = str_extract(ID, "[^-]+$"), 
+                              second_chars = str_extract(suffixes, "[0-9]+"),
+                              second_chars = as.integer(second_chars)) |>
+                              group_by(prefixes) |>
+                              slice(which.max(second_chars)) |>
+                              ungroup() |>
+                              mutate(ID = prefixes) |> 
+                              filter(ID %in% detected_id_TARGET)  |> ### Ensure that all IDs in the TME data can be found in the TARGET info data. 
+                              select(-c(prefixes,suffixes,second_chars))
+
+### Using TARGET info data cohort column to annotate TARGET TME data 
+cohort_data   <- TARGET_info_after_processing |> 
+                 select(Run, cohort)   |>
+                 unique()   
+
+TARGET_TME_after_cohort <- TARGET_TME_after_replicate |>
+                           mutate(Run = ID)  |>
+                           left_join(cohort_data, by = "Run")  |>
+                           select(-Run)
+
+### save TME
+cohorts_TME <- unique(TARGET_TME_after_cohort$cohort)
+
+for (cohort1 in cohorts_TME) {
+  cohort_data <- subset(TARGET_TME_after_cohort, cohort == cohort1) |> select(-cohort)
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/IOBR/", cohort1 ,"_TME.tsv.gz")
+  write.table(cohort_data, 
+              file = gzfile(file_name), 
+              sep = "\t", 
+              row.names = FALSE, 
+              quote = FALSE) 
+}  
+
+## IOBR
+NBL_IOBR_signature <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/TARGET-NBL_IOBR_signature.tsv.gz", sep = "\t") |> mutate(Project_id = "TARGET-NBL")
+AML_IOBR_signature <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/TARGET-AML_IOBR_signature.tsv.gz", sep = "\t") |> mutate(Project_id = "TARGET-AML")
+TARGET_IOBR <- rbind(NBL_IOBR_signature,AML_IOBR_signature) |>
+               mutate(dash_count = str_count(ID, "-"))
+
+### Manually check and delete composite samples from the info dataset.(TARGET-30-PAPTFZ-01A-01R-TARGET-30-PAPEAV-01A-01R)
+TARGET_IOBR |> 
+filter(dash_count == 9) |> 
+select(ID) |>
+unique()
+### 1: TARGET-30-PASYPX-01A-01R-TARGET-30-PAIXIF-01A-01R
+### 2: TARGET-30-PANKFE-01A-01R-TARGET-30-PAPUAR-01A-01R
+### 3: TARGET-30-PANUKV-01A-01R-TARGET-30-PASUML-01A-01R
+### 4: TARGET-30-PAPTFZ-01A-01R-TARGET-30-PAPEAV-01A-01R
+
+TARGET_IOBR_pretreatment <- TARGET_IOBR |>
+                            filter(dash_count != 9) |>
+                            select(-dash_count)
+
+TARGET_IOBR_after_replicate <- TARGET_IOBR_pretreatment |>
+                            mutate(
+                            prefixes = str_remove(ID, "-[^-]+$"),  
+                            suffixes = str_extract(ID, "[^-]+$"), 
+                            second_chars = str_extract(suffixes, "[0-9]+"),
+                            second_chars = as.integer(second_chars)) |>
+                            group_by(prefixes) |>
+                            slice(which.max(second_chars)) |>
+                            ungroup() |>
+                            mutate(ID = prefixes) |> 
+                            filter(ID %in% detected_id_TARGET)  |> ### Ensure that all IDs in the TME data can be found in the TARGET info data. 
+                            select(-c(prefixes,suffixes,second_chars))
+
+### Using TARGET info data cohort column to annotate TARGET TME data 
+cohort_data   <- TARGET_info_after_processing |> 
+                 select(Run, cohort)   |>
+                 unique()   
+
+TARGET_IOBR_after_cohort <- TARGET_IOBR_after_replicate |>
+                            mutate(Run = ID)  |>
+                            left_join(cohort_data, by = "Run")  |>
+                            select(-Run)
+### save IOBR
+cohorts_IOBR <- unique(TARGET_IOBR_after_cohort$cohort)
+
+for (cohort1 in cohorts_IOBR) {
+  cohort_data <- subset(TARGET_IOBR_after_cohort, cohort == cohort1) |> select(-cohort)
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/IOBR/", cohort1 ,"_IOBR_signature.tsv.gz")
+  write.table(cohort_data, 
+              file = gzfile(file_name), 
+              sep = "\t", 
+              row.names = FALSE, 
+              quote = FALSE) 
+}  
+
+
+```
+
+### CPTAC
+
+```r
+library(data.table)
+library(dplyr)
+library(stringr)
+library(tidyr)
+
+file_meta <- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls_matched.tsv"
+metafusion <- fread(file_meta, sep = "\t")
+
+# CPTAC
+## info
+CPTAC_sheet <- fread("/home/data2/Projects/Fusion/unclean/CPTAC_gdc_sample_sheet.2023-11-15.tsv", sep = "\t")
+
+### Composite Sample 
+###
+### Composite Sample use comma to separate like C3L-03400-05, C3L-03400-02
+### 
+### It leads one question is whether these composite samples using comma to separate from identical patient?
+rows_with_comma <- grepl(", ", CPTAC_sheet$`Sample ID`)
+rows_with_comma_data <- CPTAC_sheet[rows_with_comma, ]
+
+check_same_chars <- function(x) {
+  parts <- unlist(strsplit(x, ", "))
+  return(parts[1] == parts[2])
+}
+same_chars <- sapply(rows_with_comma_data$`Case ID`, check_same_chars)
+if (all(same_chars)) {
+  cat("TRUE\n")
+} else {
+  cat("FALSE\n")
+}
+### They are from identical patient.
+
+### For the TARGET databases, check whether there is any overlap between composite and normal Sample_ID in the info data. If there is an overlap, retain only the normal Sample_ID. 
+check_cptac_overlap <- CPTAC_sheet |>  
+                       select(c(`Case ID`, `Sample ID`, `Sample Type`, `Project ID`)) |>
+                       unique() |> 
+                       separate_rows(`Sample ID`, sep = ",\\s*") 
+ 
+check_cptac_overlap <- check_cptac_overlap |>
+                        mutate(Sample_Type = ifelse(grepl(", ", `Sample ID`), "Composite", "Normal"))
+                      
+overlap_samples <- check_cptac_overlap |>
+                        group_by(`Sample ID`) |>
+                        summarise(Count = n(), .groups = 'drop') |>
+                        filter(Count > 1)
+### > overlap_samples 
+### A tibble: 0 × 2
+### ℹ 2 variables: Sample ID <chr>, Count <int> 
+### no this situation
+
+### Due to the less rigorous patient naming conventions(like 604) in the CPTAC2 project, check for any overlapping patient names between CPTAC2 and CPTAC3.
+CPTAC_sheet_rigorous  <- CPTAC_sheet |> 
+                         select(c(`Case ID`, `Sample ID`, `Sample Type`, `Project ID`)) |>  
+                         unique() 
+duplicates <- CPTAC_sheet_rigorous |>
+                          group_by(`Case ID`, `Sample ID`) |>
+                          summarise(n_projects = n(), projects = paste(`Project ID`, collapse = ", ")) |>
+                          filter(n_projects > 1)
+### nrow(duplicates)
+### [1] 0
+### no same patient names between CPTAC2 and CPTAC3
+
+### CPTAC_sheet pretreatment
+matched_CPTAC_pretreatment <- CPTAC_sheet |> 
+  select(c(`Case ID`, `Sample ID`, `Sample Type`, `Project ID`)) |>
+  rename("Patient_ID" = `Case ID`,
+         "Sample_ID" = `Sample ID`,
+         "Sample_type"  =  `Sample Type`,
+         "Project_id" = `Project ID`) |> 
+  separate_rows(Patient_ID, sep = ",\\s*") |>  #because they are from identical patient.
+  unique() 
+
+### CPTAC_info pretreatment
+CPTAC_info <- fread("/home/data2/Projects/Fusion/fusiondb/Clininfo/CPTAC_info.tsv", sep = "\t")
+# > CPTAC_info$Cancer |> unique()
+# [1] "BRCA"       "CCRCC"      "COAD"       "GBM"        "HGSC"       "HNSCC"      "LSCC"       "LUAD"       "PDAC"       "UCEC"       "GTEX-Brain"
+### We use our naming standard mutate a new column cohort.
+cptac_replacement_table2 <- c(
+  "BRCA" = "CPTAC-BRCA",
+  "CCRCC" = "CPTAC-KIRC",
+  "COAD" =  "CPTAC-COAD",
+  "GBM" = "CPTAC-GBM",
+  "HGSC" = "CPTAC-HGSC",
+  "HNSCC" = "CPTAC-HNSC",
+  "LSCC" = "CPTAC-LUSC" ,
+  "LUAD" = "CPTAC-LUAD",
+  "PDAC" = "CPTAC-PDAC",
+  "UCEC" = "CPTAC-UCEC",
+  "GTEX-Brain" = "CPTAC-GTEX-Brain"
+)     
+
+matched_CPTAC_info <- CPTAC_info$Cancer %in% names(cptac_replacement_table2)
+CPTAC_info_pretreatment <- CPTAC_info %>%
+  mutate(cohort = case_when(
+    matched_CPTAC_info ~ cptac_replacement_table2[Cancer],
+    TRUE ~ as.character(NA)  
+  )) |> 
+  select(-Sample_ID)
+### CPTAC_info_pretreatment  |> filter(is.na(cohort)) |> nrow()
+### [1] 0
+
+matched_CPTAC <- matched_CPTAC_pretreatment |>
+                 left_join(CPTAC_info_pretreatment, by = c("Patient_ID" = "Patient_ID")) |>
+                 mutate(Run = str_replace_all(Sample_ID, ", ", "-"))
+
+### CPTAC Sample type
+### matched_CPTAC_pretreatment$Sample_type |> unique()
+### [1] "Primary Tumor"                                                             "Solid Tissue Normal"                                                      
+### [3] "Primary Tumor, Primary Tumor"                                              "Primary Tumor, Primary Tumor, Primary Tumor"                              
+### [5] "Solid Tissue Normal, Solid Tissue Normal, Solid Tissue Normal"             "Solid Tissue Normal, Solid Tissue Normal"                                 
+### [7] "Primary Tumor, Primary Tumor, Primary Tumor, Primary Tumor, Primary Tumor" "Primary Tumor, Primary Tumor, Primary Tumor, Primary Tumor"   
+### 
+### Just two sample type so if grepling "Solid Tissue Normal" is normal sample, grepling "Primary Tumor" is tumor sample
+matched_CPTAC_after_processing <- matched_CPTAC |>
+  mutate(cohort = case_when(
+    grepl("Solid Tissue Normal", Sample_type) ~ "CPTAC-NORMAL",
+    TRUE ~ cohort  
+  )) 
+
+### make sure nrow is same between Before and After Processing. 
+matched_CPTAC_after_processing |> nrow()
+### [1] 2558
+matched_CPTAC_pretreatment |> nrow() 
+### [1] 2558
+
+### make sure IOBR/TME data just contain sample which cptac_sheet gave. 
+detected_id_CPTAC <- matched_CPTAC_after_processing$Run |> unique()
+
+### save info
+cohorts <- unique(matched_CPTAC_after_processing$cohort)
+
+for (cohort1 in cohorts) {
+  cohort_data <- subset(matched_CPTAC_after_processing, cohort == cohort1)
+  name <- gsub("-", "_", cohort1)
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/Clininfo/", name ,"_info.tsv")
+  fwrite(cohort_data , file = file_name, sep = "\t")  
+}
+
+## TME
+CPTAC2_TME <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/CPTAC-2_TME.tsv.gz", sep = "\t") |> mutate(Project_id = "CPTAC2")
+CPTAC3_TME <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/CPTAC-3_TME.tsv.gz", sep = "\t") |> mutate(Project_id = "CPTAC3")
+CPTAC_TME <- rbind(CPTAC2_TME, CPTAC3_TME)
+
+### Match matched_CPTAC_after_processing$Run to CPTAC_TME$ID
+### 
+### CPTAC_TME can match
+matched_can <- CPTAC_TME %>%
+               filter(ID %in% matched_CPTAC_after_processing$Run) 
+
+### 
+### CPTAC_TME can't match
+matched_not <- CPTAC_TME %>%
+               filter(!(ID %in% matched_CPTAC_after_processing$Run))
+
+### 
+### situtation 1: Due to the barcode naming convention and etc, some portion character are added to the endning of the IOBR/TME sample name.
+### str_count(matched_last$ID, "_")
+### [1] 1 2 0
+### 1.1 "CPT000817-0008" and "CPT000817". If the value of str_count(matched_last$ID, "_") for a row is 0, then the value of the prefixes column for that row should be the characters before the last -, and the value of the suffixes column should be the characters after the last -.
+### 1.2 "f6a7f764-2495-4a1d-89a2-e12f51_D7_1" and "f6a7f764-2495-4a1d-89a2-e12f51". If the value of str_count(matched_last$ID, "_") for a row is 1, then the value of the prefixes column for that row should be the characters before the first _, and the value of the suffixes column should be the characters after the first _.
+### 1.3 "CPT008756_0001" and "CPT008756". f6a7f764-2495-4a1d-89a2-e12f51_D7_1, .If the value of str_count(matched_last$ID, "_") for a row is 2, then the value of the prefixes column for that row should be the characters before the first _, and the value of the suffixes column should be the characters after the first _.
+
+matched_not <- matched_not %>%
+  rowwise() %>%  
+  mutate(
+    prefixes = case_when(
+      str_count(ID, "_") == 0 ~ str_split(ID, "-")[[1]][1],  
+      str_count(ID, "_") == 1 ~ str_split(ID, "_")[[1]][1],  
+      str_count(ID, "_") == 2 ~ str_split(ID, "_")[[1]][1],  
+      TRUE ~ NA_character_
+    ),
+    suffixes = case_when(
+      str_count(ID, "_") == 0 ~ str_split(ID, "-")[[1]][length(str_split(ID, "-")[[1]])],  
+      str_count(ID, "_") == 1 ~ str_split(ID, "_")[[1]][2],  
+      str_count(ID, "_") == 2 ~ str_split(ID, "_")[[1]][2],  
+      TRUE ~ NA_character_
+    ),
+    name1 = prefixes
+  ) %>%
+  ungroup() 
+
+### situtation 1 after processing can match
+matched_in_situtation1 <-  matched_not %>%
+                           filter((name1 %in% matched_CPTAC_after_processing$Run))%>%
+                           mutate(ID = name1)  %>%
+                           select(-c(suffixes,prefixes,name1) )     
+matched_can <- rbind(matched_can, matched_in_situtation1)
+
+### not in situtation 1 
+matched_not_situtation1 <- matched_not %>%
+                           filter(!(name1 %in% matched_CPTAC_after_processing$Run))
+
+### situtation 2: Due to IOBR package analyze code, an additional "X" is added to the beginning of the IOBR/TME sample name.
+### "X1104806" and "1104806", "X9f905736-f662-41d6-b3ac-16758d" and "9f905736-f662-41d6-b3ac-16758d". 
+matched_not_situtation1  <- matched_not_situtation1 %>%
+                            mutate(name2 = str_remove(ID, "^X"))  
+
+### situtation 2 after processing can match
+matched_in_situtation2 <- matched_not_situtation1 %>%
+                          filter((name2 %in% matched_CPTAC_after_processing$Run))    %>%
+                          mutate(ID = name2 )  %>%
+                          select(-c(name1,prefixes,suffixes,name2)) 
+matched_can <- rbind(matched_can, matched_in_situtation2)
+
+### situtation 2 after processing can't match
+matched_not_situtation2 <- matched_not_situtation1 %>%
+                           filter(!(name2 %in% matched_CPTAC_after_processing$Run))
+
+### situtation 3: Mixed situation1 and situation2.
+### X161317f3-1a39-438e-af45-cd2502_D7 and 161317f3-1a39-438e-af45-cd2502
+matched_not_situtation2  <- matched_not_situtation2 %>%
+                            mutate(name3 = str_remove(prefixes, "^X")) 
+
+### situtation 3 after processing can match    
+matched_in_situtation3 <- matched_not_situtation2  %>%
+                          filter((name3 %in% matched_CPTAC_after_processing$Run))  %>%
+                          mutate(ID = name3) %>%
+                          select(-c(name1,name2,prefixes,suffixes, name3))           
+matched_can <- rbind(matched_can, matched_in_situtation3)
+
+### situtation 3 after processing can't match
+matched_not_situtation3 <- matched_not_situtation2  %>%
+                           filter(!(name3 %in% matched_CPTAC_after_processing$Run))
+nrow(matched_not_situtation3 )
+### [1] 81
+
+### Check the reason why it still can't match after Type 3 processing
+### After manual review, these Sample_ID are not included in either the info dataset or the gdc_sheet.
+
+### Check if CPTAC TME data ID are any samples that have been divided into multiple portions.
+matched_can |> select(ID) |>  nrow()
+### [1] 2558
+matched_can |> select(ID) |>  unique() |> nrow()
+### [1] 2558
+### No this situation.
+
+### Check if CPTAC TME data has same norw with CPTAC info data.
+matched_can |> select(ID) |>   unique() |> nrow()
+### [1] 2558
+matched_CPTAC_after_processing |> select(Run) |>  unique() |> nrow()
+### [1] 2558
+### Sure.
+
+cohort_data <- matched_CPTAC_after_processing |> 
+               select(Run, cohort)   |>
+               unique()   
+
+matched_can <- matched_can  |>
+               mutate(Run = ID)  |>
+               left_join(cohort_data, by = "Run")  |>
+               select(-Run)
+
+cohorts_TME <- unique(matched_can$cohort)
+
+for (cohort1 in cohorts_TME) {
+  cohort_data <- subset(matched_can, cohort == cohort1) |> select(-cohort)
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/IOBR/", cohort1 ,"_TME.tsv.gz")
+  write.table(cohort_data, 
+              file = gzfile(file_name), 
+              sep = "\t", 
+              row.names = FALSE, 
+              quote = FALSE) 
+}  
+
+#IOBR
+CPTAC2_Signature <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/CPTAC-2_IOBR_signature.tsv.gz", sep = "\t") |> mutate(Project_id = "CPTAC2")
+CPTAC3_Signature <- fread("/home/data2/Projects/Fusion/fusiondb/IOBR/CPTAC-3_IOBR_signature.tsv.gz", sep = "\t") |> mutate(Project_id = "CPTAC3")
+CPTAC_Signature <- rbind(CPTAC2_Signature, CPTAC3_Signature)
+
+### Match matched_CPTAC_after_processing$Run to CPTAC_TME$ID
+### 
+### CPTAC_TME can match
+matched_can <- CPTAC_Signature %>%
+               filter(ID %in% matched_CPTAC_after_processing$Run) 
+
+
+### 
+### CPTAC_TME can't match
+matched_not <-  CPTAC_Signature %>%
+                filter(!(ID %in% matched_CPTAC_after_processing$Run))
+
+### 
+### situtation 1:like TME 
+matched_not <- matched_not %>%
+  rowwise() %>%  
+  mutate(
+    prefixes = case_when(
+      str_count(ID, "_") == 0 ~ str_split(ID, "-")[[1]][1],  
+      str_count(ID, "_") == 1 ~ str_split(ID, "_")[[1]][1],  
+      str_count(ID, "_") == 2 ~ str_split(ID, "_")[[1]][1], 
+      TRUE ~ NA_character_
+    ),
+    suffixes = case_when(
+      str_count(ID, "_") == 0 ~ str_split(ID, "-")[[1]][length(str_split(ID, "-")[[1]])],  
+      str_count(ID, "_") == 1 ~ str_split(ID, "_")[[1]][2],  
+      str_count(ID, "_") == 2 ~ str_split(ID, "_")[[1]][2],  
+      TRUE ~ NA_character_
+    ),
+    name1 = prefixes
+  ) %>%
+  ungroup()  
+
+### situtation 1 after processing can match
+matched_in_situtation1 <- matched_not %>%
+                          filter((name1 %in% matched_CPTAC_after_processing$Run))%>%
+                          mutate(ID = name1)  %>%
+                          select(-c(suffixes,prefixes,name1) )    
+
+matched_can <- rbind(matched_can, matched_in_situtation1)
+
+### situtation 1 after processing can't match
+matched_not_situtation1 <- matched_not %>%
+                           filter(!(name1 %in% matched_CPTAC_after_processing$Run))
+
+### situtation 2:like TME 
+matched_not_situtation1  <- matched_not_situtation1 %>%
+                            mutate(name2 = str_remove(ID, "^X"))  
+
+### situtation 2 after processing can match
+matched_in_situtation2 <- matched_not_situtation1 %>%
+                          filter((name2 %in% matched_CPTAC_after_processing$Run))    %>%
+                          mutate(ID = name2 )  %>%
+                          select(-c(name1,prefixes,suffixes,name2)) 
+
+matched_can <- rbind(matched_can, matched_in_situtation2)
+
+### situtation 2 after processing can't match
+matched_not_situtation2 <- matched_not_situtation1 %>%
+                           filter(!(name2 %in% matched_CPTAC_after_processing$Run))
+
+### situtation 3:like TME 
+matched_not_situtation2   <- matched_not_situtation2  %>%
+                             mutate(name3 = str_remove(prefixes, "^X")) 
+
+### situtation 3 after processing can match   
+matched_in_situtation3 <- matched_not_situtation2  %>%
+                          filter((name3 %in% matched_CPTAC_after_processing$Run))  %>%
+                          mutate(ID = name3) %>%
+                          select(-c(name1,name2,prefixes,suffixes, name3))     
+
+matched_can <- rbind(matched_can, matched_in_situtation3)
+
+### situtation 3 after processing can't match  
+matched_not_situtation3 <- matched_not_situtation2  %>%
+                           filter(!(name3 %in% matched_CPTAC_after_processing$Run))
+
+nrow(matched_not_situtation3 )
+### [1] 81
+                          
+### Check the reason why it still can't match after Type 3 processing
+### After manual review, these Sample_ID are not included in either the info dataset or the gdc_sheet.
+
+### Check if CPTAC IOBR data ID are any samples that have been divided into multiple portions.
+matched_can |> select(ID) |>  nrow()
+### [1] 2558
+matched_can |> select(ID) |>  unique() |> nrow()
+### [1] 2558
+### No this situation.
+
+### Check if CPTAC IOBR data has same norw with CPTAC info data.
+matched_can |> select(ID) |>   unique() |> nrow()
+### [1] 2558
+matched_CPTAC_after_processing |> select(Run) |>  unique() |> nrow()
+### [1] 2558
+### Sure.
+
+cohort_data   <- matched_CPTAC_after_processing |> 
+                 select(Run, cohort)   |>
+                 unique()   
+
+matched_can <- matched_can |>
+               mutate(Run = ID)  |>
+               left_join(cohort_data, by = "Run")  |>
+               select(-Run)
+
+cohorts_IOBR <- unique(matched_can$cohort)
+
+for (cohort1 in cohorts_IOBR) {
+  cohort_data <- subset(matched_can, cohort == cohort1) |> select(-cohort)
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/IOBR/", cohort1 ,"_IOBR_signature.tsv.gz")
+  write.table(cohort_data, 
+              file = gzfile(file_name), 
+              sep = "\t", 
+              row.names = FALSE, 
+              quote = FALSE) 
+}  
+ 
+## Gene
+
+metafusion1 <- metafusion |> 
+  mutate(
+    cohort = case_when(
+      Sample_ID %in% matched_CPTAC_after_processing$Run  & grepl("CPTAC", cohort) ~ matched_CPTAC_after_processing$cohort[match(Sample_ID, matched_CPTAC_after_processing$Run)],
+      TRUE ~ cohort
+    )
+  )  
+
+### In the past, the metafusion file had an issue with the sample_type being incorrectly labeled.
+### After further investigation, it was found that only the composite Sample_ID in CPTAC had this issue, where samples labeled as 'Normal' were mistakenly identified as 'Tumor' in the sample_type column.
+
+normal_id <-   matched_CPTAC_after_processing |> 
+               filter(cohort == "CPTAC-NORMAL") |> 
+               select(Run) |>
+               unique() |>
+               pull(Run)
+
+meta_normal <- metafusion1 |>
+               filter(Sample_ID %in% normal_id)
+
+unique(meta_normal$sample_type)
+#[1] "Normal" "Tumor" 
+
+meta_processing  <- metafusion1 |>
+                    mutate(
+                      sample_type = ifelse(
+                        sample_type != "Normal" & Sample_ID %in% normal_id,
+                        "Normal",
+                        sample_type
+                      )
+                    )
+
+cp_file_name1 <- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls_matched.cptac.tsv"
+fwrite(meta_processing, file = cp_file_name1, sep = "\t") 
+```
+
+### TCGA
+
+```r
+library(data.table)
+library(dplyr)
+library(stringr)
+library(tidyr)
+file_meta <- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls_matched.cptac.target.tsv"
+metafusion <- fread(file_meta  , sep = "\t")
+
+# TCGA
+## info
+TCGA_info <- fread("/home/data2/Projects/Fusion/fusiondb/Clininfo/TCGA_info.tsv", sep = "\t")
+### TCGA_sheet pretreatment
+TCGA_sheet <- fread("/home/data2/Projects/Fusion/unclean/TCGA_sample_sheet.2024-05-14.tsv", sep = "\t") |> 
+              select(c(`Sample ID`, `Sample Type`,`Project ID`)) 
+
+colnames(TCGA_sheet) <- c("Sample_ID", "Sample_type","Project_id")
+
+TCGA_sheet_pretreatment <- TCGA_sheet  |>
+                           mutate(Sample_ID = substr(Sample_ID, 1, 15)) |> 
+                           unique()
+### We use our naming standard mutate a new column cohort. 
+TCGA_after_processing <- TCGA_sheet_pretreatment |>
+  left_join(TCGA_info, by = c("Sample_ID" = "Sample_ID")) |>
+  mutate(
+    cohort = Project_id,
+    Run = Sample_ID,
+    Patient_ID = substr(Sample_ID, 1, 12),  
+  )
+### TCGA Sample type
+### TCGA_after_processing$Sample_type |> unique()
+###   [1] "Primary Tumor"                                   "Solid Tissue Normal"                             "Metastatic"                                     
+###   [4] "Additional - New Primary"                        "Primary Blood Derived Cancer - Peripheral Blood" "Additional Metastatic"                          
+###   [7] "Recurrent Tumor"   
+### 
+### "Solid Tissue Normal" is normal sample, others is tumor sample
+
+TCGA_NORMAL <- TCGA_after_processing |> 
+               filter(Sample_type == "Solid Tissue Normal") 
+
+NORMAL_id <- TCGA_NORMAL$Run |> unique()
+
+TCGA_after_processing <- TCGA_after_processing |> 
+  mutate(
+    Project_id = cohort,
+    cohort = case_when(
+      Run %in% NORMAL_id ~ "TCGA-NORMAL",
+      TRUE ~ cohort)) 
+
+### make sure nrow is same between Before and After Processing. 
+TCGA_after_processing |> nrow()
+### [1] 10545
+TCGA_sheet_pretreatment |> nrow() 
+### [1] 10545
+
+### make sure IOBR/TME data just contain sample which tcga_sheet gave. 
+detected_id_TCGA <- TCGA_after_processing$Run |> unique()
+
+### save info
+cohorts <- unique(TCGA_after_processing$cohort)
+
+file_name1 <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/Clininfo/")
+
+for (cohort1 in cohorts) {
+  cohort_data <- subset(TCGA_after_processing, cohort == cohort1)
+  name <- gsub("-", "_", cohort1)
+  file_name <- paste0(file_name1, name ,"_info.tsv")
+  fwrite(cohort_data , file = file_name, sep = "\t")  
+}  
+## Gene
+metafusion1 <- metafusion |> 
+  mutate(
+    cohort = case_when(
+      Sample_ID %in% TCGA_after_processing$Run & grepl("TCGA", cohort) ~ TCGA_after_processing$cohort[match(Sample_ID, TCGA_after_processing$Run)],
+      TRUE ~ cohort
+    )
+  ) 
+cp_file_name1 <- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_gdc_divide.tsv"
+fwrite(metafusion1, file = cp_file_name1, sep = "\t") 
+
+## IOBR
+folder_path <- "/home/data2/Projects/Fusion/fusiondb/IOBR"
+
+file_pattern <- "^TCGA.*_IOBR_signature.tsv.gz$"
+file_list <- list.files(path = folder_path, pattern = file_pattern, full.names = TRUE)
+
+combined_data <- data.table()
+
+for (file in file_list) {
+  
+  file_data <- fread(file, sep = "\t")
+  file_name <- basename(file)  
+  project_id <- sub("^(TCGA-[^_]+).*", "\\1", file_name)  
+  file_data <- file_data %>%
+               mutate(Project_id = project_id)
+  combined_data <- rbind(combined_data, file_data)
+}
+
+### Filter TCGA Replicate Samples
+### The filter rule following broad institute says:
+###
+### In many instances there is more than one aliquot for a given combination of individual, platform, and data type. However, only one aliquot may be ingested into Firehose. Therefore, a set of precedence rules are applied to select the most scientifically advantageous one among them. Two filters are applied to achieve this aim: an Analyte Replicate Filter and a Sort Replicate Filter.
+### 
+### Analyte Replicate Filter
+### The following precedence rules are applied when the aliquots have differing analytes. For RNA aliquots, T analytes are dropped in preference to H and R analytes, since T is the inferior extraction protocol. If H and R are encountered, H is the chosen analyte. This is somewhat arbitrary and subject to change, since it is not clear at present whether H or R is the better protocol. If there are multiple aliquots associated with the chosen RNA analyte, the aliquot with the later plate number is chosen. For DNA aliquots, D analytes (native DNA) are preferred over G, W, or X (whole-genome amplified) analytes, unless the G, W, or X analyte sample has a higher plate number.
+### 
+### Sort Replicate Filter
+### The following precedence rules are applied when the analyte filter still produces more than one sample. The sort filter chooses the aliquot with the highest lexicographical sort value, to ensure that the barcode with the highest portion and/or plate number is selected when all other barcode fields are identical.
+### 
+### Ref Link: <https://confluence.broadinstitute.org/display/GDAC/FAQ#FAQ-sampleTypesQWhatTCGAsampletypesareFirehosepipelinesexecutedupon>
+###           <https://gist.github.com/ShixiangWang/33b2f9b49b77eaa8f773b428480f9101>
+
+
+result_data <- combined_data |>
+  mutate(
+    prefixes = str_split(ID, "-", simplify = TRUE)[, 1:4] %>% apply(1, paste, collapse = "-"),
+    suffixes = str_split(ID, "-", simplify = TRUE)[, 5],
+    second_chars = str_extract(suffixes, "[0-9]+"),
+    second_chars = as.integer(second_chars))
+result_IOBR <- result_data  |>
+  group_by(prefixes) |>
+  slice(which.max(second_chars)) |>
+  ungroup() |>
+  mutate(cohort = Project_id,
+         ID = substr(prefixes, 1, 15),
+         cohort = case_when(ID %in% NORMAL_id ~ "TCGA-NORMAL",
+                            TRUE ~ cohort)
+  ) |>
+  filter(ID %in% detected_id_TCGA)  |> 
+  select(-c("suffixes", "second_chars","prefixes")) |>
+  unique() 
+
+cohorts_IOBR <- unique(result_IOBR$cohort)
+
+for (cohort1 in cohorts_IOBR) {
+  cohort_data <- subset(result_IOBR, cohort == cohort1) |> select(-c(cohort,Project_id) )
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/IOBR/", cohort1 ,"_IOBR_signature.tsv.gz")
+  write.table(cohort_data, 
+              file = gzfile(file_name), 
+              sep = "\t", 
+              row.names = FALSE, 
+              quote = FALSE) 
+}  
+
+## TME
+
+folder_path <- "/home/data2/Projects/Fusion/fusiondb/IOBR"
+file_pattern <- "^TCGA.*_TME.tsv.gz$"
+file_list <- list.files(path = folder_path, pattern = file_pattern, full.names = TRUE)
+
+combined_data1 <- data.table()
+
+for (file in file_list) {
+
+  file_data <- fread(file, sep = "\t")
+  
+  file_name <- basename(file)  
+  project_id <- sub("^(TCGA-[^_]+).*", "\\1", file_name)  
+  
+  file_data <- file_data %>%
+    mutate(Project_id = project_id)
+  
+  combined_data1 <- rbind(combined_data1, file_data)
+}
+
+result_data1 <- combined_data1 |>
+  mutate(
+    prefixes = str_split(ID, "-", simplify = TRUE)[, 1:4] %>% apply(1, paste, collapse = "-"),
+    suffixes = str_split(ID, "-", simplify = TRUE)[, 5],
+    second_chars = str_extract(suffixes, "[0-9]+"),
+    second_chars = as.integer(second_chars))
+result_TME <- result_data1  |>
+  group_by(prefixes) |>
+  slice(which.max(second_chars)) |>
+    ungroup() |>
+      mutate(cohort = Project_id,
+             ID = substr(prefixes, 1, 15),
+             cohort = case_when(ID %in% NORMAL_id ~ "TCGA-NORMAL",
+                                TRUE ~ cohort)
+      ) |>
+      filter(ID %in% detected_id_TCGA)  |> 
+      select(-c("suffixes", "second_chars","prefixes")) |>
+      unique() 
+
+cohorts_TME <- unique(result_TME$cohort)
+
+for (cohort1 in cohorts_TME) {
+  cohort_data <- subset(result_TME, cohort == cohort1) |> select(-c(cohort,Project_id) )
+  file_name <- paste0("/home/data2/Projects/Fusion/fusiondb_v3/IOBR/", cohort1 ,"_TME.tsv.gz")
+  write.table(cohort_data, 
+              file = gzfile(file_name), 
+              sep = "\t", 
+              row.names = FALSE, 
+              quote = FALSE) 
+} 
 ```
