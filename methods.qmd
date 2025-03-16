@@ -1686,7 +1686,7 @@ library(dplyr)
 library(stringr)
 library(tidyr)
 file_meta <- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls_matched.cptac.target.tsv"
-metafusion <- fread(file_name , sep = "\t")
+metafusion <- fread(file_meta  , sep = "\t")
 
 # TCGA
 ## info
