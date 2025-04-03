@@ -169,6 +169,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#cptac-1" id="toc-cptac-1" class="nav-link" data-scroll-target="#cptac-1">CPTAC</a></li>
   <li><a href="#tcga-1" id="toc-tcga-1" class="nav-link" data-scroll-target="#tcga-1">TCGA</a></li>
   </ul></li>
+  <li><a href="#fusion-event-scoring-and-classification" id="toc-fusion-event-scoring-and-classification" class="nav-link" data-scroll-target="#fusion-event-scoring-and-classification">Fusion Event Scoring and Classification</a></li>
   </ul>
 </nav>
     </div>
@@ -422,7 +423,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>HGSC</td>
 <td>Primary Tumor</td>
 <td>CPTAC-2</td>
-<td>CPTAC-HGSC</td>
+<td>CPTAC-OV</td>
 </tr>
 <tr class="even">
 <td>LSCC</td>
@@ -464,7 +465,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <td>PDAC</td>
 <td>Primary Tumor</td>
 <td>CPTAC-3</td>
-<td>CPTAC-PDAC</td>
+<td>CPTAC-PAAD</td>
 </tr>
 <tr class="odd">
 <td>PDAC</td>
@@ -2182,11 +2183,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>  <span class="st">"CCRCC"</span> <span class="ot">=</span> <span class="st">"CPTAC-KIRC"</span>,</span>
 <span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>  <span class="st">"COAD"</span> <span class="ot">=</span>  <span class="st">"CPTAC-COAD"</span>,</span>
 <span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GBM"</span> <span class="ot">=</span> <span class="st">"CPTAC-GBM"</span>,</span>
-<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  <span class="st">"HGSC"</span> <span class="ot">=</span> <span class="st">"CPTAC-HGSC"</span>,</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>  <span class="st">"HGSC"</span> <span class="ot">=</span> <span class="st">"CPTAC-OV"</span>,</span>
 <span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>  <span class="st">"HNSCC"</span> <span class="ot">=</span> <span class="st">"CPTAC-HNSC"</span>,</span>
 <span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LSCC"</span> <span class="ot">=</span> <span class="st">"CPTAC-LUSC"</span> ,</span>
 <span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>  <span class="st">"LUAD"</span> <span class="ot">=</span> <span class="st">"CPTAC-LUAD"</span>,</span>
-<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PDAC"</span> <span class="ot">=</span> <span class="st">"CPTAC-PDAC"</span>,</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>  <span class="st">"PDAC"</span> <span class="ot">=</span> <span class="st">"CPTAC-PAAD"</span>,</span>
 <span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  <span class="st">"UCEC"</span> <span class="ot">=</span> <span class="st">"CPTAC-UCEC"</span>,</span>
 <span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>  <span class="st">"GTEX-Brain"</span> <span class="ot">=</span> <span class="st">"CPTAC-GTEX-Brain"</span></span>
 <span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>)     </span>
@@ -2719,9 +2720,182 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb6-191"><a href="#cb6-191" aria-hidden="true" tabindex="-1"></a>              <span class="at">row.names =</span> <span class="cn">FALSE</span>, </span>
 <span id="cb6-192"><a href="#cb6-192" aria-hidden="true" tabindex="-1"></a>              <span class="at">quote =</span> <span class="cn">FALSE</span>) </span>
 <span id="cb6-193"><a href="#cb6-193" aria-hidden="true" tabindex="-1"></a>} </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-
-
 </section>
+</section>
+<section id="fusion-event-scoring-and-classification" class="level2">
+<h2 class="anchored" data-anchor-id="fusion-event-scoring-and-classification">Fusion Event Scoring and Classification</h2>
+<pre><code>library(data.table)
+library(dplyr)
+library(stringr)
+library(tidyr)
+
+file_meta &lt;- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_gdc_divide.tsv"
+metafusion &lt;- fread(file_meta , sep = "\t")
+# Stratification Strategy
+## Normal data
+### 1. If one fusion event was found in the past Arriba blocklist, it will be given a score of 0 and will not be changed.
+### 2. If one fusion event's max_split_cnt &gt;= 1 and max_span_cnt &gt;= 1, +1 score.
+### 3. If Arriba and STAR-Fusion detected identical fusion event, +1 score.
+### 4. If past FusionAnnotator annotated one normal fusion event, +2 score(Because it is a strong evidence)
+Normal_data &lt;- metafusion |&gt;
+               filter(sample_type == "Normal") |&gt;
+               mutate(Normal_score = 0) 
+
+### 1. Arriba blocklist
+#### reference:https://arriba.readthedocs.io/en/latest/input-files/#blacklist
+Normal_data &lt;- Normal_data %&gt;%
+  mutate(
+    Normal_score = case_when(
+      blocklist == TRUE ~ 0,  
+      TRUE ~ Normal_score     
+    ),
+    score0 = case_when(
+      blocklist == TRUE ~ TRUE,  
+      TRUE ~ FALSE    
+    )
+  )
+
+###  2. Reads counts
+Normal_data &lt;- Normal_data %&gt;%
+  mutate(
+    Normal_score = case_when(
+         max_split_cnt &gt;= 1 &amp; max_span_cnt &gt;= 1  &amp; score0 == FALSE ~ Normal_score + 1 ,
+         TRUE ~ Normal_score 
+                            )
+        )
+
+###  3. Tools detected
+Normal_data &lt;- Normal_data %&gt;%
+    mutate(
+    Normal_score = case_when(
+           tools == "arriba,starfusion" &amp; score0 == FALSE ~ Normal_score + 1,
+           TRUE ~ Normal_score
+                            )
+          )
+            
+### 4. Fusionanntator annotate 
+normal_markers &lt;- c("GTEx_recurrent_StarF2019", "DGD_PARALOGS", "HGNC_GENEFAM", "BodyMap", "Greger_Normal", "ConjoinG", "Babiceanu_Normal")
+
+#### Past Red Herrings summary didn't contain TCGA, TARGET, CPTAC(except for GTEx-Brain) normal sample data.
+#### reference:https://github.com/FusionAnnotator/CTAT_HumanFusionLib/wiki
+#### BodyMap    40
+#### Babiceanu_Normal   239
+#### ConjoinG   698
+#### DGD_PARALOGS   14463
+#### Greger_Normal  113
+#### GTEx_recurrent_StarF2019   4047
+#### HGNC_GENEFAM   Unknown
+
+Normal_data &lt;- Normal_data %&gt;%
+  mutate(
+    Normal_score = case_when(
+      rowSums(sapply(normal_markers, grepl, x = cancer_db_hits)) &gt;= 1 &amp; score0 == FALSE ~ Normal_score + 2,
+      TRUE ~ Normal_score   )
+        )
+
+### Nomral true 
+Normal_data_true &lt;- Normal_data |&gt;
+                          group_by(gene1, gene2) %&gt;%
+                          slice_max(Normal_score) %&gt;%
+                          ungroup() %&gt;%
+                          filter(Normal_score &gt;= 2) 
+
+## Tumor data
+### 1. If one fusion event was found in the past Arriba blocklist, it will be given a score of 0 and will not be changed.
+### 2. If fusion event was in our detcted normal fusion（score&gt;=2), it will be given a score of 0 and will not be changed.
+### 3. If one fusion event's max_split_cnt and max_span_cnt are both greater than or equal to 1, and at least one of them is less than 5, +1 score.
+###    If one fusion event's max_split_cnt and max_span_cnt are both greater than or equal to 5, +2 score.
+### 4. If Arriba detected exclusive fusion event, +0 score; 
+###    If STAR-Fusion detected exclusive fusion event, +0 score; 
+###    If Arriba and STAR-Fusion detected identical fusion event, +1 score; 
+### 5. If past FusionAnnotator annotated one tumor fusion event, +2 score(Because it is a strong evidence)
+Tumor_data &lt;-  metafusion |&gt;
+               filter(sample_type == "Tumor" | sample_type == "Blood") |&gt;
+               mutate(Tumor_score = 0) 
+
+### 1. Arriba blocklist
+#### reference:https://arriba.readthedocs.io/en/latest/input-files/#blacklist
+Tumor_data &lt;- Tumor_data %&gt;%
+  mutate(
+    Tumor_score = case_when(
+      blocklist == TRUE ~ 0,  
+      TRUE ~ Tumor_score   
+    ),
+    score0 = case_when(
+      blocklist == TRUE ~ TRUE,  
+      TRUE ~ FALSE    
+    )
+  )
+
+### 2. Filter not in normal data.
+Tumor_data &lt;- Tumor_data %&gt;%
+              mutate(gene_pair = paste0(gene1, "::", gene2))
+
+Normal_data_true &lt;- Normal_data_true %&gt;%
+                    mutate(gene_pair = paste0(gene1, "::", gene2))
+
+Tumor_data &lt;- Tumor_data %&gt;%
+  mutate(
+    Tumor_score = case_when(
+      gene_pair %in% Normal_data_true$gene_pair &amp; score0 == FALSE ~ 0,
+      TRUE ~ Tumor_score   
+    ),
+    score0 = case_when(
+      gene_pair %in% Normal_data_true$gene_pair &amp; score0 == FALSE ~ TRUE,
+      TRUE ~ FALSE    
+    )
+  )
+
+###  3. Reads counts
+
+Tumor_data &lt;- Tumor_data %&gt;%
+  mutate(
+    Tumor_score = case_when(
+      max_split_cnt &gt;= 5 &amp; max_span_cnt &gt;= 5  &amp; score0 == FALSE ~ Tumor_score + 2,
+      (max_split_cnt &gt;= 1 &amp; max_span_cnt &gt;= 1) &amp; ((max_split_cnt &lt; 5 &amp; max_span_cnt &gt;= 5)| (max_split_cnt &gt;= 5 &amp; max_span_cnt &lt; 5)| (max_split_cnt &lt; 5 &amp; max_span_cnt &lt; 5))~ Tumor_score + 1,
+      TRUE ~ Tumor_score
+    )
+  )
+
+###  4. Tools detected
+
+Tumor_data &lt;- Tumor_data %&gt;%
+    mutate(
+      Tumor_score = case_when(
+           tools == "arriba,starfusion" &amp; score0 == FALSE ~ Tumor_score + 1,
+           tools == "arriba" &amp; score0 == FALSE ~ Tumor_score,
+           tools == "starfusion" &amp; score0 == FALSE ~ Tumor_score,
+           TRUE ~ Tumor_score
+                            )
+          )
+
+### 5. Fusionanntator annotate 
+tumor_markers &lt;- c("Mitelman", "chimerdb_omim", "chimerdb_pubmed", "Cosmic", "YOSHIHARA_TCGA", "ChimerKB", "ChimerPub", "ChimerSeq", "Klijn_CellLines", "Larsson_TCGA", "CCLE_StarF2019", "HaasMedCancer", "TCGA_StarF2019", "TumorFusionsNAR2018", "DEEPEST2019", "GUO2018CR_TCGA", "DepMap2023")
+
+Tumor_data &lt;- Tumor_data %&gt;%
+    mutate(
+      Tumor_score = case_when(
+        rowSums(sapply(tumor_markers, grepl, x = cancer_db_hits)) &gt;= 1 ~ Tumor_score + 2,
+        TRUE ~ Tumor_score)
+          ) 
+
+### New metafusion
+Tumor_data1 &lt;- Tumor_data  |&gt; 
+               select(-c(gene_pair, score0)) |&gt;
+               rename(gene_score = Tumor_score)
+Normal_data1 &lt;- Normal_data |&gt; 
+               select(-c( score0)) |&gt;
+               rename(gene_score = Normal_score)
+
+metafusion_new &lt;- rbind(Normal_data1,Tumor_data1)
+file_name &lt;- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls.star.tsv"
+write.table(metafusion_new, 
+                      file = file_name, 
+                      sep = "\t", 
+                      row.names = FALSE, 
+                      quote = FALSE) </code></pre>
+
+
 </section>
 
 </main> <!-- /main -->
