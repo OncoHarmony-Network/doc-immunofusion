@@ -14,7 +14,7 @@ format:
 
 ## Data Availability
 
-All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the "Repository" page), we downloaded ICB patients' RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated circRNA identification results are available at Zenodo (<https://zenodo.org/doi/10.5281/zenodo.7969298>). For requesting circRNA expression matrix or other types of data, please contact the leader, Jian-Guo Zhou.
+All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the "Cohort" page), we downloaded ICB patients' RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated fusion gene identification results are not available at present.
 
 ## Citation
 
@@ -23,7 +23,7 @@ The database is currently under submission for publication.
 ## Contact
 
 If you find any bug or have any feature to request, please report it by email
-  (Yankun Zhao <mailto:23happytea@gmail.com>, Shixiang Wang <mailto:shixiang1994wang@gmail.com>, Jianguo Zhou <mailto:jianguo.zhou@zmu.edu.cn>).
+  (Yankun Zhao <mailto:zhaoyankun@zmuzh.edu.cn>, Shixiang Wang <mailto:shixiang1994wang@gmail.com>, Jianguo Zhou <mailto:jianguo.zhou@zmu.edu.cn>).
 
 ## Team
 
