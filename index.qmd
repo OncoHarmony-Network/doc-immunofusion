@@ -14,5 +14,127 @@ format:
     code-tools: false
     code-link: true
 ---
+# Overview
 
+ImmunoFusion is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.
+
+The platform is designed to help you:
+
+- Explore the **pan-cancer landscape** of RNA-derived gene fusions.  
+- Examine associations between fusions and **TME, tumor-intrinsic, and metabolic signatures**.  
+- Assess **fusion co-occurrence/exclusivity** and compare **fusion-positive vs. fusion-negative** groups.
+- Investigate how specific fusions relate to **survival outcomes** in treatment-naïve and ICB-treated cohorts.  
+
+Please cite the ImmunoFusion paper if you use results from this platform in your work.
+
+---
+
+# Home
+
+This page provides a quick overview of ImmunoFusion, including:
+
+**Basic Information and Data Scale**
+
+ImmunoFusion (The Fusion Immunome Atlas) is the largest cancer fusion gene database, integrating 66 cohorts, 20,000+ samples, and 600,000+ high-confidence fusions, including data from TCGA, TARGET, CPTAC, and 29 immunotherapy cohorts.
+
+**Functional Overview and Platform Features**
+
+The platform provides intuitive tools for browsing, querying, and analyzing fusion genes, allowing users to assess their distribution, immune features, survival relevance, and treatment responses across cancers.
+
+**Technical Implementation and Use Notes**
+
+Built with R Shiny, ImmunoFusion delivers efficient visualization and structured outputs. It is intended for research use only and does not collect personal information.
+
+---
+
+# Fusion Module
+
+The Fusion module is the entry point for inspecting individual fusion events and their basic characteristics.
+
+![Fusion](images/Fusion.svg){#fig-flow width=80%}
+
+1. Select gene (optional) or gene pairs (optional)
+2. Filter by Gene, Sample_ID, Fusion_ID, etc.
+
+In the middle panel, you can browse specific fusions and view the distribution of different fusion types across the cohort.
+
+You can download the fusion summary tables as CSV files.
+
+---
+
+# Cohort Module
+
+The Cohort module provides an overview of all cohorts and datasets in ImmunoFusion by presenting key metadata such as ID, name, cancer type, treatment/drug details, sampling time, sample size, publication year/DOI, therapeutic label (e.g., IO), and survival endpoints (e.g., OS, PFS).
+
+![Cohort](images/Cohort.svg){#fig-flow width=80%}
+You can search and filter the list of cohorts using the main search bar or the individual column filters.
+
+---
+
+# Analysis Module
+
+The Analysis module contains multiple analytical sub-modules. Each module follows a consistent structure: 
+
+- Analysis controls: define fusions or genes, cohorts, endpoints, or signature options.  
+- Results: customize figures, and download results.
+
+## Fusion Frequency (Dist)
+
+This module visualizes the distribution and frequency of gene fusions across cancer types and cohorts. It helps you:
+
+- Quantify the fusion burden in different cancers.  
+- Compare the number of fusions per sample or per cohort.  
+- Identify fusion-rich vs. fusion-poor tumor types.
+
+![Fusion Frequency](images/Dist.svg){#fig-flow width=80%}
+1. Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs)
+2. Select plot type: Fusion frequency/Sample frequency proportion
+   - The Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts.
+3. Select and highlight specific gene/gene pairs (the full set of genes is analyzed by default)
+4. Run the analysis
+
+## Cancer and TME Signatures (Comp)
+
+The Cancer and TME Signatures module evaluates associations between fusion events and a broad range of tumor microenvironment, tumor intrinsic, and metabolic signatures. It is useful for understanding how specific fusions shape the immune and metabolic landscape of tumors.
+
+![Comparison](images/Comp.svg){#fig-flow width=80%}
+
+1. Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) and specific gene/gene pairs name
+2. Select approach
+3. Select TME-related, tumor-intrinsic, or metabolism-related signatures 
+4. Run the analysis
+
+## Fusion Associations (Asso)
+
+The Fusion associations module examines co-occurrence or mutual exclusivity between genes or fusion events. It helps identify patterns such as fusion pairs that frequently appear together or tend not to coexist.
+
+![Association](images/Asso.svg){#fig-flow width=80%}
+
+1. Select cancer type, cohort, gene/gene pairs (at least six genes)
+2. Adjust optional parameters
+3. Choose correlation method
+4. Run the analysis
+
+## Survival Analysis (Risk)
+
+The Survival analysis module evaluates the association between fusion status and patient survival (e.g., OS, PFS). It can be used in both treatment-naive and ICB cohorts.
+
+The survival analysis is divided into two dedicated panels: one for the Kaplan-Meier (Km) method, which generates and compares survival curves, and another for the Cox Regression model, which identifies significant prognostic factors.
+
+### Km method panel
+
+![Km_surv](images/Km.svg){#fig-flow width=80%}
+
+1. Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups
+2. Select survival endpoint (based on available survival data)
+3. Adjust optional parameters
+4. Run the analysis
+
+### Cox method panel
+
+![Cox_surv](images/Cox.svg){#fig-flow width=80%}
+1. Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups
+2. Select survival endpoint (based on available survival data)
+3. Select covariates
+4. Run the analysis
 
