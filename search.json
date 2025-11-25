@@ -1,5 +1,40 @@
 [
   {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Cohort” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated fusion gene identification results are not available at present."
+  },
+  {
+    "objectID": "about.html#data-availability",
+    "href": "about.html#data-availability",
+    "title": "About",
+    "section": "",
+    "text": "All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Cohort” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated fusion gene identification results are not available at present."
+  },
+  {
+    "objectID": "about.html#citation",
+    "href": "about.html#citation",
+    "title": "About",
+    "section": "Citation",
+    "text": "Citation\nThe database is currently under submission for publication."
+  },
+  {
+    "objectID": "about.html#contact",
+    "href": "about.html#contact",
+    "title": "About",
+    "section": "Contact",
+    "text": "Contact\nIf you find any bug or have any feature to request, please report it by email (Yankun Zhao mailto:zhaoyankun@zmuzh.edu.cn, Shixiang Wang mailto:shixiang1994wang@gmail.com, Jianguo Zhou mailto:jianguo.zhou@zmu.edu.cn)."
+  },
+  {
+    "objectID": "about.html#team",
+    "href": "about.html#team",
+    "title": "About",
+    "section": "Team",
+    "text": "Team\nOncoHarmony Network is a dynamic collaborative platform dedicated to advancing the frontier of cancer immunotherapy. Bringing together diverse teams from leading universities and research institutions, our network is committed to the exploration, mining, and integration of multi-omics data in the realm of cancer research. With a focus on fostering synergy among experts in the field, OncoHarmony Network aims to construct a comprehensive resource hub and cutting-edge tools for unraveling the complexities of tumor-immune interactions. Through collective knowledge and interdisciplinary collaboration, we strive to accelerate breakthroughs in the understanding and development of effective cancer therapies.\nCurrently led by Dr. Shixiang Wang and Dr. Jian-Guo Zhou.\nMore please visit our website."
+  },
+  {
     "objectID": "methods.html",
     "href": "methods.html",
     "title": "Methods",
@@ -56,38 +91,38 @@
     "text": "Fusion Event Scoring and Classification\nlibrary(data.table)\nlibrary(dplyr)\nlibrary(stringr)\nlibrary(tidyr)\n\nfile_meta &lt;- \"/home/data2/Projects/Fusion/fusiondb_v3/metafusion_gdc_divide.tsv\"\nmetafusion &lt;- fread(file_meta , sep = \"\\t\")\n# Stratification Strategy\n## Normal data\n### 1. If one fusion event was found in the past Arriba blocklist, it will be given a score of 0 and will not be changed.\n### 2. If one fusion event's max_split_cnt &gt;= 1 and max_span_cnt &gt;= 1, +1 score.\n### 3. If Arriba and STAR-Fusion detected identical fusion event, +1 score.\n### 4. If past FusionAnnotator annotated one normal fusion event, +2 score(Because it is a strong evidence)\nNormal_data &lt;- metafusion |&gt;\n               filter(sample_type == \"Normal\") |&gt;\n               mutate(Normal_score = 0) \n\n### 1. Arriba blocklist\n#### reference:https://arriba.readthedocs.io/en/latest/input-files/#blacklist\nNormal_data &lt;- Normal_data %&gt;%\n  mutate(\n    Normal_score = case_when(\n      blocklist == TRUE ~ 0,  \n      TRUE ~ Normal_score     \n    ),\n    score0 = case_when(\n      blocklist == TRUE ~ TRUE,  \n      TRUE ~ FALSE    \n    )\n  )\n\n###  2. Reads counts\nNormal_data &lt;- Normal_data %&gt;%\n  mutate(\n    Normal_score = case_when(\n         max_split_cnt &gt;= 1 & max_span_cnt &gt;= 1  & score0 == FALSE ~ Normal_score + 1 ,\n         TRUE ~ Normal_score \n                            )\n        )\n\n###  3. Tools detected\nNormal_data &lt;- Normal_data %&gt;%\n    mutate(\n    Normal_score = case_when(\n           tools == \"arriba,starfusion\" & score0 == FALSE ~ Normal_score + 1,\n           TRUE ~ Normal_score\n                            )\n          )\n            \n### 4. Fusionanntator annotate \nnormal_markers &lt;- c(\"GTEx_recurrent_StarF2019\", \"DGD_PARALOGS\", \"HGNC_GENEFAM\", \"BodyMap\", \"Greger_Normal\", \"ConjoinG\", \"Babiceanu_Normal\")\n\n#### Past Red Herrings summary didn't contain TCGA, TARGET, CPTAC(except for GTEx-Brain) normal sample data.\n#### reference:https://github.com/FusionAnnotator/CTAT_HumanFusionLib/wiki\n#### BodyMap    40\n#### Babiceanu_Normal   239\n#### ConjoinG   698\n#### DGD_PARALOGS   14463\n#### Greger_Normal  113\n#### GTEx_recurrent_StarF2019   4047\n#### HGNC_GENEFAM   Unknown\n\nNormal_data &lt;- Normal_data %&gt;%\n  mutate(\n    Normal_score = case_when(\n      rowSums(sapply(normal_markers, grepl, x = cancer_db_hits)) &gt;= 1 & score0 == FALSE ~ Normal_score + 2,\n      TRUE ~ Normal_score   )\n        )\n\n### Nomral true \nNormal_data_true &lt;- Normal_data |&gt;\n                          group_by(gene1, gene2) %&gt;%\n                          slice_max(Normal_score) %&gt;%\n                          ungroup() %&gt;%\n                          filter(Normal_score &gt;= 2) \n\n## Tumor data\n### 1. If one fusion event was found in the past Arriba blocklist, it will be given a score of 0 and will not be changed.\n### 2. If fusion event was in our detcted normal fusion（score&gt;=2), it will be given a score of 0 and will not be changed.\n### 3. If one fusion event's max_split_cnt and max_span_cnt are both greater than or equal to 1, and at least one of them is less than 5, +1 score.\n###    If one fusion event's max_split_cnt and max_span_cnt are both greater than or equal to 5, +2 score.\n### 4. If Arriba detected exclusive fusion event, +0 score; \n###    If STAR-Fusion detected exclusive fusion event, +0 score; \n###    If Arriba and STAR-Fusion detected identical fusion event, +1 score; \n### 5. If past FusionAnnotator annotated one tumor fusion event, +2 score(Because it is a strong evidence)\nTumor_data &lt;-  metafusion |&gt;\n               filter(sample_type == \"Tumor\" | sample_type == \"Blood\") |&gt;\n               mutate(Tumor_score = 0) \n\n### 1. Arriba blocklist\n#### reference:https://arriba.readthedocs.io/en/latest/input-files/#blacklist\nTumor_data &lt;- Tumor_data %&gt;%\n  mutate(\n    Tumor_score = case_when(\n      blocklist == TRUE ~ 0,  \n      TRUE ~ Tumor_score   \n    ),\n    score0 = case_when(\n      blocklist == TRUE ~ TRUE,  \n      TRUE ~ FALSE    \n    )\n  )\n\n### 2. Filter not in normal data.\nTumor_data &lt;- Tumor_data %&gt;%\n              mutate(gene_pair = paste0(gene1, \"::\", gene2))\n\nNormal_data_true &lt;- Normal_data_true %&gt;%\n                    mutate(gene_pair = paste0(gene1, \"::\", gene2))\n\nTumor_data &lt;- Tumor_data %&gt;%\n  mutate(\n    Tumor_score = case_when(\n      gene_pair %in% Normal_data_true$gene_pair & score0 == FALSE ~ 0,\n      TRUE ~ Tumor_score   \n    ),\n    score0 = case_when(\n      gene_pair %in% Normal_data_true$gene_pair & score0 == FALSE ~ TRUE,\n      TRUE ~ FALSE    \n    )\n  )\n\n###  3. Reads counts\n\nTumor_data &lt;- Tumor_data %&gt;%\n  mutate(\n    Tumor_score = case_when(\n      max_split_cnt &gt;= 5 & max_span_cnt &gt;= 5  & score0 == FALSE ~ Tumor_score + 2,\n      (max_split_cnt &gt;= 1 & max_span_cnt &gt;= 1) & ((max_split_cnt &lt; 5 & max_span_cnt &gt;= 5)| (max_split_cnt &gt;= 5 & max_span_cnt &lt; 5)| (max_split_cnt &lt; 5 & max_span_cnt &lt; 5))~ Tumor_score + 1,\n      TRUE ~ Tumor_score\n    )\n  )\n\n###  4. Tools detected\n\nTumor_data &lt;- Tumor_data %&gt;%\n    mutate(\n      Tumor_score = case_when(\n           tools == \"arriba,starfusion\" & score0 == FALSE ~ Tumor_score + 1,\n           tools == \"arriba\" & score0 == FALSE ~ Tumor_score,\n           tools == \"starfusion\" & score0 == FALSE ~ Tumor_score,\n           TRUE ~ Tumor_score\n                            )\n          )\n\n### 5. Fusionanntator annotate \ntumor_markers &lt;- c(\"Mitelman\", \"chimerdb_omim\", \"chimerdb_pubmed\", \"Cosmic\", \"YOSHIHARA_TCGA\", \"ChimerKB\", \"ChimerPub\", \"ChimerSeq\", \"Klijn_CellLines\", \"Larsson_TCGA\", \"CCLE_StarF2019\", \"HaasMedCancer\", \"TCGA_StarF2019\", \"TumorFusionsNAR2018\", \"DEEPEST2019\", \"GUO2018CR_TCGA\", \"DepMap2023\")\n\nTumor_data &lt;- Tumor_data %&gt;%\n    mutate(\n      Tumor_score = case_when(\n        rowSums(sapply(tumor_markers, grepl, x = cancer_db_hits)) &gt;= 1 ~ Tumor_score + 2,\n        TRUE ~ Tumor_score)\n          ) \n\n### New metafusion\nTumor_data1 &lt;- Tumor_data  |&gt; \n               select(-c(gene_pair, score0)) |&gt;\n               rename(gene_score = Tumor_score)\nNormal_data1 &lt;- Normal_data |&gt; \n               select(-c( score0)) |&gt;\n               rename(gene_score = Normal_score)\n\nmetafusion_new &lt;- rbind(Normal_data1,Tumor_data1)\nfile_name &lt;- \"/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls.star.tsv\"\nwrite.table(metafusion_new, \n                      file = file_name, \n                      sep = \"\\t\", \n                      row.names = FALSE, \n                      quote = FALSE)"
   },
   {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Website Tutorial",
     "section": "",
-    "text": "All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Cohort” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated fusion gene identification results are not available at present."
+    "text": "ImmunoFusion is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.\nThe platform is designed to help you:\n\nExplore the pan-cancer landscape of RNA-derived gene fusions.\n\nExamine associations between fusions and TME, tumor-intrinsic, and metabolic signatures.\n\nAssess fusion co-occurrence/exclusivity and compare fusion-positive vs. fusion-negative groups.\nInvestigate how specific fusions relate to survival outcomes in treatment-naïve and ICB-treated cohorts.\n\nPlease cite the ImmunoFusion paper if you use results from this platform in your work."
   },
   {
-    "objectID": "about.html#data-availability",
-    "href": "about.html#data-availability",
-    "title": "About",
-    "section": "",
-    "text": "All the processed data can be accessed on the ImmunoFusion website. We collected ICB-related cancer data sets with tumor gene expression profiles from the dbGaP, EGA, EMBL-EBI and GSA databases. Following the accession instruction described in published ICB studies (table on the “Cohort” page), we downloaded ICB patients’ RNA-Seq raw sequencing data, clinical information, and response outcome information from ICB studies (if available). Curated fusion gene identification results are not available at present."
+    "objectID": "index.html#fusion-frequency-dist",
+    "href": "index.html#fusion-frequency-dist",
+    "title": "Website Tutorial",
+    "section": "Fusion Frequency (Dist)",
+    "text": "Fusion Frequency (Dist)\nThis module visualizes the distribution and frequency of gene fusions across cancer types and cohorts. It helps you:\n\nQuantify the fusion burden in different cancers.\n\nCompare the number of fusions per sample or per cohort.\n\nIdentify fusion-rich vs. fusion-poor tumor types.\n\n 1. Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) 2. Select plot type: Fusion frequency/Sample frequency proportion - The Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts. 3. Select and highlight specific gene/gene pairs (the full set of genes is analyzed by default) 4. Run the analysis"
   },
   {
-    "objectID": "about.html#citation",
-    "href": "about.html#citation",
-    "title": "About",
-    "section": "Citation",
-    "text": "Citation\nThe database is currently under submission for publication."
+    "objectID": "index.html#cancer-and-tme-signatures-comp",
+    "href": "index.html#cancer-and-tme-signatures-comp",
+    "title": "Website Tutorial",
+    "section": "Cancer and TME Signatures (Comp)",
+    "text": "Cancer and TME Signatures (Comp)\nThe Cancer and TME Signatures module evaluates associations between fusion events and a broad range of tumor microenvironment, tumor intrinsic, and metabolic signatures. It is useful for understanding how specific fusions shape the immune and metabolic landscape of tumors.\n\n\n\n\n\n\nFigure 2: Comparison\n\n\n\n\nSelect one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) and specific gene/gene pairs name\nSelect approach\nSelect TME-related, tumor-intrinsic, or metabolism-related signatures\nRun the analysis"
   },
   {
-    "objectID": "about.html#contact",
-    "href": "about.html#contact",
-    "title": "About",
-    "section": "Contact",
-    "text": "Contact\nIf you find any bug or have any feature to request, please report it by email (Yankun Zhao mailto:zhaoyankun@zmuzh.edu.cn, Shixiang Wang mailto:shixiang1994wang@gmail.com, Jianguo Zhou mailto:jianguo.zhou@zmu.edu.cn)."
+    "objectID": "index.html#fusion-associations-asso",
+    "href": "index.html#fusion-associations-asso",
+    "title": "Website Tutorial",
+    "section": "Fusion Associations (Asso)",
+    "text": "Fusion Associations (Asso)\nThe Fusion associations module examines co-occurrence or mutual exclusivity between genes or fusion events. It helps identify patterns such as fusion pairs that frequently appear together or tend not to coexist.\n\n\n\n\n\n\nFigure 3: Association\n\n\n\n\nSelect cancer type, cohort, gene/gene pairs (at least six genes)\nAdjust optional parameters\nChoose correlation method\nRun the analysis"
   },
   {
-    "objectID": "about.html#team",
-    "href": "about.html#team",
-    "title": "About",
-    "section": "Team",
-    "text": "Team\nOncoHarmony Network is a dynamic collaborative platform dedicated to advancing the frontier of cancer immunotherapy. Bringing together diverse teams from leading universities and research institutions, our network is committed to the exploration, mining, and integration of multi-omics data in the realm of cancer research. With a focus on fostering synergy among experts in the field, OncoHarmony Network aims to construct a comprehensive resource hub and cutting-edge tools for unraveling the complexities of tumor-immune interactions. Through collective knowledge and interdisciplinary collaboration, we strive to accelerate breakthroughs in the understanding and development of effective cancer therapies.\nCurrently led by Dr. Shixiang Wang and Dr. Jian-Guo Zhou.\nMore please visit our website."
+    "objectID": "index.html#survival-analysis-risk",
+    "href": "index.html#survival-analysis-risk",
+    "title": "Website Tutorial",
+    "section": "Survival Analysis (Risk)",
+    "text": "Survival Analysis (Risk)\nThe Survival analysis module evaluates the association between fusion status and patient survival (e.g., OS, PFS). It can be used in both treatment-naive and ICB cohorts.\nThe survival analysis is divided into two dedicated panels: one for the Kaplan-Meier (Km) method, which generates and compares survival curves, and another for the Cox Regression model, which identifies significant prognostic factors.\n\nKm method panel\n\n\n\n\n\n\nFigure 4: Km_surv\n\n\n\n\nSelect cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups\nSelect survival endpoint (based on available survival data)\nAdjust optional parameters\nRun the analysis\n\n\n\nCox method panel\n 1. Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups 2. Select survival endpoint (based on available survival data) 3. Select covariates 4. Run the analysis"
   }
 ]

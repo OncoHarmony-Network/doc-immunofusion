@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://OncoHarmony-Network.github.io/doc-immunofusion/about.html</loc>
+    <lastmod>2025-11-25T15:37:41.057Z</lastmod>
+  </url>
+  <url>
     <loc>https://OncoHarmony-Network.github.io/doc-immunofusion/methods.html</loc>
-    <lastmod>2025-04-03T06:27:30.629Z</lastmod>
+    <lastmod>2025-11-25T15:37:41.063Z</lastmod>
   </url>
   <url>
     <loc>https://OncoHarmony-Network.github.io/doc-immunofusion/index.html</loc>
-    <lastmod>2025-04-03T06:27:30.629Z</lastmod>
-  </url>
-  <url>
-    <loc>https://OncoHarmony-Network.github.io/doc-immunofusion/about.html</loc>
-    <lastmod>2025-04-03T06:27:30.629Z</lastmod>
+    <lastmod>2025-11-25T15:37:41.063Z</lastmod>
   </url>
 </urlset>
