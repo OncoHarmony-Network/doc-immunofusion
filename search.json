@@ -25,7 +25,7 @@
     "href": "about.html#contact",
     "title": "About",
     "section": "Contact",
-    "text": "Contact\nIf you find any bug or have any feature to request, please report it by email (Yankun Zhao mailto:zhaoyankun@zmuzh.edu.cn, Shixiang Wang mailto:shixiang1994wang@gmail.com, Jianguo Zhou mailto:jianguo.zhou@zmu.edu.cn)."
+    "text": "Contact\nIf you find any bug or have any feature to request, please report it by email (Yankun Zhao mailto:zhaoyankun@zmuzh.edu.cn, Shixiang Wang mailto:wangshx@csu.edu.cn, Jianguo Zhou mailto:jianguo.zhou@zmu.edu.cn)."
   },
   {
     "objectID": "about.html#team",
@@ -102,27 +102,27 @@
     "href": "index.html#fusion-frequency-dist",
     "title": "Website Tutorial",
     "section": "Fusion Frequency (Dist)",
-    "text": "Fusion Frequency (Dist)\nThis module visualizes the distribution and frequency of gene fusions across cancer types and cohorts. It helps you:\n\nQuantify the fusion burden in different cancers.\n\nCompare the number of fusions per sample or per cohort.\n\nIdentify fusion-rich vs. fusion-poor tumor types.\n\n 1. Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) 2. Select plot type: Fusion frequency/Sample frequency proportion - The Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts. 3. Select and highlight specific gene/gene pairs (the full set of genes is analyzed by default) 4. Run the analysis"
+    "text": "Fusion Frequency (Dist)\nThis module visualizes the distribution and frequency of gene fusions across cancer types and cohorts. It helps you:\n\nQuantify the fusion burden in different cancers.\n\nCompare the number of fusions per sample or per cohort.\n\nIdentify fusion-rich vs. fusion-poor tumor types.\n\n\n\n\n\n\n\nFigure 3: Fusion Frequency\n\n\n\n\nSelect one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs)\nSelect plot type: Fusion frequency/Sample frequency proportion\n\nThe Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts.\n\nSelect and highlight specific gene/gene pairs (the full set of genes is analyzed by default)\nRun the analysis"
   },
   {
     "objectID": "index.html#cancer-and-tme-signatures-comp",
     "href": "index.html#cancer-and-tme-signatures-comp",
     "title": "Website Tutorial",
     "section": "Cancer and TME Signatures (Comp)",
-    "text": "Cancer and TME Signatures (Comp)\nThe Cancer and TME Signatures module evaluates associations between fusion events and a broad range of tumor microenvironment, tumor intrinsic, and metabolic signatures. It is useful for understanding how specific fusions shape the immune and metabolic landscape of tumors.\n\n\n\n\n\n\nFigure 2: Comparison\n\n\n\n\nSelect one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) and specific gene/gene pairs name\nSelect approach\nSelect TME-related, tumor-intrinsic, or metabolism-related signatures\nRun the analysis"
+    "text": "Cancer and TME Signatures (Comp)\nThe Cancer and TME Signatures module evaluates associations between fusion events and a broad range of tumor microenvironment, tumor intrinsic, and metabolic signatures. It is useful for understanding how specific fusions shape the immune and metabolic landscape of tumors.\n\n\n\n\n\n\nFigure 4: Comparison\n\n\n\n\nSelect one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) and specific gene/gene pairs name\nSelect approach\nSelect TME-related, tumor-intrinsic, or metabolism-related signatures\nRun the analysis"
   },
   {
     "objectID": "index.html#fusion-associations-asso",
     "href": "index.html#fusion-associations-asso",
     "title": "Website Tutorial",
     "section": "Fusion Associations (Asso)",
-    "text": "Fusion Associations (Asso)\nThe Fusion associations module examines co-occurrence or mutual exclusivity between genes or fusion events. It helps identify patterns such as fusion pairs that frequently appear together or tend not to coexist.\n\n\n\n\n\n\nFigure 3: Association\n\n\n\n\nSelect cancer type, cohort, gene/gene pairs (at least six genes)\nAdjust optional parameters\nChoose correlation method\nRun the analysis"
+    "text": "Fusion Associations (Asso)\nThe Fusion associations module examines co-occurrence or mutual exclusivity between genes or fusion events. It helps identify patterns such as fusion pairs that frequently appear together or tend not to coexist.\n\n\n\n\n\n\nFigure 5: Association\n\n\n\n\nSelect cancer type, cohort, gene/gene pairs (at least six genes)\nAdjust optional parameters\nChoose correlation method\nRun the analysis"
   },
   {
     "objectID": "index.html#survival-analysis-risk",
     "href": "index.html#survival-analysis-risk",
     "title": "Website Tutorial",
     "section": "Survival Analysis (Risk)",
-    "text": "Survival Analysis (Risk)\nThe Survival analysis module evaluates the association between fusion status and patient survival (e.g., OS, PFS). It can be used in both treatment-naive and ICB cohorts.\nThe survival analysis is divided into two dedicated panels: one for the Kaplan-Meier (Km) method, which generates and compares survival curves, and another for the Cox Regression model, which identifies significant prognostic factors.\n\nKm method panel\n\n\n\n\n\n\nFigure 4: Km_surv\n\n\n\n\nSelect cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups\nSelect survival endpoint (based on available survival data)\nAdjust optional parameters\nRun the analysis\n\n\n\nCox method panel\n 1. Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups 2. Select survival endpoint (based on available survival data) 3. Select covariates 4. Run the analysis"
+    "text": "Survival Analysis (Risk)\nThe Survival analysis module evaluates the association between fusion status and patient survival (e.g., OS, PFS). It can be used in both treatment-naive and ICB cohorts.\nThe survival analysis is divided into two dedicated panels: one for the Kaplan-Meier (Km) method, which generates and compares survival curves, and another for the Cox Regression model, which identifies significant prognostic factors.\n\nKm method panel\n\n\n\n\n\n\nFigure 6: Km_surv\n\n\n\n\nSelect cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups\nSelect survival endpoint (based on available survival data)\nAdjust optional parameters\nRun the analysis\n\n\n\nCox method panel\n\n\n\n\n\n\nFigure 7: Cox_surv\n\n\n\n\nSelect cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups\nSelect survival endpoint (based on available survival data)\nSelect covariates\nRun the analysis"
   }
 ]

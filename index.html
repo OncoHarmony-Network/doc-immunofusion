@@ -6,8 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Hongqian Qian">
 <meta name="author" content="Shixiang Wang">
-<meta name="dcterms.date" content="2024-12-04">
+<meta name="dcterms.date" content="2025-11-26">
 
 <title>Website Tutorial – ImmunoFusion</title>
 <style>
@@ -151,8 +152,9 @@ ul.task-list li input[type="checkbox"] {
 <div class="quarto-title-meta">
 
     <div>
-    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-heading">Authors</div>
     <div class="quarto-title-meta-contents">
+             <p>Hongqian Qian </p>
              <p>Shixiang Wang </p>
           </div>
   </div>
@@ -160,7 +162,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">December 4, 2024</p>
+      <p class="date">November 26, 2025</p>
     </div>
   </div>
   
@@ -174,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p>ImmunoFusion is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.</p>
+<p><a href="http://shiny.zhoulab.ac.cn/ImmunoFusion">ImmunoFusion</a> is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.</p>
 <p>The platform is designed to help you:</p>
 <ul>
 <li>Explore the <strong>pan-cancer landscape</strong> of RNA-derived gene fusions.<br>
@@ -222,7 +224,17 @@ Figure&nbsp;1: Fusion
 <section id="cohort-module" class="level1">
 <h1>Cohort Module</h1>
 <p>The Cohort module provides an overview of all cohorts and datasets in ImmunoFusion by presenting key metadata such as ID, name, cancer type, treatment/drug details, sampling time, sample size, publication year/DOI, therapeutic label (e.g., IO), and survival endpoints (e.g., OS, PFS).</p>
-<p><img src="images/Cohort.svg" id="fig-flow" class="img-fluid" style="width:80.0%" alt="Cohort"> You can search and filter the list of cohorts using the main search bar or the individual column filters.</p>
+<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Cohort.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;2: Cohort
+</figcaption>
+</figure>
+</div>
+<p>You can search and filter the list of cohorts using the main search bar or the individual column filters.</p>
 <hr>
 </section>
 <section id="analysis-module" class="level1">
@@ -243,7 +255,25 @@ Figure&nbsp;1: Fusion
 </li>
 <li>Identify fusion-rich vs.&nbsp;fusion-poor tumor types.</li>
 </ul>
-<p><img src="images/Dist.svg" id="fig-flow" class="img-fluid" style="width:80.0%" alt="Fusion Frequency"> 1. Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) 2. Select plot type: Fusion frequency/Sample frequency proportion - The Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts. 3. Select and highlight specific gene/gene pairs (the full set of genes is analyzed by default) 4. Run the analysis</p>
+<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Dist.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Fusion Frequency
+</figcaption>
+</figure>
+</div>
+<ol type="1">
+<li>Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs)</li>
+<li>Select plot type: Fusion frequency/Sample frequency proportion
+<ul>
+<li>The Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts.</li>
+</ul></li>
+<li>Select and highlight specific gene/gene pairs (the full set of genes is analyzed by default)</li>
+<li>Run the analysis</li>
+</ol>
 </section>
 <section id="cancer-and-tme-signatures-comp" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-and-tme-signatures-comp">Cancer and TME Signatures (Comp)</h2>
@@ -254,7 +284,7 @@ Figure&nbsp;1: Fusion
 <img src="images/Comp.svg" class="img-fluid figure-img" style="width:80.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Comparison
+Figure&nbsp;4: Comparison
 </figcaption>
 </figure>
 </div>
@@ -274,7 +304,7 @@ Figure&nbsp;2: Comparison
 <img src="images/Asso.svg" class="img-fluid figure-img" style="width:80.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Association
+Figure&nbsp;5: Association
 </figcaption>
 </figure>
 </div>
@@ -297,7 +327,7 @@ Figure&nbsp;3: Association
 <img src="images/Km.svg" class="img-fluid figure-img" style="width:80.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Km_surv
+Figure&nbsp;6: Km_surv
 </figcaption>
 </figure>
 </div>
@@ -310,7 +340,22 @@ Figure&nbsp;4: Km_surv
 </section>
 <section id="cox-method-panel" class="level3">
 <h3 class="anchored" data-anchor-id="cox-method-panel">Cox method panel</h3>
-<p><img src="images/Cox.svg" id="fig-flow" class="img-fluid" style="width:80.0%" alt="Cox_surv"> 1. Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs.&nbsp;Fusion− groups 2. Select survival endpoint (based on available survival data) 3. Select covariates 4. Run the analysis</p>
+<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Cox.svg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;7: Cox_surv
+</figcaption>
+</figure>
+</div>
+<ol type="1">
+<li>Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs.&nbsp;Fusion− groups</li>
+<li>Select survival endpoint (based on available survival data)</li>
+<li>Select covariates</li>
+<li>Run the analysis</li>
+</ol>
 
 
 </section>
