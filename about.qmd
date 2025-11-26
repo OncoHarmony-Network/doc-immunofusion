@@ -23,7 +23,7 @@ The database is currently under submission for publication.
 ## Contact
 
 If you find any bug or have any feature to request, please report it by email
-  (Yankun Zhao <mailto:zhaoyankun@zmuzh.edu.cn>, Shixiang Wang <mailto:shixiang1994wang@gmail.com>, Jianguo Zhou <mailto:jianguo.zhou@zmu.edu.cn>).
+  (Yankun Zhao <mailto:zhaoyankun@zmuzh.edu.cn>, Shixiang Wang <mailto:wangshx@csu.edu.cn>, Jianguo Zhou <mailto:jianguo.zhou@zmu.edu.cn>).
 
 ## Team
 

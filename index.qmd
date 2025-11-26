@@ -1,7 +1,7 @@
 ---
 title: "Website Tutorial"
-author: [Shixiang Wang]
-date: 2024-12-04
+author: [Hongqian Qian, Shixiang Wang]
+date: 2025-11-26
 draft: false
 toc: true
 toc-depth: 3
@@ -14,9 +14,10 @@ format:
     code-tools: false
     code-link: true
 ---
+
 # Overview
 
-ImmunoFusion is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.
+[ImmunoFusion](http://shiny.zhoulab.ac.cn/ImmunoFusion) is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.
 
 The platform is designed to help you:
 
@@ -53,6 +54,7 @@ The Fusion module is the entry point for inspecting individual fusion events and
 
 ![Fusion](images/Fusion.svg){#fig-flow width=80%}
 
+
 1. Select gene (optional) or gene pairs (optional)
 2. Filter by Gene, Sample_ID, Fusion_ID, etc.
 
@@ -67,6 +69,7 @@ You can download the fusion summary tables as CSV files.
 The Cohort module provides an overview of all cohorts and datasets in ImmunoFusion by presenting key metadata such as ID, name, cancer type, treatment/drug details, sampling time, sample size, publication year/DOI, therapeutic label (e.g., IO), and survival endpoints (e.g., OS, PFS).
 
 ![Cohort](images/Cohort.svg){#fig-flow width=80%}
+
 You can search and filter the list of cohorts using the main search bar or the individual column filters.
 
 ---
@@ -87,6 +90,7 @@ This module visualizes the distribution and frequency of gene fusions across can
 - Identify fusion-rich vs. fusion-poor tumor types.
 
 ![Fusion Frequency](images/Dist.svg){#fig-flow width=80%}
+
 1. Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs)
 2. Select plot type: Fusion frequency/Sample frequency proportion
    - The Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts.
@@ -133,6 +137,7 @@ The survival analysis is divided into two dedicated panels: one for the Kaplan-M
 ### Cox method panel
 
 ![Cox_surv](images/Cox.svg){#fig-flow width=80%}
+
 1. Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs. Fusion− groups
 2. Select survival endpoint (based on available survival data)
 3. Select covariates

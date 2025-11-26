@@ -1,7 +1,7 @@
 ---
 title: "Methods"
-author: [Shixiang Wang, Yankun Zhao]
-date: 2024-3-16
+author: [Yankun Zhao, Shixiang Wang]
+date: 2025-11-26
 draft: false
 toc: true
 toc-depth: 3
