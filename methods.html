@@ -2731,172 +2731,643 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 library(dplyr)
 library(stringr)
 library(tidyr)
+library(tibble)
 
-file_meta &lt;- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_gdc_divide.tsv"
+file_meta &lt;- "/data/data2/Projects/Fusion/fusiondb_v4/metafusion_gdc_divide.tsv"
 metafusion &lt;- fread(file_meta , sep = "\t")
+cohort1 &lt;- fread("/data/data2/Projects/Fusion/fusiondb_v4/cohorts_meta.csv")
 # Stratification Strategy
-## Normal data
-### 1. If one fusion event was found in the past Arriba blocklist, it will be given a score of 0 and will not be changed.
-### 2. If one fusion event's max_split_cnt &gt;= 1 and max_span_cnt &gt;= 1, +1 score.
-### 3. If Arriba and STAR-Fusion detected identical fusion event, +1 score.
-### 4. If past FusionAnnotator annotated one normal fusion event, +2 score(Because it is a strong evidence)
-Normal_data &lt;- metafusion |&gt;
-               filter(sample_type == "Normal") |&gt;
-               mutate(Normal_score = 0) 
+## 1. For tumor samples, if there are at least two samples within the total cohorts of a disease that have detected the same fusion value, +1 score.
+## 2. If one fusion event's max_split_cnt and max_span_cnt are both greater than or equal to 1, +1 score;
+## 3. If Arriba and STAR-Fusion detected identical fusion event, +1 score; 
+## 4. score &gt;= 2 , high confident fusion, else low confident fusion
+Tumor_data &lt;-  metafusion  |&gt;
+  filter(!(gene1 %in% c("IGH@-ext", "IGL@-ext", "IGL-@-ext", "IGH-@-ext") | 
+           gene2 %in% c("IGH@-ext", "IGL@-ext", "IGL-@-ext", "IGH-@-ext"))) |&gt; 
+               mutate(
+                Score = 0,
+                fusion = paste0(gene1,"::",gene2),
+                disease = case_when(
+                  grepl( "TCGA", cohort) ~ gsub("^TCGA-", "", cohort),
+                  grepl( "TARGET", cohort) ~ gsub("^TARGET-", "", cohort),
+                  grepl( "CPTAC", cohort) ~ gsub("^CPTAC-", "", cohort),
+                  !cohort %in% c("TCGA", "TARGET", "CPTAC") ~ cohort1$cancer_type[match(cohort, cohort1$id)],
+                  TRUE ~ NA
+                ),
+                disease = case_when(
+                  disease %in% c("LUSC", "LUAD") ~ "NSCLC",
+                  TRUE ~ disease
+                )
+              ) 
 
-### 1. Arriba blocklist
-#### reference:https://arriba.readthedocs.io/en/latest/input-files/#blacklist
-Normal_data &lt;- Normal_data %&gt;%
-  mutate(
-    Normal_score = case_when(
-      blocklist == TRUE ~ 0,  
-      TRUE ~ Normal_score     
-    ),
-    score0 = case_when(
-      blocklist == TRUE ~ TRUE,  
-      TRUE ~ FALSE    
-    )
-  )
+### 1. frequence
+Tumor_data1 &lt;- Tumor_data %&gt;%
+  group_by(disease, fusion) %&gt;%
+  mutate(Score = case_when(  
+    sample_type %in% c("Tumor", "Blood") &amp; n_distinct(Sample_ID) &gt;= 2 ~ Score + 1,
+    TRUE ~ Score)
+  ) %&gt;%
+  ungroup() 
 
 ###  2. Reads counts
-Normal_data &lt;- Normal_data %&gt;%
+
+Tumor_data2 &lt;- Tumor_data1 %&gt;%
   mutate(
-    Normal_score = case_when(
-         max_split_cnt &gt;= 1 &amp; max_span_cnt &gt;= 1  &amp; score0 == FALSE ~ Normal_score + 1 ,
-         TRUE ~ Normal_score 
-                            )
-        )
+    Score = case_when(
+    max_split_cnt &gt;= 1 &amp; max_span_cnt &gt;= 1 ~ Score + 1,
+      TRUE ~ Score
+    )
+  )
 
 ###  3. Tools detected
-Normal_data &lt;- Normal_data %&gt;%
+
+Tumor_data3 &lt;- Tumor_data2 %&gt;%
     mutate(
-    Normal_score = case_when(
-           tools == "arriba,starfusion" &amp; score0 == FALSE ~ Normal_score + 1,
-           TRUE ~ Normal_score
-                            )
-          )
-            
-### 4. Fusionanntator annotate 
-normal_markers &lt;- c("GTEx_recurrent_StarF2019", "DGD_PARALOGS", "HGNC_GENEFAM", "BodyMap", "Greger_Normal", "ConjoinG", "Babiceanu_Normal")
-
-#### Past Red Herrings summary didn't contain TCGA, TARGET, CPTAC(except for GTEx-Brain) normal sample data.
-#### reference:https://github.com/FusionAnnotator/CTAT_HumanFusionLib/wiki
-#### BodyMap    40
-#### Babiceanu_Normal   239
-#### ConjoinG   698
-#### DGD_PARALOGS   14463
-#### Greger_Normal  113
-#### GTEx_recurrent_StarF2019   4047
-#### HGNC_GENEFAM   Unknown
-
-Normal_data &lt;- Normal_data %&gt;%
-  mutate(
-    Normal_score = case_when(
-      rowSums(sapply(normal_markers, grepl, x = cancer_db_hits)) &gt;= 1 &amp; score0 == FALSE ~ Normal_score + 2,
-      TRUE ~ Normal_score   )
-        )
-
-### Nomral true 
-Normal_data_true &lt;- Normal_data |&gt;
-                          group_by(gene1, gene2) %&gt;%
-                          slice_max(Normal_score) %&gt;%
-                          ungroup() %&gt;%
-                          filter(Normal_score &gt;= 2) 
-
-## Tumor data
-### 1. If one fusion event was found in the past Arriba blocklist, it will be given a score of 0 and will not be changed.
-### 2. If fusion event was in our detcted normal fusion（score&gt;=2), it will be given a score of 0 and will not be changed.
-### 3. If one fusion event's max_split_cnt and max_span_cnt are both greater than or equal to 1, and at least one of them is less than 5, +1 score.
-###    If one fusion event's max_split_cnt and max_span_cnt are both greater than or equal to 5, +2 score.
-### 4. If Arriba detected exclusive fusion event, +0 score; 
-###    If STAR-Fusion detected exclusive fusion event, +0 score; 
-###    If Arriba and STAR-Fusion detected identical fusion event, +1 score; 
-### 5. If past FusionAnnotator annotated one tumor fusion event, +2 score(Because it is a strong evidence)
-Tumor_data &lt;-  metafusion |&gt;
-               filter(sample_type == "Tumor" | sample_type == "Blood") |&gt;
-               mutate(Tumor_score = 0) 
-
-### 1. Arriba blocklist
-#### reference:https://arriba.readthedocs.io/en/latest/input-files/#blacklist
-Tumor_data &lt;- Tumor_data %&gt;%
-  mutate(
-    Tumor_score = case_when(
-      blocklist == TRUE ~ 0,  
-      TRUE ~ Tumor_score   
-    ),
-    score0 = case_when(
-      blocklist == TRUE ~ TRUE,  
-      TRUE ~ FALSE    
-    )
-  )
-
-### 2. Filter not in normal data.
-Tumor_data &lt;- Tumor_data %&gt;%
-              mutate(gene_pair = paste0(gene1, "::", gene2))
-
-Normal_data_true &lt;- Normal_data_true %&gt;%
-                    mutate(gene_pair = paste0(gene1, "::", gene2))
-
-Tumor_data &lt;- Tumor_data %&gt;%
-  mutate(
-    Tumor_score = case_when(
-      gene_pair %in% Normal_data_true$gene_pair &amp; score0 == FALSE ~ 0,
-      TRUE ~ Tumor_score   
-    ),
-    score0 = case_when(
-      gene_pair %in% Normal_data_true$gene_pair &amp; score0 == FALSE ~ TRUE,
-      TRUE ~ FALSE    
-    )
-  )
-
-###  3. Reads counts
-
-Tumor_data &lt;- Tumor_data %&gt;%
-  mutate(
-    Tumor_score = case_when(
-      max_split_cnt &gt;= 5 &amp; max_span_cnt &gt;= 5  &amp; score0 == FALSE ~ Tumor_score + 2,
-      (max_split_cnt &gt;= 1 &amp; max_span_cnt &gt;= 1) &amp; ((max_split_cnt &lt; 5 &amp; max_span_cnt &gt;= 5)| (max_split_cnt &gt;= 5 &amp; max_span_cnt &lt; 5)| (max_split_cnt &lt; 5 &amp; max_span_cnt &lt; 5))~ Tumor_score + 1,
-      TRUE ~ Tumor_score
-    )
-  )
-
-###  4. Tools detected
-
-Tumor_data &lt;- Tumor_data %&gt;%
-    mutate(
-      Tumor_score = case_when(
-           tools == "arriba,starfusion" &amp; score0 == FALSE ~ Tumor_score + 1,
-           tools == "arriba" &amp; score0 == FALSE ~ Tumor_score,
-           tools == "starfusion" &amp; score0 == FALSE ~ Tumor_score,
-           TRUE ~ Tumor_score
-                            )
+      Score = case_when(
+           tools == "arriba,starfusion" ~ Score + 1,
+           TRUE ~ Score)
           )
 
-### 5. Fusionanntator annotate 
-tumor_markers &lt;- c("Mitelman", "chimerdb_omim", "chimerdb_pubmed", "Cosmic", "YOSHIHARA_TCGA", "ChimerKB", "ChimerPub", "ChimerSeq", "Klijn_CellLines", "Larsson_TCGA", "CCLE_StarF2019", "HaasMedCancer", "TCGA_StarF2019", "TumorFusionsNAR2018", "DEEPEST2019", "GUO2018CR_TCGA", "DepMap2023")
+# Annotate Strategy
+## Annotate the gene types of the 5' gene and 3' gene based on the /gencode.v34.annotation.gtf file
+gtf = fread("/data/data2/reference/hg38_ek12/gencode.v34.annotation.gtf")
+extract_col &lt;- function(x, name) {
+  library(magrittr)
+  stringr::str_extract(x, paste0(name, " ([^;]+);")) %&gt;%
+    stringr::str_remove(paste0(name, " ")) %&gt;%
+    stringr::str_remove_all("\"") %&gt;%
+    stringr::str_remove(";")
+}
 
-Tumor_data &lt;- Tumor_data %&gt;%
-    mutate(
-      Tumor_score = case_when(
-        rowSums(sapply(tumor_markers, grepl, x = cancer_db_hits)) &gt;= 1 ~ Tumor_score + 2,
-        TRUE ~ Tumor_score)
-          ) 
+gtf[, gene_type := extract_col(V9, "gene_type")]
+table(gtf$gene_type)
 
-### New metafusion
-Tumor_data1 &lt;- Tumor_data  |&gt; 
-               select(-c(gene_pair, score0)) |&gt;
-               rename(gene_score = Tumor_score)
-Normal_data1 &lt;- Normal_data |&gt; 
-               select(-c( score0)) |&gt;
-               rename(gene_score = Normal_score)
+table(gtf$V3)
+gtf_gene = gtf[V3 == "gene"]
 
-metafusion_new &lt;- rbind(Normal_data1,Tumor_data1)
-file_name &lt;- "/home/data2/Projects/Fusion/fusiondb_v3/metafusion_calls.star.tsv"
+df &lt;- gtf_gene %&gt;%
+  mutate(
+    gene_id = str_replace(str_extract(V9, 'gene_id ".*?";'), 'gene_id "|";', ''),
+    gene_name = str_replace(str_extract(V9, 'gene_name ".*?";'), 'gene_name "|";', '')
+  ) |&gt;
+mutate(
+  gene_id = str_replace(gene_id, '";$', ''),
+  gene_name = str_replace(gene_name, '";$', '')
+)
+
+## Annotate the gene types of the 5' gene and 3' gene based on the ucsc genome browser and genecards
+match_type &lt;- c(
+  "AL357556.3" = "lncRNA",
+  "Y_RNA" = "misc_RNA",
+  "PDCD6-AHRR"= "ncRNA",
+  "AHI1-DT"= "lncRNA",
+  "STX17-DT"= "lncRNA",
+  "ASMER1"= "lncRNA",
+  "B3GAT1-DT"= "lncRNA",
+  "C10orf95-AS1"= "lncRNA",
+  "C12orf75-AS1" = "lncRNA",
+  "CARINH"= "lncRNA",
+  "CCDST"= "lncRNA",
+  "CENATAC-DT"= "lncRNA",
+  "CFAP418-AS1"= "lncRNA",
+  "CHASERR"= "lncRNA",
+  "CHD1-DT"= "lncRNA",
+  "CMKLR2-AS"= "lncRNA",
+  "COX10-DT"= "lncRNA",
+  "CTD-2350J17.1"= "lncRNA",
+  "DIP2C-AS1"= "lncRNA",
+  "HSD52"= "lncRNA",
+  "EOLA2-DT"= "lncRNA",
+  "EPM2A-DT"= "lncRNA",
+  "ERCC6L2-AS1"= "lncRNA",
+  "ZNF8-ERVK3-1"= "lncRNA",
+  "FKBP14-AS1"= "lncRNA",
+  "HISLA"= "lncRNA",
+  "JUN-DT"= "lncRNA",
+  "KC6"= "lncRNA",
+  "KLRK1-AS1"= "lncRNA",
+  "KRT10-AS1"= "lncRNA",
+  "LINC00540"= "lncRNA",
+  "LINC01012"= "lncRNA",
+  "LINC01036"= "lncRNA",
+  "LINC01451"= "lncRNA",
+  "LINC02882"= "lncRNA", 
+  "LINC02884"= "lncRNA", 
+  "LINC02909"= "lncRNA", 
+  "LINC02910"= "lncRNA", 
+  "LINC03040"= "lncRNA", 
+  "LITATS1"= "lncRNA", 
+  "LNCBRM"= "lncRNA",
+  "LRP8-DT"= "lncRNA", 
+  "LY6S-AS1"= "lncRNA", 
+  "LYRM4-AS1"= "lncRNA", 
+  "MAILR"= "lncRNA", 
+  "MGC4859"= "lncRNA",
+  "MIR325HG"= "lncRNA", 
+  "MIR3667HG"= "lncRNA", 
+  "NCRNA00250"= "lncRNA", 
+  "NIHCOLE"= "lncRNA", 
+  "NOVA1-DT"= "lncRNA",
+  "OSMR-DT"= "lncRNA", 
+  "PDXP-DT"= "lncRNA", 
+  "PELATON"= "lncRNA", 
+  "PITX1-AS1"= "lncRNA", 
+  "PRDX6-AS1"= "lncRNA", 
+  "PRKG2-AS1"= "lncRNA", 
+  "RBM38-AS1"= "lncRNA",
+  "RFX3-DT"= "lncRNA", 
+  "RNF32-AS1"= "lncRNA", 
+  "RPL37A-DT"= "lncRNA", 
+  "SEC61G-DT"= "lncRNA", 
+  "SEZ6L-AS1"= "lncRNA", 
+  "SLC12A2-DT"= "lncRNA",
+  "SLC2A1-DT"= "lncRNA", 
+  "SMARCAL1-AS1"= "lncRNA",
+  "SMC5-DT"= "lncRNA",
+  "SNHG33"= "lncRNA", 
+  "SRI-AS1"= "lncRNA", 
+  "SRP14-DT"= "lncRNA",
+  "STAM-DT"= "lncRNA", 
+  "SUCLG2-DT"= "lncRNA",
+  "TENM2-AS1"= "lncRNA", 
+  "TMCC1-DT"= "lncRNA", 
+  "TMEM132E-DT"= "lncRNA", 
+  "TMEM161B-DT"= "lncRNA", 
+  "TP73-AS3"= "lncRNA",
+  "UBA6-DT"= "lncRNA", 
+  "UBL7-DT"= "lncRNA", 
+  "YWHAH-AS1"= "lncRNA", 
+  "ZNF567-DT"= "lncRNA",
+  "ZNRD2-DT"= "lncRNA",
+  "ZRANB2-DT"= "lncRNA", 
+  "MIR4432HG"= "lncRNA", 
+  "CTD-2194D22.4"= "lncRNA", 
+  "SMASR"= "lncRNA", 
+  "CFAP20DC-AS1"= "lncRNA",
+  "TMEM139-AS1"= "lncRNA", 
+  "FLJ12825"= "lncRNA", 
+  "RIPOR3-AS1"= "lncRNA",
+  "LL22NC03-63E9.3"= "lncRNA", 
+  "HRAT17"= "lncRNA", 
+  "LINC01377"= "lncRNA", 
+  "FLJ46284"= "lncRNA", 
+  "SMC2-DT"= "lncRNA", 
+  "MIR9-1HG"= "lncRNA", 
+  "LINC03042"= "lncRNA", 
+  "EFCAB13-DT"= "lncRNA", 
+  "UST-AS2"= "lncRNA", 
+  "FLJ40194"= "lncRNA",
+  "LINC02898"= "lncRNA", 
+  "LINC02899"= "lncRNA",
+  "IRAG1-AS1"= "lncRNA",
+  "KU-MEL-3"= "lncRNA", 
+  "CRAT37"= "lncRNA", 
+  "LINC03041"= "lncRNA",
+  "TNPO1-DT"= "lncRNA", 
+  "SDK1-AS1"= "lncRNA",
+  "KCNK4-CATSPERZ"= "lncRNA",
+  "PIK3IP1-DT"= "lncRNA", 
+  "USP12-DT"= "lncRNA",
+  "STK4-DT"= "lncRNA",
+  "UCA1-AS1"= "lncRNA", 
+  "LOHAN2"= "lncRNA",
+  "NTRAS"= "lncRNA", 
+  "LINC02903"= "lncRNA", 
+  "D21S2088E"= "ncRNA", 
+  "CIBAR1-DT"= "lncRNA",
+  "PAXIP1-DT"= "lncRNA", 
+  "TPTE2-AS1"= "lncRNA",
+  "EPCIP-AS1"= "lncRNA",
+  "LINC02901"= "lncRNA", 
+  "SCG5-AS1"= "lncRNA",
+  "TAF12-DT"= "lncRNA",
+  "TM4SF19-DYNLT2B"= "ncRNA",
+  "ARGLU1-DT"= "lncRNA", 
+  "RNF32-DT"= "lncRNA",
+  "ST3GAL3-AS1"= "lncRNA", 
+  "SLC6A12-AS1"= "lncRNA",
+  "IRF2-DT"= "lncRNA", 
+  "RDUR"= "lncRNA", 
+  "FLJ40288"= "lncRNA", 
+  "SYN3-AS1"= "lncRNA", 
+  "RFX5-AS1"= "lncRNA", 
+  "SHROOM3-AS1"= "lncRNA", 
+  "LINC03124"= "lncRNA", 
+  "LINC02897"= "lncRNA", 
+  "APRG1"= "lncRNA", 
+  "TAX1BP1-AS1"= "lncRNA", 
+  "PIRAT1"= "lncRNA", 
+  "LINC03122"= "lncRNA", 
+  "LINC00904"= "lncRNA", 
+  "FLJ20021"= "lncRNA", 
+  "PTPRD-DT"= "lncRNA", 
+  "HSDL2-AS1"= "lncRNA", 
+  "BTG2-DT"= "lncRNA", 
+  "LINC02900"= "lncRNA", 
+  "JAKMIP1-DT"= "lncRNA",
+  "LINC03043"= "lncRNA", 
+  "NDUFV1-DT"= "lncRNA", 
+  "GOLGA7B-DT"= "lncRNA",
+  "FAM247A"= "lncRNA", 
+  "GS1-24F4.2"= "lncRNA", 
+  "REPIN1-AS1"= "lncRNA", 
+  "IRX2-DT"= "lncRNA", 
+  "MGC27382"= "lncRNA", 
+  "LINC02348"= "lncRNA",
+  "ACTE1P"= "pseudogene", 
+  "KLHDC7B-DT"= "lncRNA", 
+  "THBS3-AS1"= "lncRNA", 
+  "LINC01882"= "lncRNA", 
+  "PTPRK-AS1"= "lncRNA", 
+  "ZNF232-AS1"= "lncRNA", 
+  "ACE2-DT"= "lncRNA", 
+  "BMAL2-AS1"= "lncRNA", 
+  "CRMA"= "lncRNA", 
+  "SLC1A2-AS1"= "lncRNA", 
+  "NECTIN4-AS1"= "lncRNA",
+  "TMEM30A-DT"= "lncRNA", 
+  "XPC-AS1"= "lncRNA", 
+  "LINC02961"= "lncRNA",
+  "MGC32805"= "lncRNA", 
+  "LETR1"= "lncRNA", 
+  "WDR11-DT"= "lncRNA", 
+  "GASK1B-AS1"= "lncRNA", 
+  "RRS1-DT"= "lncRNA", 
+  "LINC02911"= "lncRNA", 
+  "PDGFA-DT"= "lncRNA", 
+  "CDKN2A-AS1"= "lncRNA", 
+  "CCDC13-AS2"= "lncRNA", 
+  "SIM1-AS1"= "lncRNA", 
+  "UBR5-DT"= "lncRNA", 
+  "UBE2E2-DT"= "lncRNA", 
+  "MIR9-2HG"= "lncRNA", 
+  "SGSM3-AS1"= "lncRNA", 
+  "RABGAP1L-AS1"= "lncRNA",
+  "UNQ6494"     = "lncRNA",
+  "FLJ42969"   = "lncRNA",
+  "FLJ31356"   = "ncRNA",
+  "Metazoa_SRP" = "misc_RNA",
+  "AC000050.2" = "lncRNA", 
+  "AC007461.1"  = "lncRNA",
+  "AC020765.6" = "protein_coding", 
+  "AC026748.7"  = "lncRNA",
+  "AC069544.2" = "protein_coding",
+  "AC105001.2"  = "protein_coding",
+  "AC114744.2" = "lncRNA",
+  "AC137894.4" = "lncRNA",
+  "AC183088.4" = "lncRNA",
+  "AC233280.36" = "unprocessed_pseudogene",
+  "AL136295.22" = "lncRNA",
+  "AP000356.5" = "protein_coding",
+  "AL391628.1" = "protein_coding",
+  "AC006486.3"  = "protein_coding",
+  "AC093246.1"  = "protein_coding",
+  "AL713999.2" = "protein_coding",
+  "AC018630.4"  = "protein_coding",
+  "AC133555.6"  = "lncRNA",
+  "AC106873.8"  = "protein_coding",
+  "AC084756.2"  = "protein_coding",
+  "AC008763.4"  = "protein_coding",
+  "AC134684.11" = "unprocessed_pseudogene",
+  "AC067945.4" = "lncRNA",
+  "AP000721.2"  = "lncRNA",
+  "AL096814.2"  = "protein_coding",
+  "AC004510.2"  = "lncRNA",
+  "AL096870.12" = "lncRNA",
+  "AC011455.8"  = "lncRNA",
+  "AC084018.3"  = "lncRNA",
+  "AC016912.2" = "lncRNA",
+  "AC096576.7"  = "lncRNA",
+  "AC113189.12" = "lncRNA",
+  "AC009093.11"= "lncRNA",
+  "AC092032.2" = "transcribed_unprocessed_pseudogene",
+  "AC113143.3"  = "lncRNA",
+  "AC020929.1"  = "lncRNA",
+  "FAM86C1P" = "pseudogene",
+"BMAL1" = "protein_coding",
+"G6PC1" = "protein_coding",
+"GBA1" = "protein_coding",
+"GBA1LP" = "pseudogene",
+"GGTA1" = "protein_coding",
+"CMKLR2" = "protein_coding",
+"IRAG2" = "protein_coding",
+"MTX1LP" = "pseudogene",
+"PHB1" = "protein_coding",
+"SNORD3P1" = "pseudogene",
+"SKIC2" = "protein_coding",
+"TAFAZZIN" = "protein_coding",
+"DYNLT2" = "protein_coding",
+"GFUS" = "protein_coding",
+"ZNF56P" = "pseudogene",
+"PRP4K" = "protein_coding",
+"NHERF2" = "protein_coding",
+"NHERF1" = "protein_coding",
+"ENTREP1" = "protein_coding",
+"ATP5MJ" = "protein_coding",
+"SKIC3" = "protein_coding",
+"BLTP2" = "protein_coding",
+"GARRE1" = "protein_coding",
+"IRAG1" = "protein_coding",
+"ENTREP3" = "protein_coding",
+"POLR1G" = "protein_coding",
+"GUSBP15" = "pseudogene",
+"CEP43" = "protein_coding",
+"BLTP3B" = "protein_coding",
+"SSPOP" = "pseudogene",
+"KATNIP" = "protein_coding",
+"ENTREP2" = "protein_coding",
+"MATCAP2" = "protein_coding",
+"RIGI" = "protein_coding",
+"DNAAF11" = "protein_coding",
+"TMT1A" = "protein_coding",
+"DNAAF9" = "protein_coding",
+"ZZZ3" = "protein_coding",
+"FBXL9P" = "pseudogene",
+"HAPSTR1" = "protein_coding",
+"CFAP263" = "protein_coding",
+"MYL11" = "protein_coding",
+"ZFTRAF1" = "protein_coding",
+"METTL25B" = "protein_coding",
+"DUSP13B" = "protein_coding",
+"METTL13" = "protein_coding",
+"IFT25" = "protein_coding",
+"SMIM11" = "protein_coding",
+"BLTP3A" = "protein_coding",
+"BPNT2" = "protein_coding",
+"ADISSP" = "protein_coding",
+"MTNAP1" = "protein_coding",
+"NTAQ1" = "protein_coding",
+"DYNC2I1" = "protein_coding",
+"ODAD2" = "protein_coding",
+"DNAI7" = "protein_coding",
+"VNN3P" = "pseudogene",
+"FIRRM" = "protein_coding",
+"ZNG1A" = "protein_coding",
+"ATOSA" = "protein_coding",
+"SLC19A4P" = "pseudogene",
+"BMAL2" = "protein_coding",
+"FERRY3" = "protein_coding",
+"LDAF1" = "protein_coding",
+"GFOD3P" = "pseudogene",
+"CEP15" = "protein_coding",
+"CFAP92" = "protein_coding",
+"ELAPOR1" = "protein_coding",
+"NHSL3" = "protein_coding",
+"FHIP2A" = "protein_coding",
+"MYG1" = "protein_coding",
+"FAM200C" = "protein_coding",
+"STEEP1" = "protein_coding",
+"PALS1" = "protein_coding",
+"RUSF1" = "protein_coding",
+"FHIP2B" = "protein_coding",
+"CFAP68" = "protein_coding",
+"SLC26A10P" = "pseudogene",
+"CENPBD2P" = "pseudogene",
+"ZFTA" = "protein_coding",
+"AFG2B" = "protein_coding",
+"INTS15" = "protein_coding",
+"BBLN" = "protein_coding",
+"CSTPP1" = "protein_coding",
+"BRME1" = "protein_coding",
+"CLXN" = "protein_coding",
+"TOP6BL" = "protein_coding",
+"SPRING1" = "protein_coding",
+"DNAI4" = "protein_coding",
+"IFT56" = "protein_coding",
+"TASL" = "protein_coding",
+"ATOSB" = "protein_coding",
+"PHAF1" = "protein_coding",
+"SKIC8" = "protein_coding",
+"POLR1HASP" = "pseudogene",
+"YJU2B" = "protein_coding",
+"ODAD4" = "protein_coding",
+"ARB2A" = "protein_coding",
+"FHIP1B" = "protein_coding",
+"BLTP1" = "protein_coding",
+"SPATA31H1" = "protein_coding",
+"QNG1" = "protein_coding",
+"MFSD14CP" = "pseudogene",
+"CDIN1" = "protein_coding",
+"SANBR" = "protein_coding",
+"HYCC1" = "protein_coding",
+"SPMIP6" = "protein_coding",
+"GARIN1B" = "protein_coding",
+"C19orf48P" = "pseudogene",
+"VCF1" = "protein_coding",
+"SLX9" = "protein_coding",
+"CFAP91" = "protein_coding",
+"DYNC2I2" = "protein_coding",
+"VCF2" = "protein_coding",
+"RLIG1" = "protein_coding",
+"MTRFR" = "protein_coding",
+"STYXL2" = "protein_coding",
+"KGD4" = "protein_coding",
+"ODAD1" = "protein_coding",
+"GOLM2" = "protein_coding",
+"ZBED10P" = "pseudogene",
+"DNAAF10" = "protein_coding",
+"NOPCHAP1" = "protein_coding",
+"ABTB3" = "protein_coding",
+"CEP20" = "protein_coding",
+"KRBOX5" = "protein_coding",
+"CHCT1" = "protein_coding",
+"TEKTL1" = "protein_coding",
+"DNAI3" = "protein_coding",
+"CFAP276" = "protein_coding",
+"OR14L1" = "protein_coding",
+"CIMAP3" = "protein_coding",
+"CIMIP1" = "protein_coding",
+"CFAP210" = "protein_coding",
+"RPLP1P5" = "pseudogene",
+"MIX23" = "protein_coding",
+"CFAP90" = "protein_coding",
+"SPMIP4" = "protein_coding",
+"CIBAR1" = "protein_coding",
+"CFAP95" = "protein_coding",
+"SPATA31G1" = "protein_coding",
+"DNAAF6" = "protein_coding",
+"MTCL2" = "protein_coding",
+"CFAP251" = "protein_coding",
+"KICS2" = "protein_coding",
+"DNAAF8" = "protein_coding",
+"ARK2N" = "protein_coding",
+"ZNF285BP" = "pseudogene",
+"KASH5" = "protein_coding",
+"NTMT2" = "protein_coding",
+"ZDHHC8BP" = "pseudogene",
+"ZNG1B" = "protein_coding",
+"SLC66A1LP" = "pseudogene",
+"SPMIP2" = "protein_coding",
+"GARIN3" = "protein_coding",
+"CFAP418" = "protein_coding",
+"BRD10" = "protein_coding",
+"PABIR2" = "protein_coding",
+"PABIR3" = "protein_coding",
+"TAMALIN" = "protein_coding",
+"GARIN2" = "protein_coding",
+"CIMAP2" = "protein_coding",
+"AFG2A" = "protein_coding",
+"GARIN6" = "protein_coding",
+"DYNLT5" = "protein_coding",
+"SPMIP3" = "protein_coding",
+"ALG1L1P" = "pseudogene",
+"CFAP20DC" = "protein_coding",
+"PRSS59P" = "pseudogene",
+"SAXO4" = "protein_coding",
+"ZNG1E" = "protein_coding",
+"POLR1F" = "protein_coding",
+"ELAPOR2" = "protein_coding",
+"LHFPL7" = "protein_coding",
+"SPMIP11" = "protein_coding",
+"DYNLT2B" = "protein_coding",
+"SPATA31F1" = "protein_coding",
+"DRC12" = "protein_coding",
+"REDIC1" = "protein_coding",
+"GREP1" = "protein_coding",
+"PDXDC2P-NPIPB14P" = "pseudogene",
+"CCDC144BP" = "pseudogene",
+"PTGR3" = "protein_coding",
+"ACTMAP" = "protein_coding",
+"CIMAP1D" = "protein_coding",
+"EEIG2" = "protein_coding",
+"HYCC2" = "protein_coding",
+"RIMOC1" = "protein_coding",
+"CSGALNACT2P1" = "pseudogene",
+"FAM3C2P" = "pseudogene",
+"GCATP1" = "pseudogene",
+"SSX13P" = "pseudogene",
+"DUSP29" = "protein_coding",
+"CENATAC" = "protein_coding",
+"CIMIP4" = "protein_coding",
+"IHO1" = "protein_coding",
+"AKR1C8" = "protein_coding",
+"POU2AF2" = "protein_coding",
+"CRACDL" = "protein_coding",
+"GARIN1A" = "protein_coding",
+"CASTOR3P" = "pseudogene",
+"PKD1P4" = "pseudogene",
+"USP41P" = "pseudogene",
+"FBXW10B" = "protein_coding",
+"SPMIP8" = "protein_coding",
+"SAXO5" = "protein_coding",
+"MTCL3" = "protein_coding",
+"PEDS1" = "protein_coding",
+"PEDS1-UBE2V1" = "protein_coding",
+"GPR15LG" = "protein_coding",
+"SPMAP1" = "protein_coding",
+"MEIOSIN" = "protein_coding",
+"SMIM34" = "protein_coding",
+"EEIG1" = "protein_coding",
+"LIAT1" = "protein_coding",
+"SPACDR" = "protein_coding",
+"TEX56P" = "pseudogene",
+"CARD17P" = "pseudogene",
+"TTLL13" = "protein_coding",
+"CIMAP1B" = "protein_coding",
+"UQCC5" = "protein_coding",
+"CFAP96" = "protein_coding",
+"ARK2C" = "protein_coding",
+"TPRX2" = "protein_coding",
+"TUBAP13" = "pseudogene",
+"HNRNPA1L3" = "protein_coding",
+"FAM25EP" = "pseudogene",
+"PAFAH1B2P2" = "pseudogene",
+"CASP4LP" = "pseudogene",
+"CCDC121P1" = "pseudogene",
+"ZNG1F" = "protein_coding",
+"UQCR10P1" = "pseudogene",
+"CBX3P2" = "pseudogene",
+"FAM90A12" = "protein_coding",
+"RHPN2P1" = "pseudogene",
+"OSTCP3" = "pseudogene",
+"ZNF285CP" = "pseudogene",
+"ZKSCAN8P1" = "pseudogene",
+"MATCAP1" = "protein_coding",
+"CSPG4BP" = "pseudogene",
+"NALF1" = "protein_coding",
+"UQCC6" = "protein_coding",
+"FHIP1A" = "protein_coding",
+"RPL35AP20" = "pseudogene",
+"SRSF6P1" = "pseudogene",
+"CIROP" = "protein_coding",
+"SPATA31F3" = "protein_coding",
+"JPT1P1" = "pseudogene",
+"SPMIP7" = "protein_coding",
+"ZNF705EP" = "pseudogene",
+"GOLGA6L3P" = "pseudogene",
+"GUSBP13" = "pseudogene",
+"NME2P3" = "pseudogene",
+"B3GALT9" = "protein_coding",
+"FMN2P1" = "pseudogene",
+"ALOXE3P1" = "pseudogene",
+"CDRT15P6" = "pseudogene",
+"KPNA4P1" = "pseudogene",
+"RBX1P2" = "pseudogene",
+"LASP1NB" = "protein_coding",
+"PPP5D1P" = "pseudogene",
+"MISFA" = "protein_coding",
+"SPMAP2L" = "protein_coding",
+"TBC1D3JP" = "pseudogene",
+"DNAJB6P3" = "pseudogene",
+"NOTCH2NLR" = "protein_coding",
+"C3orf86P" = "pseudogene",
+"PKD1P6-NPIPP1" = "pseudogene",
+"NFILZ" = "protein_coding",
+"MALLP2" = "pseudogene",
+"CSGALNACT2P2" = "pseudogene",
+"MTND6P35" = "pseudogene",
+"BMS1P4-AGAP5" = "pseudogene",
+"ABCF2-H2BK1" = "protein_coding",
+"MS4A19P" = "pseudogene",
+"TBCEL-TECTA" = "protein_coding",
+"FAM246C" = "protein_coding"
+)
+
+
+match_df &lt;- data.frame(
+  gene_name = names(match_type),
+  gene_type = match_type,
+  stringsAsFactors = FALSE
+)
+
+match_all &lt;- df |&gt; 
+            select(gene_name,gene_type) |&gt;
+            bind_rows(match_df) 
+
+
+gene_type_map &lt;- match_all %&gt;%
+  distinct(gene_name, gene_type) %&gt;%
+  deframe()
+
+fusion_distribution &lt;-  Tumor_data3 %&gt;%
+  filter(!(gene1 %in% c("IGH@-ext", "IGL@-ext", "IGL-@-ext", "IGH-@-ext") | 
+           gene2 %in% c("IGH@-ext", "IGL@-ext", "IGL-@-ext", "IGH-@-ext"))) %&gt;%
+  mutate(
+    gene1_type = sapply(str_split(gene1, ","), function(genes) {
+      types &lt;- gene_type_map[genes]
+      paste(types[!is.na(types)], collapse = ",")
+    }),
+    gene2_type = sapply(str_split(gene2, ","), function(genes) {
+      types &lt;- gene_type_map[genes]
+      paste(types[!is.na(types)], collapse = ",")
+    }
+    ) )
+gene2_nc &lt;- fusion_distribution |&gt; filter(is.na(gene2_type))  |&gt; select(gene2) |&gt; unique()
+gene1_nc &lt;- fusion_distribution |&gt; filter(is.na(gene1_type)) |&gt; select(gene1) |&gt; unique()
+nc &lt;- c(gene1_nc$gene1, gene2_nc$gene2)  |&gt; unique()
+nc 
+# New metafusion
+metafusion_new &lt;- fusion_distribution  |&gt;  
+                  select(-c(disease,fusion)) 
+              
+
+file_name &lt;- "/data/data2/Projects/Fusion/fusiondb_v4/metafusion_calls.star.tsv"
 write.table(metafusion_new, 
                       file = file_name, 
                       sep = "\t", 
                       row.names = FALSE, 
-                      quote = FALSE) </code></pre>
+                      quote = FALSE) 
+</code></pre>
 
 
 </section>
