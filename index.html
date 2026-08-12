@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.8.26">
+<meta name="generator" content="quarto-1.10.18">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -12,10 +12,16 @@
 
 <title>Website Tutorial – ImmunoFusion</title>
 <style>
-code{white-space: pre-wrap;}
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
 span.smallcaps{font-variant: small-caps;}
-div.columns{display: flex; gap: min(4vw, 1.5em);}
-div.column{flex: auto; overflow-x: auto;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
 div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
 ul.task-list{list-style: none;}
 ul.task-list li input[type="checkbox"] {
@@ -35,15 +41,14 @@ ul.task-list li input[type="checkbox"] {
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
-<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-1b7623cfa435a91e2343d76833ab478f.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-c1f8ec324706b41e7c0c6f8ff4bf1d97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,20 +126,35 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a></li>
-  <li><a href="#home" id="toc-home" class="nav-link" data-scroll-target="#home">Home</a></li>
+  <li><a href="#overview" id="toc-overview" class="nav-link active" data-scroll-target="#overview">Overview</a>
+  <ul class="collapse">
+  <li><a href="#platform-introduction" id="toc-platform-introduction" class="nav-link" data-scroll-target="#platform-introduction">Platform Introduction</a></li>
+  <li><a href="#data-overview" id="toc-data-overview" class="nav-link" data-scroll-target="#data-overview">Data Overview</a></li>
+  <li><a href="#citation-and-disclaimer" id="toc-citation-and-disclaimer" class="nav-link" data-scroll-target="#citation-and-disclaimer">Citation and Disclaimer</a></li>
+  </ul></li>
+  <li><a href="#data-modules" id="toc-data-modules" class="nav-link" data-scroll-target="#data-modules">Data Modules</a>
+  <ul class="collapse">
   <li><a href="#fusion-module" id="toc-fusion-module" class="nav-link" data-scroll-target="#fusion-module">Fusion Module</a></li>
   <li><a href="#cohort-module" id="toc-cohort-module" class="nav-link" data-scroll-target="#cohort-module">Cohort Module</a></li>
-  <li><a href="#analysis-module" id="toc-analysis-module" class="nav-link" data-scroll-target="#analysis-module">Analysis Module</a>
-  <ul class="collapse">
-  <li><a href="#fusion-frequency-dist" id="toc-fusion-frequency-dist" class="nav-link" data-scroll-target="#fusion-frequency-dist">Fusion Frequency (Dist)</a></li>
-  <li><a href="#cancer-and-tme-signatures-comp" id="toc-cancer-and-tme-signatures-comp" class="nav-link" data-scroll-target="#cancer-and-tme-signatures-comp">Cancer and TME Signatures (Comp)</a></li>
-  <li><a href="#fusion-associations-asso" id="toc-fusion-associations-asso" class="nav-link" data-scroll-target="#fusion-associations-asso">Fusion Associations (Asso)</a></li>
-  <li><a href="#survival-analysis-risk" id="toc-survival-analysis-risk" class="nav-link" data-scroll-target="#survival-analysis-risk">Survival Analysis (Risk)</a>
-  <ul class="collapse">
-  <li><a href="#km-method-panel" id="toc-km-method-panel" class="nav-link" data-scroll-target="#km-method-panel">Km method panel</a></li>
-  <li><a href="#cox-method-panel" id="toc-cox-method-panel" class="nav-link" data-scroll-target="#cox-method-panel">Cox method panel</a></li>
   </ul></li>
+  <li><a href="#analysis-modules" id="toc-analysis-modules" class="nav-link" data-scroll-target="#analysis-modules">Analysis Modules</a>
+  <ul class="collapse">
+  <li><a href="#distribution" id="toc-distribution" class="nav-link" data-scroll-target="#distribution">Distribution</a>
+  <ul class="collapse">
+  <li><a href="#frequency" id="toc-frequency" class="nav-link" data-scroll-target="#frequency">Frequency</a></li>
+  <li><a href="#localization" id="toc-localization" class="nav-link" data-scroll-target="#localization">Localization</a></li>
+  <li><a href="#composition" id="toc-composition" class="nav-link" data-scroll-target="#composition">Composition</a></li>
+  </ul></li>
+  <li><a href="#comparison" id="toc-comparison" class="nav-link" data-scroll-target="#comparison">Comparison</a></li>
+  <li><a href="#association" id="toc-association" class="nav-link" data-scroll-target="#association">Association</a>
+  <ul class="collapse">
+  <li><a href="#correlation" id="toc-correlation" class="nav-link" data-scroll-target="#correlation">Correlation</a></li>
+  <li><a href="#response" id="toc-response" class="nav-link" data-scroll-target="#response">Response</a></li>
+  <li><a href="#gene-interactions" id="toc-gene-interactions" class="nav-link" data-scroll-target="#gene-interactions">Gene Interactions</a></li>
+  </ul></li>
+  <li><a href="#survival-km" id="toc-survival-km" class="nav-link" data-scroll-target="#survival-km">Survival (KM)</a></li>
+  <li><a href="#cox-regression" id="toc-cox-regression" class="nav-link" data-scroll-target="#cox-regression">Cox Regression</a></li>
+  <li><a href="#landscape" id="toc-landscape" class="nav-link" data-scroll-target="#landscape">Landscape</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -176,7 +196,9 @@ ul.task-list li input[type="checkbox"] {
 
 <section id="overview" class="level1">
 <h1>Overview</h1>
-<p><a href="http://shiny.zhoulab.ac.cn/ImmunoFusion">ImmunoFusion</a> is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.</p>
+<section id="platform-introduction" class="level2">
+<h2 class="anchored" data-anchor-id="platform-introduction">Platform Introduction</h2>
+<p><a href="https://oncoharmony-network.github.io/ImmunoFusion/">ImmunoFusion</a> is an interactive web platform for exploring RNA-seq–derived gene fusions in cancer, with a focus on their associations with the tumor microenvironment (TME) and responses to immune checkpoint blockade (ICB). It integrates fusion calls from large treatment-naïve cohorts and multiple ICB cohorts, and links them to rich clinical and TME signatures.</p>
 <p>The platform is designed to help you:</p>
 <ul>
 <li>Explore the <strong>pan-cancer landscape</strong> of RNA-derived gene fusions.<br>
@@ -187,178 +209,383 @@ ul.task-list li input[type="checkbox"] {
 <li>Investigate how specific fusions relate to <strong>survival outcomes</strong> in treatment-naïve and ICB-treated cohorts.</li>
 </ul>
 <p>Please cite the ImmunoFusion paper if you use results from this platform in your work.</p>
+</section>
+<section id="data-overview" class="level2">
+<h2 class="anchored" data-anchor-id="data-overview">Data Overview</h2>
+<p>ImmunoFusion is the largest cancer fusion gene database, integrating 78 cohorts, 21,000+ samples, and 76,800+ high-confidence fusions, including data from TCGA, TARGET, CPTAC.</p>
+<p><strong>Core Data Metrics:</strong></p>
+<ul>
+<li><strong>Cohorts</strong>: 78 (28 IO / 50 non-IO)</li>
+<li><strong>Samples</strong>: 21,000+ (4,600+ IO / 16,300+ non-IO)</li>
+<li><strong>Fusions</strong>: 76,800+ (11,100+ IO / 66,000+ non-IO)</li>
+<li><strong>Genes</strong>: 23,600+ (9,600+ IO / 22,400+ non-IO)</li>
+<li><strong>Gene Pairs</strong>: 66,900+ (10,200+ IO / 57,800+ non-IO)</li>
+</ul>
+<p>The <strong>Data Summary</strong> module provides macro-level statistical views of cohorts and samples, including cohort characteristics (cancer type distribution, IO vs non-IO composition, sex ratio, treatment type and response distribution) and fusion profiles (fusion type and sample type distributions). Users can quickly grasp the overall dataset composition through this module.</p>
+</section>
+<section id="citation-and-disclaimer" class="level2">
+<h2 class="anchored" data-anchor-id="citation-and-disclaimer">Citation and Disclaimer</h2>
+<p>This platform is for research purposes only. It does not collect personal information. Clinical use is at your own risk.</p>
 <hr>
 </section>
-<section id="home" class="level1">
-<h1>Home</h1>
-<p>This page provides a quick overview of ImmunoFusion, including:</p>
-<p><strong>Basic Information and Data Scale</strong></p>
-<p>ImmunoFusion (The Fusion Immunome Atlas) is the largest cancer fusion gene database, integrating 66 cohorts, 20,000+ samples, and 600,000+ high-confidence fusions, including data from TCGA, TARGET, CPTAC, and 29 immunotherapy cohorts.</p>
-<p><strong>Functional Overview and Platform Features</strong></p>
-<p>The platform provides intuitive tools for browsing, querying, and analyzing fusion genes, allowing users to assess their distribution, immune features, survival relevance, and treatment responses across cancers.</p>
-<p><strong>Technical Implementation and Use Notes</strong></p>
-<p>Built with R Shiny, ImmunoFusion delivers efficient visualization and structured outputs. It is intended for research use only and does not collect personal information.</p>
-<hr>
 </section>
-<section id="fusion-module" class="level1">
-<h1>Fusion Module</h1>
+<section id="data-modules" class="level1">
+<h1>Data Modules</h1>
+<section id="fusion-module" class="level2">
+<h2 class="anchored" data-anchor-id="fusion-module">Fusion Module</h2>
 <p>The Fusion module is the entry point for inspecting individual fusion events and their basic characteristics.</p>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Fusion.svg" class="img-fluid figure-img" style="width:80.0%">
+<img src="images/Fusion1.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;1: Fusion
+Figure&nbsp;1: Fusion Gene Retrieval
 </figcaption>
 </figure>
 </div>
+<p><strong>Steps:</strong></p>
 <ol type="1">
-<li>Select gene (optional) or gene pairs (optional)</li>
+<li>Select gene (optional) or gene pairs (optional);</li>
 <li>Filter by Gene, Sample_ID, Fusion_ID, etc.</li>
 </ol>
-<p>In the middle panel, you can browse specific fusions and view the distribution of different fusion types across the cohort.</p>
-<p>You can download the fusion summary tables as CSV files.</p>
-<hr>
-</section>
-<section id="cohort-module" class="level1">
-<h1>Cohort Module</h1>
-<p>The Cohort module provides an overview of all cohorts and datasets in ImmunoFusion by presenting key metadata such as ID, name, cancer type, treatment/drug details, sampling time, sample size, publication year/DOI, therapeutic label (e.g., IO), and survival endpoints (e.g., OS, PFS).</p>
-<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Cohort.svg" class="img-fluid figure-img" style="width:80.0%">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;2: Cohort
-</figcaption>
-</figure>
-</div>
-<p>You can search and filter the list of cohorts using the main search bar or the individual column filters.</p>
-<hr>
-</section>
-<section id="analysis-module" class="level1">
-<h1>Analysis Module</h1>
-<p>The Analysis module contains multiple analytical sub-modules. Each module follows a consistent structure:</p>
+<p><strong>Outputs:</strong></p>
 <ul>
-<li>Analysis controls: define fusions or genes, cohorts, endpoints, or signature options.<br>
-</li>
-<li>Results: customize figures, and download results.</li>
-</ul>
-<section id="fusion-frequency-dist" class="level2">
-<h2 class="anchored" data-anchor-id="fusion-frequency-dist">Fusion Frequency (Dist)</h2>
-<p>This module visualizes the distribution and frequency of gene fusions across cancer types and cohorts. It helps you:</p>
-<ul>
-<li>Quantify the fusion burden in different cancers.<br>
-</li>
-<li>Compare the number of fusions per sample or per cohort.<br>
-</li>
-<li>Identify fusion-rich vs.&nbsp;fusion-poor tumor types.</li>
+<li>Browse specific fusions and view the distribution of different fusion types across the cohort in the middle panel;</li>
+<li>Download fusion summary tables as CSV files.</li>
 </ul>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Dist.svg" class="img-fluid figure-img" style="width:80.0%">
+<img src="images/Fusion2.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;3: Fusion Frequency
+Figure&nbsp;2: Fusion Full Table
 </figcaption>
 </figure>
 </div>
+<p>A searchable summary of all fusion events. Supports filtering by gene, fusion type, detection tool, etc.</p>
+</section>
+<section id="cohort-module" class="level2">
+<h2 class="anchored" data-anchor-id="cohort-module">Cohort Module</h2>
+<p>The Cohort module provides an overview of all cohorts and datasets in ImmunoFusion.</p>
+<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Cohort1.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;3: Cohort Information Browser
+</figcaption>
+</figure>
+</div>
+<p><strong>Displayed Fields:</strong> ID, name, cancer type, treatment/drug details, sample size, publication year/DOI, therapeutic label (e.g., IO), etc.</p>
+<p><strong>Operation:</strong> Search and filter the cohort list using the main search bar or individual column filters.</p>
+<p><strong>Cohort Details</strong>: Click any cohort row to open a detail modal with the following content:</p>
+<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Cohort2.png" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;4: Cohort Details
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Overview</strong>: sample size, total fusions, top fusion genes/gene pairs, fusion type distribution, and response distribution;</li>
+</ul>
+<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Cohort3.png" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;5: Landscape of fusion events across Top N genes and samples (OncoPrint)
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><strong>Fusion Landscape</strong>: an OncoPrint of the cohort showing fusion event distribution across samples for the Top N genes.</li>
+</ul>
+<hr>
+</section>
+</section>
+<section id="analysis-modules" class="level1">
+<h1>Analysis Modules</h1>
+<p>The Analysis module consists of several sub-modules, all sharing a unified layout: Analysis controls on the left (cohorts, genes, endpoints, signatures) and Results on the right (interactive plots with export options).</p>
+<p><strong>Export Options</strong>: All analysis modules support chart exports (HTML) and data exports (CSV). Export buttons are located in the results panel of each module.</p>
+<p><strong>Global Filters</strong>: The global filters at the top of the page (fusion type, Score, tools, genes, fusions) apply to all analysis modules — a sample is considered Fusion+ only if it carries at least one fusion passing ALL active filters. Adjust filters to refine the Fusion+ vs.&nbsp;Fusion− grouping across all analyses.</p>
+<section id="distribution" class="level2">
+<h2 class="anchored" data-anchor-id="distribution">Distribution</h2>
+<p>Evaluate the distribution characteristics of fusion genes across selected cohorts, generating fusion frequency plots, genome-wide breakpoint localization maps (Circos + Lollipop), and multi-dimensional composition charts. This module contains three sub-tabs: Frequency, Localization, and Composition.</p>
+<section id="frequency" class="level3">
+<h3 class="anchored" data-anchor-id="frequency">Frequency</h3>
+<p>Display the frequency distribution of fusion genes/gene pairs across selected cohorts.</p>
+<p><img src="images/Dist1.png" id="fig-flow" class="img-fluid" style="width:100.0%" alt="Distribution of fusion genes"> <strong>Steps:</strong></p>
 <ol type="1">
-<li>Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs)</li>
-<li>Select plot type: Fusion frequency/Sample frequency proportion
+<li>Select one or multiple cohort IDs, analysis type (Gene / Gene Pair);</li>
+<li>Select plot type: Fusion Frequency or Sample Count;
 <ul>
-<li>The Fusion Frequency plot displays how often specific gene fusions occur per sample across all cohorts, while the Sample Frequency Proportion plot shows the distribution of these fusions across different cohorts.</li>
+<li>The Fusion Frequency plot displays the total number of fusion events involving each gene across all selected cohorts.</li>
+<li>The Sample Count plot displays the total number of unique samples carrying each gene fusion across all selected cohorts.</li>
 </ul></li>
-<li>Select and highlight specific gene/gene pairs (the full set of genes is analyzed by default)</li>
-<li>Run the analysis</li>
+<li>Optional: specify target genes or gene pairs for highlighting;</li>
+<li>Click Run.</li>
 </ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Fusion Frequency Mode Bar plot: X-axis shows the total number of fusion events for each gene (multiple events in the same sample counted separately), Y-axis shows gene counts; data table includes gene names and their fusion counts.</li>
+<li>Sample Count Mode Bar plot: X-axis shows the number of samples carrying each gene fusion (multiple events in the same sample counted as 1), Y-axis shows gene counts; data table includes gene names and their fusion proportions (prop) across samples.</li>
+</ul>
 </section>
-<section id="cancer-and-tme-signatures-comp" class="level2">
-<h2 class="anchored" data-anchor-id="cancer-and-tme-signatures-comp">Cancer and TME Signatures (Comp)</h2>
-<p>The Cancer and TME Signatures module evaluates associations between fusion events and a broad range of tumor microenvironment, tumor intrinsic, and metabolic signatures. It is useful for understanding how specific fusions shape the immune and metabolic landscape of tumors.</p>
+<section id="localization" class="level3">
+<h3 class="anchored" data-anchor-id="localization">Localization</h3>
+<p>Display genome-wide distribution of fusion breakpoints. Includes two visualization views:</p>
+<section id="ideogram" class="level4">
+<h4 class="anchored" data-anchor-id="ideogram">Ideogram</h4>
+<p>Show genome-wide fusion breakpoint density.</p>
+<p><img src="images/Dist2.png" id="fig-flow" class="img-fluid" style="width:100.0%" alt="Distribution of genome-wide fusion breakpoints (Ideogram)"> <strong>Steps:</strong></p>
+<ol type="1">
+<li>Select cohorts (and optionally filter by chromosomes, all 24 by default);</li>
+<li>Optional: mark specific genes to overlay fusion partner links;</li>
+<li>Click Run.</li>
+</ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Circos plot: blue heatmap indicates breakpoint density; overlaid links show fusion partners for marked genes;</li>
+<li>Data source: filtered fusion calls aggregated by chromosome position.</li>
+</ul>
+</section>
+<section id="lollipop" class="level4">
+<h4 class="anchored" data-anchor-id="lollipop">Lollipop</h4>
+<p>ProteinPaint-style single-gene view showing fusion breakpoint distribution within a specific gene.</p>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Comp.svg" class="img-fluid figure-img" style="width:80.0%">
+<img src="images/Dist3.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;4: Comparison
+Figure&nbsp;6: Distribution of fusion breakpoints within a gene (Lollipop)
 </figcaption>
 </figure>
 </div>
+<p><strong>Steps:</strong></p>
 <ol type="1">
-<li>Select one or multiple cancer type, cohort IDs and analysis type (gene/gene pairs) and specific gene/gene pairs name</li>
-<li>Select approach</li>
-<li>Select TME-related, tumor-intrinsic, or metabolism-related signatures</li>
-<li>Run the analysis</li>
+<li>Select cohorts (and optionally filter by chromosomes, all 24 by default);</li>
+<li>Select target gene name;</li>
+<li>Click Run.</li>
 </ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Gene structure diagram: blue rectangles represent CDS/exons (HG38 BED-based);</li>
+<li>Red circles: intragenic fusion breakpoints; circle size scales with breakpoint count;</li>
+<li>Orange markers: regulatory/distal breakpoints (flanking ±10% gene length);</li>
+<li>Hover for breakpoint details.</li>
+</ul>
 </section>
-<section id="fusion-associations-asso" class="level2">
-<h2 class="anchored" data-anchor-id="fusion-associations-asso">Fusion Associations (Asso)</h2>
-<p>The Fusion associations module examines co-occurrence or mutual exclusivity between genes or fusion events. It helps identify patterns such as fusion pairs that frequently appear together or tend not to coexist.</p>
+</section>
+<section id="composition" class="level3">
+<h3 class="anchored" data-anchor-id="composition">Composition</h3>
+<p>Display the categorical breakdown of fusion events across multiple dimensions.</p>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Asso.svg" class="img-fluid figure-img" style="width:80.0%">
+<img src="images/Dist4.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;5: Association
+Figure&nbsp;7: Distribution of fusion events by categorical dimensions (Composition)
 </figcaption>
 </figure>
 </div>
+<p><strong>Steps:</strong></p>
 <ol type="1">
-<li>Select cancer type, cohort, gene/gene pairs (at least six genes)</li>
-<li>Adjust optional parameters</li>
-<li>Choose correlation method</li>
-<li>Run the analysis</li>
+<li>Select analysis level (Gene/ Gene Pair) and target genes/gene pairs (e.g., A1BG, A1CF, A2M);</li>
+<li>Select composition dimensions: Fusion Type, Cancer Type, Cohort, Partner Gene, Sample Type, Detection Tool, Chromosome (multiple selection allowed);</li>
+<li>Adjust optional parameters:
+<ul>
+<li>Top N categories per dimension: number of categories displayed per dimension;</li>
+<li>Global plot type: Auto (smart detect) or group small categories as “Other”;</li>
+<li>Multi-Dimensional: enable cross-tabulation heatmap or Sankey flow diagram;</li>
+</ul></li>
+<li>Click Run Composition Analysis.</li>
 </ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Composition bar charts: show fusion event breakdowns across selected dimensions; each bar represents a target gene, with color-coded segments indicating the proportions of different feature categories (e.g., fusion types);</li>
+<li>Optional multi-dimensional views: cross-tabulation heatmap or Sankey flow diagram.</li>
+</ul>
 </section>
-<section id="survival-analysis-risk" class="level2">
-<h2 class="anchored" data-anchor-id="survival-analysis-risk">Survival Analysis (Risk)</h2>
-<p>The Survival analysis module evaluates the association between fusion status and patient survival (e.g., OS, PFS). It can be used in both treatment-naive and ICB cohorts.</p>
-<p>The survival analysis is divided into two dedicated panels: one for the Kaplan-Meier (Km) method, which generates and compares survival curves, and another for the Cox Regression model, which identifies significant prognostic factors.</p>
-<section id="km-method-panel" class="level3">
-<h3 class="anchored" data-anchor-id="km-method-panel">Km method panel</h3>
+</section>
+<section id="comparison" class="level2">
+<h2 class="anchored" data-anchor-id="comparison">Comparison</h2>
+<p>Evaluate associations between fusion events and tumor microenvironment (TME) or IOBR immune signatures, generating box plots comparing feature scores between Fusion+ and Fusion− groups along with statistical test p-values.</p>
+<p>This module offers two analysis modes:</p>
+<ul>
+<li><strong>TME</strong>: compare cell-type abundance by fusion status;</li>
+<li><strong>IOBR Signature</strong>: compare immune signature scores by fusion status.</li>
+</ul>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Km.svg" class="img-fluid figure-img" style="width:80.0%">
+<img src="images/Comp.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;6: Km_surv
+Figure&nbsp;8: Comparison of cell-type abundance between Fusion+ and Fusion− groups (TME)
 </figcaption>
 </figure>
 </div>
+<p><strong>Steps:</strong></p>
 <ol type="1">
-<li>Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs.&nbsp;Fusion− groups</li>
-<li>Select survival endpoint (based on available survival data)</li>
-<li>Adjust optional parameters</li>
-<li>Run the analysis</li>
+<li>Select target cohort and analysis type (Gene / Gene Pair);</li>
+<li>Enter target gene/gene pair name(s) (leave empty to use all detected fusions);</li>
+<li>Select analysis approach</li>
+<li>Select cell type / feature (e.g., Macrophages_M0, APM);</li>
+<li>Select statistical test (e.g., Wilcoxon);</li>
+<li>Click Run.</li>
 </ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Box plot: displays feature abundance distribution between Fusion+ and Fusion− groups;</li>
+<li>Statistical results: Wilcoxon test p-value indicating significance between groups;</li>
+<li>Data table: includes sample ID, group label, and feature values; supports search and pagination.</li>
+</ul>
 </section>
-<section id="cox-method-panel" class="level3">
-<h3 class="anchored" data-anchor-id="cox-method-panel">Cox method panel</h3>
+<section id="association" class="level2">
+<h2 class="anchored" data-anchor-id="association">Association</h2>
+<p>Explore associations between gene fusions and molecular features, clinical response, and pairwise gene-gene relationships. This module contains three sub-tabs: Correlation, Response, and Gene Interactions.</p>
+<section id="correlation" class="level3">
+<h3 class="anchored" data-anchor-id="correlation">Correlation</h3>
+<p>Evaluate the correlation between fusion count and TME/signature features.</p>
+<p><img src="images/Asso1.png" id="fig-flow" class="img-fluid" style="width:100.0%" alt="Association between fusion count and signature scores (Correlation)"> <strong>Steps:</strong></p>
+<ol type="1">
+<li>Select target cohort, feature type (Signature/ TME), analysis approach (e.g., PCA);</li>
+<li>Select specific feature (e.g., APM);</li>
+<li>Select correlation method (e.g., Spearman) and choose whether to apply log10(x+1) transformation to fusion count;</li>
+<li>Click Run Correlation Analysis.</li>
+</ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Scatter plot: shows relationship between feature scores and fusion count with fitted trend line;</li>
+<li>Statistics: Spearman correlation coefficient (ρ), 95% CI, and p-value.</li>
+</ul>
+</section>
+<section id="response" class="level3">
+<h3 class="anchored" data-anchor-id="response">Response</h3>
+<p>Evaluate associations between fusion status and clinical response (binary + RECIST).</p>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="images/Cox.svg" class="img-fluid figure-img" style="width:80.0%">
+<img src="images/Asso2.png" class="img-fluid figure-img" style="width:100.0%">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7: Cox_surv
+Figure&nbsp;9: Association between fusion status and clinical response (Response)
 </figcaption>
 </figure>
 </div>
+<p><strong>Steps:</strong></p>
 <ol type="1">
-<li>Select cancer type, cohort, analysis type, a fusion (or gene) to define Fusion+ vs.&nbsp;Fusion− groups</li>
-<li>Select survival endpoint (based on available survival data)</li>
-<li>Select covariates</li>
-<li>Run the analysis</li>
+<li>Select one or multiple cohorts and analysis type (Gene/ Gene Pair);</li>
+<li>Enter target gene/gene pair(s) (leave empty to use any fusion as Fusion+);</li>
+<li>Click Run Response Analysis.</li>
 </ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Response rate bar plot: compares response rates between Fusion+ and Fusion− groups;</li>
+<li>Confusion matrix: shows distribution of response by fusion status;</li>
+<li>Statistics: odds ratio (OR) with 95% CI and Fisher’s exact test p-value.</li>
+</ul>
+</section>
+<section id="gene-interactions" class="level3">
+<h3 class="anchored" data-anchor-id="gene-interactions">Gene Interactions</h3>
+<p>Detect co-occurrence or mutual exclusivity between gene fusion events.</p>
+<p><img src="images/Asso3.png" id="fig-flow" class="img-fluid" style="width:100.0%" alt="Association of co-occurrence and mutual exclusivity among gene fusions (Gene Interactions)"> <strong>Steps:</strong></p>
+<ol type="1">
+<li>Select target cohort and analysis type (Gene/ Gene Pair);</li>
+<li>Enter target genes/gene pairs (min 2, max 25);</li>
+<li>Click Run Interaction Analysis.</li>
+</ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Co-occurrence/mutual exclusivity heatmap: shows association patterns between gene pairs;</li>
+<li>Statistics: p-values and odds ratios (OR) for each gene pair.</li>
+</ul>
+</section>
+</section>
+<section id="survival-km" class="level2">
+<h2 class="anchored" data-anchor-id="survival-km">Survival (KM)</h2>
+<p>Evaluate the association between gene fusion status and patient survival by generating and comparing Kaplan-Meier survival curves between Fusion+ and Fusion− groups.</p>
+<p><img src="images/Surv.png" id="fig-flow" class="img-fluid" style="width:100.0%" alt="Survival comparison between Fusion+ and Fusion− groups (Kaplan-Meier)"> <strong>Steps:</strong></p>
+<ol type="1">
+<li>Select target cohort and analysis type (Gene / Gene Pair);</li>
+<li>Enter target gene/gene pair name (defines Fusion+ vs Fusion− grouping);</li>
+<li>Select survival endpoint (e.g., OS);</li>
+<li>Optional: check Show 95% CI to display confidence intervals;</li>
+<li>Click Run KM Analysis.</li>
+</ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>KM survival curves: show survival probability over time for both groups;</li>
+<li>Log-rank test p-value: indicates whether survival curves differ significantly;</li>
+<li>Hazard ratio (HR) with 95% confidence interval;</li>
+<li>Survival data table: includes time and event status; supports search and pagination.</li>
+</ul>
+</section>
+<section id="cox-regression" class="level2">
+<h2 class="anchored" data-anchor-id="cox-regression">Cox Regression</h2>
+<p>Evaluate the independent prognostic value of gene fusions using multivariable Cox proportional hazards regression, with optional adjustment for clinical covariates.</p>
+<p><img src="images/Cox.png" id="fig-flow" class="img-fluid" style="width:100.0%" alt="Multivariable Cox regression of fusion status with clinical covariates (Cox)"> <strong>Steps:</strong></p>
+<ol type="1">
+<li>Select target cohort and analysis type (Gene / Gene Pair);</li>
+<li>Select target gene/gene pair names (multiple allowed);</li>
+<li>Select survival endpoint (e.g., OS);</li>
+<li>Select clinical covariates (e.g., Sex);</li>
+<li>Optional: check Use breg (forestplotter) to enable the dedicated forest plot rendering engine.</li>
+<li>Click Run Cox Analysis.</li>
+</ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>Forest plot: displays hazard ratios (HR) and 95% CI for each fusion gene and covariate;</li>
+<li>Model summary statistics:
+<ul>
+<li>C-index: model discriminative ability (0.5 = random, &gt;0.7 = acceptable);</li>
+<li>PH test p: proportional hazards assumption test (&gt;0.05 indicates assumption holds);</li>
+<li>AIC: model fit quality indicator;</li>
+</ul></li>
+<li>Detailed results table: includes HR, 95% CI, p-values, and FDR-adjusted values for each variable.</li>
+</ul>
+</section>
+<section id="landscape" class="level2">
+<h2 class="anchored" data-anchor-id="landscape">Landscape</h2>
+<p>Visualize the fusion landscape within a single cohort as an OncoPrint. Each column represents a sample; each row represents a gene or gene pair. Colored rectangles indicate detected fusion types.</p>
+<div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="images/Land.png" class="img-fluid figure-img" style="width:100.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;10: Landscape of gene fusions across samples (OncoPrint)
+</figcaption>
+</figure>
+</div>
+<p><strong>Steps:</strong></p>
+<ol type="1">
+<li>Select target cohort and analysis type (Gene / Gene Pair);</li>
+<li>Enter target gene/gene pair names (optional), or set Top N to display the top fusion-frequency genes (leave empty for auto-detection).</li>
+<li>Select clinical annotation covariates (e.g., Stage) for sample-level annotation bars;</li>
+<li>Optionally select a clustering method (None / Samples only / Genes only / Both axes) and toggle whether to include samples without fusions (Show negative samples).</li>
+<li>Click Run Landscape Analysis.</li>
+</ol>
+<p><strong>Outputs:</strong></p>
+<ul>
+<li>OncoPrint main plot: shows fusion event distribution for each gene across samples;</li>
+<li>Top annotation bars: display selected clinical covariates (e.g., Stage);</li>
+<li>Side bar: shows fusion frequency per gene;</li>
+<li>Bottom bar: shows total alterations per sample;</li>
+<li>Gene frequency table: lists fusion counts for each gene; supports search and pagination.</li>
+</ul>
 
 
-</section>
 </section>
 </section>
 
