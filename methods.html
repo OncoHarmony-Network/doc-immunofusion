@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.10.18">
+<meta name="generator" content="quarto-1.11.9">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -76,14 +76,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <meta name="quarto:offset" content="./">
 <script src="site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/scrollable-regions/scrollable-regions.js" type="module"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-c1f8ec324706b41e7c0c6f8ff4bf1d97.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-989225905f82031557c9969b790434b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -116,19 +117,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link rel="stylesheet" href="styles.css">
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><a id="quarto-skip-link" class="visually-hidden-focusable" href="#quarto-document-content">Skip to main content</a>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark" aria-label="Site">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
     <span class="navbar-title">ImmunoFusion</span>
     </a>
   </div>
-            <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
@@ -149,6 +149,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
 </div>
+            <div id="quarto-search" class="" title="Search"></div>
       </div> <!-- /container-fluid -->
     </nav>
 </header>
@@ -157,12 +158,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="2">
+        <nav id="TOC" role="doc-toc" aria-labelledby="toc-title" class="toc-active" data-toc-expanded="2">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
   <li><a href="#gene-fusions-identification-and-differential-expression-analysis" id="toc-gene-fusions-identification-and-differential-expression-analysis" class="nav-link active" data-scroll-target="#gene-fusions-identification-and-differential-expression-analysis">Gene Fusions identification and differential expression analysis</a></li>
   <li><a href="#response-and-response2" id="toc-response-and-response2" class="nav-link" data-scroll-target="#response-and-response2">Response and Response2</a></li>
+  <li><a href="#analysis-units" id="toc-analysis-units" class="nav-link" data-scroll-target="#analysis-units">Analysis units</a></li>
+  <li><a href="#filter-semantics" id="toc-filter-semantics" class="nav-link" data-scroll-target="#filter-semantics">Filter semantics</a></li>
+  <li><a href="#co-occurrence-versus-interaction" id="toc-co-occurrence-versus-interaction" class="nav-link" data-scroll-target="#co-occurrence-versus-interaction">Co-occurrence versus interaction</a></li>
   <li><a href="#cancer-type-abbreviation" id="toc-cancer-type-abbreviation" class="nav-link" data-scroll-target="#cancer-type-abbreviation">Cancer Type Abbreviation</a></li>
   <li><a href="#immunofusion-cohort-naming-maping" id="toc-immunofusion-cohort-naming-maping" class="nav-link" data-scroll-target="#immunofusion-cohort-naming-maping">ImmunoFusion cohort naming maping</a></li>
   <li><a href="#clinical-data-preprocessing" id="toc-clinical-data-preprocessing" class="nav-link" data-scroll-target="#clinical-data-preprocessing">Clinical data preprocessing</a>
@@ -182,7 +186,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content" tabindex="-1">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -223,6 +227,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="response-and-response2" class="level2">
 <h2 class="anchored" data-anchor-id="response-and-response2">Response and Response2</h2>
 <p>We gathered and processed patient ‘Response’ data from various cohorts. However, due to inconsistencies among these cohorts, such as the usage of different terms like CR, PR, SD, PD, R, NR, DCB, and NDB, we harmonized the response variable based on the timing of treatment and treatment response. As a result, we introduced a new variable called ‘Response2’ with four distinct categories: Pre-R, Pre-NR, On-R, and On-NR. In cases where response data was not available, we assigned the category NE.</p>
+<p>Because raw <code>Response</code> labels are not uniform across cohorts, the app reports two analyses. The <strong>binary</strong> analysis uses the harmonised <code>Response2</code> pre-treatment categories (Pre-R vs Pre-NR). The <strong>RECIST</strong> analysis retains only records explicitly coded as CR, PR, SD, or PD (CR/PR = response; SD/PD = no response) and excludes NE and non-RECIST labels such as R/NR, CB/NCB, and Responder/Non-responders. Cohorts with no evaluable RECIST contrast are reported as such rather than being classified by a fallback rule.</p>
+</section>
+<section id="analysis-units" class="level2">
+<h2 class="anchored" data-anchor-id="analysis-units">Analysis units</h2>
+<p>The platform distinguishes four units that are not interchangeable:</p>
+<ul>
+<li><strong>Fusion calls (records)</strong>: one detected fusion in one sample. Home and Data Summary report 98,281 calls.</li>
+<li><strong>Unique Fusion IDs</strong>: calls sharing the same head/tail gene combination and genomic loci are merged; there are 76,803 unique Fusion IDs.</li>
+<li><strong>Samples</strong>: unique clinical samples (20,995). Composition/IOBR comparisons and frequency proportions use samples; frequency proportions use all analysed clinical samples in the cohort as the denominator, not only fusion-positive samples.</li>
+<li><strong>Patients</strong>: one record per patient. Correlation, response, gene co-occurrence, KM, and Cox analyses use patients; a patient is Fusion+ when any of their samples carries the relevant fusion.</li>
+</ul>
+<p>Comma-separated gene lists (e.g.&nbsp;<code>A,B::C</code>, common in Arriba output) are expanded before gene and pair counting, so such a call contributes to both <code>A::C</code> and <code>B::C</code>. Gene-level frequency counts distinct calls containing the gene, not occurrences (a SameGene call lists the gene on both sides).</p>
+</section>
+<section id="filter-semantics" class="level2">
+<h2 class="anchored" data-anchor-id="filter-semantics">Filter semantics</h2>
+<p>Cohort groups and cohorts are linked with <strong>any-overlap</strong> semantics: a group is checked when at least one of its cohorts is selected, and narrowing groups narrows the cohort choices. Selecting nothing is equivalent to selecting everything, both in the global modal and in page-level cohort pickers. Treatment-status and pre-treatment filters apply <strong>within ICB cohorts only</strong>; non-ICB cohorts are unaffected. The global filters define the call set and therefore the Fusion+ vs Fusion− grouping; page-level selectors narrow the data further. A context bar on each filter-aware page lists the active selections, while effective post-filter counts are reported in the panel results.</p>
+</section>
+<section id="co-occurrence-versus-interaction" class="level2">
+<h2 class="anchored" data-anchor-id="co-occurrence-versus-interaction">Co-occurrence versus interaction</h2>
+<p>The Gene Co-occurrence panel performs Fisher exact tests on patient-level fusion presence for each gene pair, reporting odds ratios and FDR-adjusted p-values. A significant result indicates statistical co-occurrence or mutual exclusivity across patients; it does not establish physical, structural, or functional interaction between the genes.</p>
 </section>
 <section id="cancer-type-abbreviation" class="level2">
 <h2 class="anchored" data-anchor-id="cancer-type-abbreviation">Cancer Type Abbreviation</h2>
@@ -3456,7 +3480,8 @@ write.table(metafusion_new,
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
       // Inspect non-navigation links and adorn them if external
-     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      window.quartoDecorateExternalLinks = function (root) {
+     var links = (root || window.document).querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
       for (var i=0; i<links.length; i++) {
         const link = links[i];
         if (!isInternal(link.href)) {
@@ -3465,8 +3490,69 @@ write.table(metafusion_new,
           if (link.dataset.originalHref !== undefined) {
             link.href = link.dataset.originalHref;
           }
+          if (!link.classList.contains('no-external-icon')) {
+          }
         }
       }
+      };
+      window.quartoDecorateExternalLinks(window.document);
+    // Esc closes the popup (WCAG 1.4.13) and focus leaving both trigger and
+    // popup closes it (WCAG 2.4.11); tippy handles neither for interactive popups.
+    const hideOnEscAndFocusOut = {
+      name: 'hideOnEscAndFocusOut',
+      defaultValue: true,
+      fn(instance) {
+        const dismiss = () => {
+          // A show scheduled by the trigger delay would otherwise reopen it
+          instance.clearDelayTimeouts();
+          instance.hide();
+        };
+        const onKeyDown = (event) => {
+          if (event.key !== 'Escape') {
+            return;
+          }
+          // Keep Esc from also reaching page handlers (e.g. reveal.js overview),
+          // except an open reveal.js slide menu, which Esc should close too.
+          // The menu handles keys only when its keyboard option is on.
+          const menuHandlesEsc = window.Reveal?.getPlugin?.('menu')?.isOpen() &&
+            window.Reveal.getConfig().menu?.keyboard !== false;
+          if (!menuHandlesEsc) {
+            event.stopPropagation();
+          }
+          if (instance.popper.contains(window.document.activeElement)) {
+            // Disabled while refocusing so the focus trigger does not reopen it
+            instance.disable();
+            instance.reference.focus();
+            instance.enable();
+          }
+          dismiss();
+        };
+        const onFocusOut = (event) => {
+          const target = event.relatedTarget;
+          if (target && !instance.reference.contains(target) &&
+              !instance.popper.contains(target)) {
+            dismiss();
+          }
+        };
+        // On the trigger too: a click trigger (code-annotations: select) has no
+        // blur handling. Attached for the instance's lifetime so leaving the
+        // trigger also cancels a show still pending on the trigger delay.
+        instance.reference.addEventListener('focusout', onFocusOut);
+        return {
+          onShow() {
+            window.document.addEventListener('keydown', onKeyDown, true);
+            instance.popper.addEventListener('focusout', onFocusOut);
+          },
+          onHide() {
+            window.document.removeEventListener('keydown', onKeyDown, true);
+            instance.popper.removeEventListener('focusout', onFocusOut);
+          },
+          onDestroy() {
+            instance.reference.removeEventListener('focusout', onFocusOut);
+          },
+        };
+      },
+    };
     function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
       const config = {
         allowHTML: true,
@@ -3480,6 +3566,7 @@ write.table(metafusion_new,
         interactiveBorder: 10,
         theme: 'quarto',
         placement: 'bottom-start',
+        plugins: [hideOnEscAndFocusOut],
       };
       if (contentFn) {
         config.content = contentFn;
@@ -3642,44 +3729,54 @@ write.table(metafusion_new,
           const lineIds = lines.map((line) => {
             return targetCell + "-" + line;
           })
-          let top = null;
-          let height = null;
-          let parent = null;
+          // Each band is positioned against its own containing block, which is
+          // not the offsetParent of the lines, so place it from client rects.
+          const placeBand = (band, firstEl, lastEl, codeBlock) => {
+            const container = band.offsetParent;
+            if (container === null) {
+              return;
+            }
+            const containerRect = container.getBoundingClientRect();
+            // Reveal.js scales slides with a transform, so convert client
+            // pixels back to the CSS pixels of the container.
+            const scale = containerRect.height / container.offsetHeight || 1;
+            const firstRect = firstEl.getBoundingClientRect();
+            const lastRect = lastEl.getBoundingClientRect();
+            const top = (firstRect.top - containerRect.top) / scale - container.clientTop + container.scrollTop;
+            const height = (lastRect.bottom - firstRect.top) / scale;
+            band.style.top = top - 2 + "px";
+            band.style.height = height + 4 + "px";
+            if (codeBlock) {
+              // Without the copy button wrapper, the containing block is wider
+              // than the code block, so span the code block explicitly.
+              const blockRect = codeBlock.getBoundingClientRect();
+              band.style.left = (blockRect.left - containerRect.left) / scale - container.clientLeft + container.scrollLeft + "px";
+              band.style.width = blockRect.width / scale + "px";
+            }
+          };
           if (lineIds.length > 0) {
-              //compute the position of the single el (top and bottom and make a div)
-              const el = window.document.getElementById(lineIds[0]);
-              top = el.offsetTop;
-              height = el.offsetHeight;
-              parent = el.parentElement.parentElement;
-            if (lineIds.length > 1) {
-              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
-              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
-              height = bottom - top;
+            const el = window.document.getElementById(lineIds[0]);
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const parent = el.parentElement.parentElement;
+            // cook up a div (if necessary) and position it
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
             }
-            if (top !== null && height !== null && parent !== null) {
-              // cook up a div (if necessary) and position it 
-              let div = window.document.getElementById("code-annotation-line-highlight");
-              if (div === null) {
-                div = window.document.createElement("div");
-                div.setAttribute("id", "code-annotation-line-highlight");
-                div.style.position = 'absolute';
-                parent.appendChild(div);
-              }
-              div.style.top = top - 2 + "px";
-              div.style.height = height + 4 + "px";
-              div.style.left = 0;
-              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
-              if (gutterDiv === null) {
-                gutterDiv = window.document.createElement("div");
-                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
-                gutterDiv.style.position = 'absolute';
-                const codeCell = window.document.getElementById(targetCell);
-                const gutter = codeCell.querySelector('.code-annotation-gutter');
-                gutter.appendChild(gutterDiv);
-              }
-              gutterDiv.style.top = top - 2 + "px";
-              gutterDiv.style.height = height + 4 + "px";
+            placeBand(div, el, lastEl, parent.closest("div.sourceCode") || parent);
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
             }
+            placeBand(gutterDiv, el, lastEl);
             selectedAnnoteEl = annoteEl;
           }
         };
@@ -3777,6 +3874,9 @@ write.table(metafusion_new,
       }
     }
   });
+  </script>
+  <script type="application/javascript">
+  window.quartoScrollableRegionsLabels = {"code":"Scrollable code","output":"Scrollable output"};
   </script>
 </div> <!-- /content -->
 
