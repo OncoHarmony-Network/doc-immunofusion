@@ -2542,3 +2542,7 @@ write.table(metafusion_new,
                       quote = FALSE) 
 
 ```
+
+## Preprocessing code
+
+The latest preprocessing and cohort-curation code used to build the ImmunoFusion database is maintained in the [fusion_unclean](https://github.com/OncoHarmony-Network/fusion_unclean) repository. It includes fusion-call collection and filtering, clinical-data harmonization, sample-type and cohort annotation, and TME/IOBR preprocessing scripts.
