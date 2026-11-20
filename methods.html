@@ -84,7 +84,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <link href="site_libs/quarto-html/quarto-syntax-highlighting-63b5708e65d6cd79cd7618c58d0c21e7.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-699838874ed92d0597c443722ed6dd98.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-989225905f82031557c9969b790434b3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -182,6 +182,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#tcga-1" id="toc-tcga-1" class="nav-link" data-scroll-target="#tcga-1">TCGA</a></li>
   </ul></li>
   <li><a href="#fusion-event-scoring-and-classification" id="toc-fusion-event-scoring-and-classification" class="nav-link" data-scroll-target="#fusion-event-scoring-and-classification">Fusion Event Scoring and Classification</a></li>
+  <li><a href="#preprocessing-code" id="toc-preprocessing-code" class="nav-link" data-scroll-target="#preprocessing-code">Preprocessing code</a></li>
   </ul>
 </nav>
     </div>
@@ -3397,6 +3398,10 @@ write.table(metafusion_new,
                       row.names = FALSE, 
                       quote = FALSE) 
 </code></pre>
+</section>
+<section id="preprocessing-code" class="level2">
+<h2 class="anchored" data-anchor-id="preprocessing-code">Preprocessing code</h2>
+<p>The latest preprocessing and cohort-curation code used to build the ImmunoFusion database is maintained in the <a href="https://github.com/OncoHarmony-Network/fusion_unclean">fusion_unclean</a> repository. It includes fusion-call collection and filtering, clinical-data harmonization, sample-type and cohort annotation, and TME/IOBR preprocessing scripts.</p>
 
 
 </section>
