@@ -24,6 +24,27 @@ We employed two Gene Fusions(GFs) detection tools, including arriba, STAR-Fusion
 
 We gathered and processed patient 'Response' data from various cohorts. However, due to inconsistencies among these cohorts, such as the usage of different terms like CR, PR, SD, PD, R, NR, DCB, and NDB, we harmonized the response variable based on the timing of treatment and treatment response. As a result, we introduced a new variable called 'Response2' with four distinct categories: Pre-R, Pre-NR, On-R, and On-NR. In cases where response data was not available, we assigned the category NE.
 
+Because raw `Response` labels are not uniform across cohorts, the app reports two analyses. The **binary** analysis uses the harmonised `Response2` pre-treatment categories (Pre-R vs Pre-NR). The **RECIST** analysis retains only records explicitly coded as CR, PR, SD, or PD (CR/PR = response; SD/PD = no response) and excludes NE and non-RECIST labels such as R/NR, CB/NCB, and Responder/Non-responders. Cohorts with no evaluable RECIST contrast are reported as such rather than being classified by a fallback rule.
+
+## Analysis units
+
+The platform distinguishes four units that are not interchangeable:
+
+- **Fusion calls (records)**: one detected fusion in one sample. Home and Data Summary report 98,281 calls.
+- **Unique Fusion IDs**: calls sharing the same head/tail gene combination and genomic loci are merged; there are 76,803 unique Fusion IDs.
+- **Samples**: unique clinical samples (20,995). Composition/IOBR comparisons and frequency proportions use samples; frequency proportions use all analysed clinical samples in the cohort as the denominator, not only fusion-positive samples.
+- **Patients**: one record per patient. Correlation, response, gene co-occurrence, KM, and Cox analyses use patients; a patient is Fusion+ when any of their samples carries the relevant fusion.
+
+Comma-separated gene lists (e.g. `A,B::C`, common in Arriba output) are expanded before gene and pair counting, so such a call contributes to both `A::C` and `B::C`. Gene-level frequency counts distinct calls containing the gene, not occurrences (a SameGene call lists the gene on both sides).
+
+## Filter semantics
+
+Cohort groups and cohorts are linked with **any-overlap** semantics: a group is checked when at least one of its cohorts is selected, and narrowing groups narrows the cohort choices. Selecting nothing is equivalent to selecting everything, both in the global modal and in page-level cohort pickers. Treatment-status and pre-treatment filters apply **within ICB cohorts only**; non-ICB cohorts are unaffected. The global filters define the call set and therefore the Fusion+ vs Fusion− grouping; page-level selectors narrow the data further. A context bar on each filter-aware page lists the active selections, while effective post-filter counts are reported in the panel results.
+
+## Co-occurrence versus interaction
+
+The Gene Co-occurrence panel performs Fisher exact tests on patient-level fusion presence for each gene pair, reporting odds ratios and FDR-adjusted p-values. A significant result indicates statistical co-occurrence or mutual exclusivity across patients; it does not establish physical, structural, or functional interaction between the genes.
+
 ## Cancer Type Abbreviation
 
 

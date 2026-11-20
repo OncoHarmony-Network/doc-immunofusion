@@ -33,15 +33,15 @@ Please cite the ImmunoFusion paper if you use results from this platform in your
 
 ## Data Overview
 
-ImmunoFusion is the largest cancer fusion gene database, integrating 78 cohorts, 21,000+ samples, and 76,800+ high-confidence fusions, including data from TCGA, TARGET, CPTAC.
+ImmunoFusion is the largest cancer fusion gene database, integrating 78 cohorts, 20,995 samples, and 98,281 fusion calls (76,803 unique Fusion IDs), including data from TCGA, TARGET, and CPTAC.
 
 **Core Data Metrics:**
 
-- **Cohorts**: 78 (28 IO / 50 non-IO)
-- **Samples**: 21,000+ (4,600+ IO / 16,300+ non-IO)
-- **Fusions**: 76,800+ (11,100+ IO / 66,000+ non-IO)
-- **Genes**: 23,600+ (9,600+ IO / 22,400+ non-IO)
-- **Gene Pairs**: 66,900+ (10,200+ IO / 57,800+ non-IO)
+- **Cohorts**: 78 (28 ICB / 50 non-ICB)
+- **Samples**: 20,995 (4,671 ICB / 16,324 non-ICB: 14,449 tumor, 68 cell-line, 1,807 normal)
+- **Fusion calls**: 98,281 records (12,750 ICB / 85,531 non-ICB); 76,803 unique Fusion IDs
+- **Genes**: 23,565 (9,600+ ICB / 22,400+ non-ICB)
+- **Gene Pairs**: 66,895 (10,200+ ICB / 57,800+ non-ICB)
 
 The **Data Summary** module provides macro-level statistical views of cohorts and samples, including cohort characteristics (cancer type distribution, IO vs non-IO composition, sex ratio, treatment type and response distribution) and fusion profiles (fusion type and sample type distributions). Users can quickly grasp the overall dataset composition through this module.
 
@@ -70,6 +70,8 @@ The Fusion module is the entry point for inspecting individual fusion events and
 - Browse specific fusions and view the distribution of different fusion types across the cohort in the middle panel;
 - Download fusion summary tables as CSV files.
 
+The **Gene Freq** and **Gene Pairs Associated** tables are a cached database-wide reference index and do not change with the global filters. The gene distribution, gene records, Fusion Full Table, and drill-down are recomputed from the globally filtered call set. `n` in the frequency index counts distinct fusion calls containing the gene or pair (a SameGene call is counted once).
+
 
 ![Fusion Full Table](images/Fusion2.png){#fig-flow width=100%}
 
@@ -95,9 +97,9 @@ The Cohort module provides an overview of all cohorts and datasets in ImmunoFusi
 - **Overview**: sample size, total fusions, top fusion genes/gene pairs, fusion type distribution, and response distribution;
 
 
-![Landscape of fusion events across Top N genes and samples (OncoPrint)](images/Cohort3.png){#fig-flow width=80%}
+![Landscape of fusion events across Top N genes/gene pairs and samples (OncoPrint)](images/Cohort3.png){#fig-flow width=80%}
 
-- **Fusion Landscape**: an OncoPrint of the cohort showing fusion event distribution across samples for the Top N genes.
+- **Fusion Landscape**: an OncoPrint of the cohort showing fusion event distribution across samples for the Top N genes or gene pairs (toggle “Show pairs”); coverage is reported relative to the analysed samples.
 
 
 ---
@@ -108,7 +110,7 @@ The Analysis module consists of several sub-modules, all sharing a unified layou
 
 **Export Options**: All analysis modules support chart exports (HTML) and data exports (CSV). Export buttons are located in the results panel of each module.
 
-**Global Filters**: The global filters at the top of the page (fusion type, Score, tools, genes, fusions) apply to all analysis modules — a sample is considered Fusion+ only if it carries at least one fusion passing ALL active filters. Adjust filters to refine the Fusion+ vs. Fusion− grouping across all analyses.
+**Global Filters**: The global filters (cohort groups/cohorts, ICB treatment status, pre-treatment status, sample type, fusion type, detection tool, Score, genes, Fusion IDs, and split/span thresholds) define the analysis population. A patient is Fusion+ when any of their samples carries at least one fusion passing **all** active filters. An empty selection is equivalent to selecting everything. Treatment-status filters apply within ICB cohorts only; non-ICB cohorts are unaffected. A compact context bar at the top of every filter-aware page summarizes the active selections (not the effective post-filter counts, which are reported in each panel). Home, Data Summary, and the Cohort overview describe the full database and are independent of these filters; the Fusion page's gene/pair frequency index is also a database-wide reference, while its records, distribution, and tables are filter-aware.
 
 ## Distribution 
 
@@ -116,24 +118,27 @@ Evaluate the distribution characteristics of fusion genes across selected cohort
 
 ### Frequency
 
-Display the frequency distribution of fusion genes/gene pairs across selected cohorts.
+Display the distribution of fusion-gene/gene-pair frequencies across the selected cohort(s). Each histogram unit is one gene/pair **in one cohort**, counted as the number of unique samples carrying it in that cohort.
 
-![Distribution of fusion genes](images/Dist1.png){#fig-flow width=100%}
 **Steps:**
 
-1. Select one or multiple cohort IDs, analysis type (Gene / Gene Pair);
-2. Select plot type: Fusion Frequency or Sample Count;
-   - The Fusion Frequency plot displays the total number of fusion events involving each gene across all selected cohorts.
-   - The Sample Count plot displays the total number of unique samples carrying each gene fusion across all selected cohorts.
-3. Optional: specify target genes or gene pairs for highlighting;
+1. Select one or multiple cohort IDs and analysis type (Gene / Gene Pair);
+2. Select plot type:
+   - **Fusion frequency**: X-axis is the number of unique samples carrying the gene/pair in a cohort.
+   - **Sample proportion**: X-axis is that count divided by the number of clinical samples analysed in the cohort (not by fusion-positive samples).
+3. Optional: restrict to specific genes/pairs and/or mark one gene/pair;
+   - The marker draws a **single** red reference line at the marked target's highest per-cohort value; the peak cohort and observed range are shown beneath the plot. This avoids drawing one line per cohort.
 4. Click Run.
 
 **Outputs:**
 
-- Fusion Frequency Mode
-Bar plot: X-axis shows the total number of fusion events for each gene (multiple events in the same sample counted separately), Y-axis shows gene counts; data table includes gene names and their fusion counts.
-- Sample Count Mode
-Bar plot: X-axis shows the number of samples carrying each gene fusion (multiple events in the same sample counted as 1), Y-axis shows gene counts; data table includes gene names and their fusion proportions (prop) across samples.
+- Frequency histogram: Y-axis is the number of gene/pair–cohort units in each frequency bin; bars are drawn on a log10 scale from 1 upward;
+- Marker note: peak cohort and range for the marked target;
+- Data table: `Gene/Pair`, `Cohort`, and `Samples` (frequency mode) or `Proportion` (sample-proportion mode); downloadable as CSV.
+
+All three Distribution panels (Frequency, Localization, Composition) recompute on **Run** from the globally filtered call set; no cached distribution is displayed. Page-level cohort and gene selectors narrow the data further.
+
+![Distribution of fusion genes](images/Dist1.png){#fig-flow width=100%}
 
 ### Localization
 
@@ -186,15 +191,16 @@ Display the categorical breakdown of fusion events across multiple dimensions.
 1. Select analysis level (Gene/ Gene Pair) and target genes/gene pairs (e.g., A1BG, A1CF, A2M);
 2. Select composition dimensions: Fusion Type, Cancer Type, Cohort, Partner Gene, Sample Type, Detection Tool, Chromosome (multiple selection allowed);
 3. Adjust optional parameters:
-   - Top N categories per dimension: number of categories displayed per dimension;
-   - Global plot type: Auto (smart detect) or group small categories as "Other";
-   - Multi-Dimensional: enable cross-tabulation heatmap or Sankey flow diagram;
+   - Top N categories per dimension;
+   - Global plot type: Auto, stacked/horizontal bar, Donut/Sunburst, dot, heatmap, or treemap; group small categories as "Other";
+   - Multi-Dimensional: enable cross-tabulation heatmap or a target → first-dimension flow diagram;
 4. Click Run Composition Analysis.
 
 **Outputs:**
 
-- Composition bar charts: show fusion event breakdowns across selected dimensions; each bar represents a target gene, with color-coded segments indicating the proportions of different feature categories (e.g., fusion types);
-- Optional multi-dimensional views: cross-tabulation heatmap or Sankey flow diagram.
+- Composition charts: fusion-event breakdowns across selected dimensions; each series represents a target gene/pair, with color-coded category proportions (e.g., fusion types);
+- Per-target counts treat each selected gene independently (a call carrying two selected genes counts once for each), and comma-separated gene lists are expanded so `A,B::C` contributes to both `A::C` and `B::C`;
+- Optional multi-dimensional views: cross-tabulation heatmap or flow diagram (target → first selected dimension).
 
 
 ## Comparison
@@ -205,6 +211,8 @@ This module offers two analysis modes:
 
 - **TME**: compare cell-type abundance by fusion status;
 - **IOBR Signature**: compare immune signature scores by fusion status.
+
+The comparison unit is the **sample**: TME/signature values are sample-level, and Fusion+ is defined by the globally filtered call set (a sample is Fusion+ when it carries at least one fusion passing all active filters).
 
 ![Comparison of cell-type abundance between Fusion+ and Fusion− groups (TME)](images/Comp.png){#fig-flow width=100%}
 
@@ -225,12 +233,12 @@ This module offers two analysis modes:
 
 ## Association
 
-Explore associations between gene fusions and molecular features, clinical response, and pairwise gene-gene relationships. This module contains three sub-tabs: Correlation, Response, and Gene Interactions.
+Explore associations between gene fusions and molecular features, clinical response, and pairwise gene-fusion co-occurrence. This module contains three sub-tabs: Correlation, Response, and Gene Co-occurrence. Correlation, Response, and Gene Co-occurrence use the **patient** as the analysis unit (a patient is Fusion+ when any of their samples carries the relevant fusion), whereas the TME/Signature comparison above uses samples.
 
 
 ### Correlation
 
-Evaluate the correlation between fusion count and TME/signature features.
+Evaluate the correlation between fusion count and TME/signature features at the patient level.
 
 ![Association between fusion count and signature scores (Correlation)](images/Asso1.png){#fig-flow width=100%}
 **Steps:**
@@ -248,7 +256,10 @@ Evaluate the correlation between fusion count and TME/signature features.
 
 ### Response
 
-Evaluate associations between fusion status and clinical response (binary + RECIST).
+Evaluate associations between fusion status and clinical response, reported as two complementary analyses:
+
+- **Binary response (pre-treatment R vs NR)**: uses the harmonised `Response2` variable restricted to pre-treatment samples (`Pre-R` vs `Pre-NR`). The heading and analysis explicitly state this restriction.
+- **RECIST response**: only samples with RECIST-coded values (`CR`, `PR`, `SD`, `PD`) are analysed; `CR`/`PR` are responders and `SD`/`PD` are non-responders. NE and non-RECIST labels (e.g., `R`/`NR`, `CB`/`NCB`, `Responder`/`Non-responders`) are excluded and reported as unevaluable; use the binary analysis for those cohorts. If only one RECIST class remains, the panel says so instead of reporting a misleading 0/NA test.
 
 ![Association between fusion status and clinical response (Response)](images/Asso2.png){#fig-flow width=100%}
 
@@ -260,32 +271,32 @@ Evaluate associations between fusion status and clinical response (binary + RECI
 
 **Outputs:**
 
-- Response rate bar plot: compares response rates between Fusion+ and Fusion− groups;
-- Confusion matrix: shows distribution of response by fusion status;
-- Statistics: odds ratio (OR) with 95% CI and Fisher's exact test p-value.
+- **Binary response**: response-rate composition, confusion matrix, odds ratio (OR) with 95% CI, and Fisher's exact test p-value for pre-treatment `Pre-R` vs `Pre-NR`;
+- **RECIST response**: response composition and contingency table for RECIST-coded samples only, with OR and Fisher's p-value; non-RECIST/NE records are excluded and the exclusion rule is shown in the panel.
 
 
-### Gene Interactions
+### Gene Co-occurrence
 
-Detect co-occurrence or mutual exclusivity between gene fusion events.
+Detect statistical co-occurrence or mutual exclusivity between gene-fusion events across patients. This is an association test, not evidence of physical or functional gene–gene interaction.
 
-![Association of co-occurrence and mutual exclusivity among gene fusions (Gene Interactions)](images/Asso3.png){#fig-flow width=100%}
+![Association of co-occurrence and mutual exclusivity among gene fusions (Gene Co-occurrence)](images/Asso3.png){#fig-flow width=100%}
 **Steps:**
 
-1. Select target cohort and analysis type (Gene/ Gene Pair);
+1. Select target cohort and analysis type (Gene / Gene Pair);
 2. Enter target genes/gene pairs (min 2, max 25);
-3. Click Run Interaction Analysis.
+3. Click Run Co-occurrence Analysis.
 
 **Outputs:**
 
-- Co-occurrence/mutual exclusivity heatmap: shows association patterns between gene pairs;
-- Statistics: p-values and odds ratios (OR) for each gene pair.
+- Co-occurrence/mutual exclusivity heatmap: shows association patterns between gene pairs; stars are based on raw p-values, while the table reports FDR-adjusted values;
+- Significant Co-occurrences table and CSV: only pairs with FDR < 0.05 (the header reports how many of all pairs are significant);
+- Statistics: raw p-values, odds ratios (OR), and FDR-adjusted p-values for each gene pair.
 
 
 
 ## Survival (KM)
 
-Evaluate the association between gene fusion status and patient survival by generating and comparing Kaplan-Meier survival curves between Fusion+ and Fusion− groups.
+Evaluate the association between gene fusion status and patient survival by generating and comparing Kaplan-Meier survival curves between Fusion+ and Fusion− groups. The analysis unit is the **patient**: multi-sample patients contribute one record, and a fusion on any sample marks the patient as Fusion+. Survival time units are inferred from each cohort's data rather than assumed from cohort type.
 
 ![Survival comparison between Fusion+ and Fusion− groups (Kaplan-Meier)](images/Surv.png){#fig-flow width=100%}
 **Steps:**
@@ -306,7 +317,7 @@ Evaluate the association between gene fusion status and patient survival by gene
 
 ## Cox Regression
 
-Evaluate the independent prognostic value of gene fusions using multivariable Cox proportional hazards regression, with optional adjustment for clinical covariates.
+Evaluate the independent prognostic value of gene fusions using multivariable Cox proportional hazards regression, with optional adjustment for clinical covariates. The analysis unit is the **patient**, consistent with the KM analysis. Genes with fewer than two fusion-positive patients are dropped with a visible warning rather than modelled silently; FDR-adjusted values are used consistently in the table, forest-plot colors, and CSV export.
 
 ![Multivariable Cox regression of fusion status with clinical covariates (Cox)](images/Cox.png){#fig-flow width=100%}
 **Steps:**
@@ -329,7 +340,7 @@ Evaluate the independent prognostic value of gene fusions using multivariable Co
 
 ## Landscape
 
-Visualize the fusion landscape within a single cohort as an OncoPrint. Each column represents a sample; each row represents a gene or gene pair. Colored rectangles indicate detected fusion types.
+Visualize the fusion landscape within a single cohort as an OncoPrint. Each column represents a sample; each row represents a gene or gene pair. Colored rectangles indicate detected fusion types. The sample universe and alterations respect the active global filters, and comma-separated gene lists are expanded into individual gene pairs. Labels switch between “Genes” and “Gene Pairs” with the selected analysis level; “Samples Shown” is the number of non-empty columns, and coverage is shown relative to the analysed sample universe.
 
 ![Landscape of gene fusions across samples (OncoPrint)](images/Land.png){#fig-flow width=100%}
 
@@ -347,7 +358,7 @@ Visualize the fusion landscape within a single cohort as an OncoPrint. Each colu
 - Top annotation bars: display selected clinical covariates (e.g., Stage);
 - Side bar: shows fusion frequency per gene;
 - Bottom bar: shows total alterations per sample;
-- Gene frequency table: lists fusion counts for each gene; supports search and pagination.
+- Gene/pair frequency table: lists fusion counts for each gene or gene pair; supports search and pagination.
 
 
 
