@@ -258,7 +258,7 @@ Evaluate the correlation between fusion count and TME/signature features at the 
 
 Evaluate associations between fusion status and clinical response, reported as two complementary analyses:
 
-- **Binary response (pre-treatment R vs NR)**: uses the harmonised `Response2` variable restricted to pre-treatment samples (`Pre-R` vs `Pre-NR`). The heading and analysis explicitly state this restriction.
+- **Binary response (Response2: pre-treatment Pre-R vs Pre-NR)**: uses the harmonised `Response2` variable restricted to pre-treatment samples (`Pre-R` vs `Pre-NR`). The heading and analysis explicitly state this restriction.
 - **RECIST response**: only samples with RECIST-coded values (`CR`, `PR`, `SD`, `PD`) are analysed; `CR`/`PR` are responders and `SD`/`PD` are non-responders. NE and non-RECIST labels (e.g., `R`/`NR`, `CB`/`NCB`, `Responder`/`Non-responders`) are excluded and reported as unevaluable; use the binary analysis for those cohorts. If only one RECIST class remains, the panel says so instead of reporting a misleading 0/NA test.
 
 ![Association between fusion status and clinical response (Response)](images/Asso2.png){#fig-flow width=100%}
