@@ -443,7 +443,7 @@ Figure&nbsp;8: Distribution of fusion events by categorical dimensions (Composit
 <li><strong>TME</strong>: compare cell-type abundance by fusion status;</li>
 <li><strong>IOBR Signature</strong>: compare immune signature scores by fusion status.</li>
 </ul>
-<p>The comparison unit is the <strong>sample</strong>: TME/signature values are sample-level, and Fusion+ is defined by the globally filtered call set (a sample is Fusion+ when it carries at least one fusion passing all active filters).</p>
+<p>The comparison unit can be <strong>Samples</strong> or <strong>Patients</strong>. In sample mode, every sample is a data point and Fusion+ is defined by the globally filtered call set (a sample is Fusion+ when it carries at least one fusion passing all active filters); multiple samples from one patient are not independent. In patient mode, the selected feature is averaged across each patient’s samples and a patient is Fusion+ when any sample is Fusion+; this removes within-patient pseudoreplication. Each feature needs at least two non-missing observations in both fusion groups; otherwise the panel reports that the feature is not testable.</p>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-flow-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -493,7 +493,7 @@ Figure&nbsp;9: Comparison of cell-type abundance between Fusion+ and Fusion− g
 <h3 class="anchored" data-anchor-id="response">Response</h3>
 <p>Evaluate associations between fusion status and clinical response, reported as two complementary analyses:</p>
 <ul>
-<li><strong>Binary response (Response2: pre-treatment Pre-R vs Pre-NR)</strong>: uses the harmonised <code>Response2</code> variable restricted to pre-treatment samples (<code>Pre-R</code> vs <code>Pre-NR</code>). The heading and analysis explicitly state this restriction.</li>
+<li><strong>Binary response (Response2: pre-treatment Pre-R vs Pre-NR)</strong>: uses the harmonised <code>Response2</code> variable restricted to pre-treatment samples (<code>Pre-R</code> vs <code>Pre-NR</code>). The heading and analysis explicitly state this restriction. The reported odds ratio is the response odds ratio for Fusion+ vs Fusion- samples: OR &gt; 1 means higher response odds in Fusion+ samples.</li>
 <li><strong>RECIST response</strong>: only samples with RECIST-coded values (<code>CR</code>, <code>PR</code>, <code>SD</code>, <code>PD</code>) are analysed; <code>CR</code>/<code>PR</code> are responders and <code>SD</code>/<code>PD</code> are non-responders. NE and non-RECIST labels (e.g., <code>R</code>/<code>NR</code>, <code>CB</code>/<code>NCB</code>, <code>Responder</code>/<code>Non-responders</code>) are excluded and reported as unevaluable; use the binary analysis for those cohorts. If only one RECIST class remains, the panel says so instead of reporting a misleading 0/NA test.</li>
 </ul>
 <div id="fig-flow" class="quarto-float quarto-figure quarto-figure-center anchored">
@@ -514,8 +514,8 @@ Figure&nbsp;10: Association between fusion status and clinical response (Respons
 </ol>
 <p><strong>Outputs:</strong></p>
 <ul>
-<li><strong>Binary response</strong>: response-rate composition, confusion matrix, odds ratio (OR) with 95% CI, and Fisher’s exact test p-value for pre-treatment <code>Pre-R</code> vs <code>Pre-NR</code>;</li>
-<li><strong>RECIST response</strong>: response composition and contingency table for RECIST-coded samples only, with OR and Fisher’s p-value; non-RECIST/NE records are excluded and the exclusion rule is shown in the panel.</li>
+<li><strong>Binary response</strong>: response-rate composition, confusion matrix, response odds ratio (Fusion+ vs Fusion-) with 95% CI, and Fisher’s exact test p-value for pre-treatment <code>Pre-R</code> vs <code>Pre-NR</code>;</li>
+<li><strong>RECIST response</strong>: response composition and contingency table for RECIST-coded samples only, with Fisher’s exact p-value; non-RECIST/NE records are excluded and the exclusion rule is shown in the panel.</li>
 </ul>
 </section>
 <section id="gene-co-occurrence" class="level3">
@@ -537,7 +537,7 @@ Figure&nbsp;10: Association between fusion status and clinical response (Respons
 </section>
 <section id="survival-km" class="level2">
 <h2 class="anchored" data-anchor-id="survival-km">Survival (KM)</h2>
-<p>Evaluate the association between gene fusion status and patient survival by generating and comparing Kaplan-Meier survival curves between Fusion+ and Fusion− groups. The analysis unit is the <strong>patient</strong>: multi-sample patients contribute one record, and a fusion on any sample marks the patient as Fusion+. Survival time units are inferred from each cohort’s data rather than assumed from cohort type.</p>
+<p>Evaluate the association between gene fusion status and patient survival by generating and comparing Kaplan-Meier survival curves between Fusion+ and Fusion− groups. The analysis unit is the <strong>patient</strong>: multi-sample patients contribute one record, and a fusion on any sample marks the patient as Fusion+. When a patient has multiple clinical records, record selection prioritizes an event for the endpoint being analysed and then longer follow-up for that endpoint, so an OS event cannot displace a PFS progression record. Survival time units are inferred from each cohort’s data rather than assumed from cohort type: months are used only when both the median and maximum observed OS time are below 150; otherwise the day scale is used.</p>
 <p><img src="images/Surv.png" id="fig-flow" class="img-fluid" style="width:100.0%" alt="Survival comparison between Fusion+ and Fusion− groups (Kaplan-Meier)"> <strong>Steps:</strong></p>
 <ol type="1">
 <li>Select target cohort and analysis type (Gene / Gene Pair);</li>
@@ -550,7 +550,7 @@ Figure&nbsp;10: Association between fusion status and clinical response (Respons
 <ul>
 <li>KM survival curves: show survival probability over time for both groups;</li>
 <li>Log-rank test p-value: indicates whether survival curves differ significantly;</li>
-<li>Hazard ratio (HR) with 95% confidence interval;</li>
+<li>Hazard ratio (HR) with 95% confidence interval. If one group has zero events, the HR is reported as not estimable while the KM curves and log-rank test are still shown;</li>
 <li>Survival data table: includes time and event status; supports search and pagination.</li>
 </ul>
 </section>
