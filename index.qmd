@@ -212,7 +212,7 @@ This module offers two analysis modes:
 - **TME**: compare cell-type abundance by fusion status;
 - **IOBR Signature**: compare immune signature scores by fusion status.
 
-The comparison unit is the **sample**: TME/signature values are sample-level, and Fusion+ is defined by the globally filtered call set (a sample is Fusion+ when it carries at least one fusion passing all active filters).
+The comparison unit is the **sample**: TME/signature values are sample-level, and Fusion+ is defined by the globally filtered call set (a sample is Fusion+ when it carries at least one fusion passing all active filters). Multiple samples from one patient are not independent, and the test does not model within-patient correlation. Each feature needs at least two non-missing samples in both fusion groups; otherwise the panel reports that the feature is not testable.
 
 ![Comparison of cell-type abundance between Fusion+ and Fusion− groups (TME)](images/Comp.png){#fig-flow width=100%}
 
@@ -296,7 +296,7 @@ Detect statistical co-occurrence or mutual exclusivity between gene-fusion event
 
 ## Survival (KM)
 
-Evaluate the association between gene fusion status and patient survival by generating and comparing Kaplan-Meier survival curves between Fusion+ and Fusion− groups. The analysis unit is the **patient**: multi-sample patients contribute one record, and a fusion on any sample marks the patient as Fusion+. Survival time units are inferred from each cohort's data rather than assumed from cohort type.
+Evaluate the association between gene fusion status and patient survival by generating and comparing Kaplan-Meier survival curves between Fusion+ and Fusion− groups. The analysis unit is the **patient**: multi-sample patients contribute one record, and a fusion on any sample marks the patient as Fusion+. When a patient has multiple clinical records, record selection prioritizes an event for the endpoint being analysed and then longer follow-up for that endpoint, so an OS event cannot displace a PFS progression record. Survival time units are inferred from each cohort's data rather than assumed from cohort type: months are used only when both the median and maximum observed OS time are below 150; otherwise the day scale is used.
 
 ![Survival comparison between Fusion+ and Fusion− groups (Kaplan-Meier)](images/Surv.png){#fig-flow width=100%}
 **Steps:**

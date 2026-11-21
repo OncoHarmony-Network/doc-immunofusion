@@ -37,6 +37,10 @@ The platform distinguishes four units that are not interchangeable:
 
 Comma-separated gene lists (e.g. `A,B::C`, common in Arriba output) are expanded before gene and pair counting, so such a call contributes to both `A::C` and `B::C`. Gene-level frequency counts distinct calls containing the gene, not occurrences (a SameGene call lists the gene on both sides).
 
+For survival analyses, each patient contributes one clinical record. When multiple records exist, the record with an event for the endpoint being analysed is preferred, then longer follow-up for that endpoint; an OS event therefore cannot displace a PFS progression record in a PFS analysis. Survival-time units are inferred per cohort rather than assumed: a cohort is labelled in months only when both the median and maximum observed `OS_Time` are below 150; otherwise the day scale is used.
+
+TME and IOBR feature comparisons require at least two non-missing samples in each fusion group; a feature with a single observation in either group is reported as not testable rather than given a p-value.
+
 ## Filter semantics
 
 Cohort groups and cohorts are linked with **any-overlap** semantics: a group is checked when at least one of its cohorts is selected, and narrowing groups narrows the cohort choices. Selecting nothing is equivalent to selecting everything, both in the global modal and in page-level cohort pickers. Treatment-status and pre-treatment filters apply **within ICB cohorts only**; non-ICB cohorts are unaffected. The global filters define the call set and therefore the Fusion+ vs Fusion− grouping; page-level selectors narrow the data further. A context bar on each filter-aware page lists the active selections, while effective post-filter counts are reported in the panel results.
