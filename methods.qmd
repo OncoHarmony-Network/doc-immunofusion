@@ -39,7 +39,9 @@ Comma-separated gene lists (e.g. `A,B::C`, common in Arriba output) are expanded
 
 For survival analyses, each patient contributes one clinical record. When multiple records exist, the record with an event for the endpoint being analysed is preferred, then longer follow-up for that endpoint; an OS event therefore cannot displace a PFS progression record in a PFS analysis. Survival-time units are inferred per cohort rather than assumed: a cohort is labelled in months only when both the median and maximum observed `OS_Time` are below 150; otherwise the day scale is used.
 
-TME and IOBR feature comparisons require at least two non-missing samples in each fusion group; a feature with a single observation in either group is reported as not testable rather than given a p-value.
+TME and IOBR feature comparisons can be run at the sample level or aggregated to the patient level. In patient mode, the selected feature is averaged across each patient's samples and a patient is Fusion+ when any sample is Fusion+, which removes within-patient pseudoreplication. Both modes require at least two non-missing observations in each fusion group; a feature with a single observation in either group is reported as not testable rather than given a p-value.
+
+In survival analyses, a group with zero observed events makes the hazard ratio non-estimable but does not invalidate the Kaplan-Meier curves or the log-rank test; the panel reports the HR as not estimable and continues to show both.
 
 ## Filter semantics
 

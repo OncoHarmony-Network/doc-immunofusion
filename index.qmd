@@ -212,7 +212,7 @@ This module offers two analysis modes:
 - **TME**: compare cell-type abundance by fusion status;
 - **IOBR Signature**: compare immune signature scores by fusion status.
 
-The comparison unit is the **sample**: TME/signature values are sample-level, and Fusion+ is defined by the globally filtered call set (a sample is Fusion+ when it carries at least one fusion passing all active filters). Multiple samples from one patient are not independent, and the test does not model within-patient correlation. Each feature needs at least two non-missing samples in both fusion groups; otherwise the panel reports that the feature is not testable.
+The comparison unit can be **Samples** or **Patients**. In sample mode, every sample is a data point and Fusion+ is defined by the globally filtered call set (a sample is Fusion+ when it carries at least one fusion passing all active filters); multiple samples from one patient are not independent. In patient mode, the selected feature is averaged across each patient's samples and a patient is Fusion+ when any sample is Fusion+; this removes within-patient pseudoreplication. Each feature needs at least two non-missing observations in both fusion groups; otherwise the panel reports that the feature is not testable.
 
 ![Comparison of cell-type abundance between Fusion+ and Fusion− groups (TME)](images/Comp.png){#fig-flow width=100%}
 
@@ -311,7 +311,7 @@ Evaluate the association between gene fusion status and patient survival by gene
 
 - KM survival curves: show survival probability over time for both groups;
 - Log-rank test p-value: indicates whether survival curves differ significantly;
-- Hazard ratio (HR) with 95% confidence interval;
+- Hazard ratio (HR) with 95% confidence interval. If one group has zero events, the HR is reported as not estimable while the KM curves and log-rank test are still shown;
 - Survival data table: includes time and event status; supports search and pagination.
 
 
