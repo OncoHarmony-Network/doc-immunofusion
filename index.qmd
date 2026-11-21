@@ -258,7 +258,7 @@ Evaluate the correlation between fusion count and TME/signature features at the 
 
 Evaluate associations between fusion status and clinical response, reported as two complementary analyses:
 
-- **Binary response (Response2: pre-treatment Pre-R vs Pre-NR)**: uses the harmonised `Response2` variable restricted to pre-treatment samples (`Pre-R` vs `Pre-NR`). The heading and analysis explicitly state this restriction.
+- **Binary response (Response2: pre-treatment Pre-R vs Pre-NR)**: uses the harmonised `Response2` variable restricted to pre-treatment samples (`Pre-R` vs `Pre-NR`). The heading and analysis explicitly state this restriction. The reported odds ratio is the response odds ratio for Fusion+ vs Fusion- samples: OR > 1 means higher response odds in Fusion+ samples.
 - **RECIST response**: only samples with RECIST-coded values (`CR`, `PR`, `SD`, `PD`) are analysed; `CR`/`PR` are responders and `SD`/`PD` are non-responders. NE and non-RECIST labels (e.g., `R`/`NR`, `CB`/`NCB`, `Responder`/`Non-responders`) are excluded and reported as unevaluable; use the binary analysis for those cohorts. If only one RECIST class remains, the panel says so instead of reporting a misleading 0/NA test.
 
 ![Association between fusion status and clinical response (Response)](images/Asso2.png){#fig-flow width=100%}
@@ -271,8 +271,8 @@ Evaluate associations between fusion status and clinical response, reported as t
 
 **Outputs:**
 
-- **Binary response**: response-rate composition, confusion matrix, odds ratio (OR) with 95% CI, and Fisher's exact test p-value for pre-treatment `Pre-R` vs `Pre-NR`;
-- **RECIST response**: response composition and contingency table for RECIST-coded samples only, with OR and Fisher's p-value; non-RECIST/NE records are excluded and the exclusion rule is shown in the panel.
+- **Binary response**: response-rate composition, confusion matrix, response odds ratio (Fusion+ vs Fusion-) with 95% CI, and Fisher's exact test p-value for pre-treatment `Pre-R` vs `Pre-NR`;
+- **RECIST response**: response composition and contingency table for RECIST-coded samples only, with Fisher's exact p-value; non-RECIST/NE records are excluded and the exclusion rule is shown in the panel.
 
 
 ### Gene Co-occurrence
