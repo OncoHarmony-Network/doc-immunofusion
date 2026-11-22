@@ -122,7 +122,7 @@ The Gene Co-occurrence panel performs Fisher exact tests on patient-level fusion
 | Acute myeloid leukemia, NOS | Primary Blood Derived Cancer - Bone Marrow/Recurrent Blood Derived Cancer - Bone Marrow/Primary Blood Derived Cancer - Peripheral Blood/ Blood Derived Cancer - Bone Marrow/Post-treatment/Recurrent Blood Derived Cancer - Peripheral Blood/ Blood Derived Cancer - Peripheral Blood | TARGET-AML | TARGET-LAML |
 | Neuroblastoma, NOS | Primary Tumor/Recurrent Tumor/Recurrent Blood Derived Cancer - Bone Marrow | TARGET-NBL | TARGET-NBL |
 | Ganglioneuroblastoma | Primary Tumor/Recurrent Tumor | TARGET-NBL | TARGET-GNB |
-| --     | Cell Lines | TARGET-AML | TARGET-CELL         |
+| --     | Cell Lines / Next Generation Cancer Model | TARGET-AML | TARGET-CELL |
 | --     | Bone Marrow Normal | TARGET-AML | TARGET-NORMAL     |
 | Acute myeloid leukemia, NOS | Blood Derived Normal/Bone Marrow Normal | TARGET-AML | TARGET-NORMAL |
 | ACC    | Primary Tumor | TCGA-ACC   | TCGA-ACC            |
@@ -208,6 +208,12 @@ The Gene Co-occurrence panel performs Fisher exact tests on patient-level fusion
 | UCEC   | Solid Tissue Normal | TCGA-UCEC | TCGA-NORMAL       |
 
 
+
+Fusion calls label TARGET-CELL samples as `Cell_Model`. The group covers cell
+lines and next-generation cancer models, including endothelial, cord-blood,
+HEK293 and engineered fusion-cell models, which are not all tumor-derived.
+Earlier files used the legacy label `Tumor_Cell`; the app maps it to
+`Cell_Model` for display without modifying the database.
 
 ## Clinical data preprocessing
 

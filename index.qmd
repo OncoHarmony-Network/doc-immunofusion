@@ -38,7 +38,7 @@ ImmunoFusion is the largest cancer fusion gene database, integrating 78 cohorts,
 **Core Data Metrics:**
 
 - **Cohorts**: 78 (28 ICB / 50 non-ICB)
-- **Samples**: 20,995 (4,671 ICB / 16,324 non-ICB: 14,449 tumor, 68 cell-line, 1,807 normal)
+- **Samples**: 20,995 (4,671 ICB / 16,324 non-ICB: 14,449 tumor, 68 cell models, 1,807 normal)
 - **Fusion calls**: 98,281 records (12,750 ICB / 85,531 non-ICB); 76,803 unique Fusion IDs
 - **Genes**: 23,565 (9,600+ ICB / 22,400+ non-ICB)
 - **Gene Pairs**: 66,895 (10,200+ ICB / 57,800+ non-ICB)
